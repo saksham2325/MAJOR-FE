@@ -10,6 +10,8 @@ import Homepage from './containers/Homepage/Homepage';
 import { urls } from './constants/urls';
 import VerifyEmail from './containers/Signup/Verify'
 
+import EditProfile from "./component/EditProfile";
+import ResetPassword from "./component/ResetPassword";
 
 function App() {
     return (
@@ -22,6 +24,8 @@ function App() {
                     <Route path={urls.signup} component={Signup}></Route>
                     <Route path={urls.home} component={Homepage}></Route>
                     <Route path={urls.root} component={WelcomePage}></Route>
+                    <Route path="/reset-password" ><ResetPassword/></Route>
+                    <Route path="/edit-profile" ><EditProfile/></Route>
                 </Switch>
             </BrowserRouter>
         </div>
