@@ -8,6 +8,7 @@ import App from './App';
 import configureStore from './store/index';
 import reportWebVitals from './reportWebVitals';
 import { index as index_const } from './constants/values';
+import { Provider } from 'react-redux';
 
 
 // importing store

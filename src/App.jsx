@@ -10,6 +10,8 @@ import Homepage from './containers/Homepage/Homepage';
 import { urls } from './constants/urls';
 import VerifyEmail from './containers/Signup/Verify'
 
+import { APP_URLS } from "./constants/urls";
+import CreateNewGroup from "./component/CreateNewGroup";
 import EditProfile from "./component/EditProfile";
 import ResetPassword from "./component/ResetPassword";
 
@@ -19,13 +21,14 @@ function App() {
             <BrowserRouter>
                 <Navbar />  
                 <Switch>
-                    <Route path={urls.VERIFYEMAIL} exact component={VerifyEmail}></Route>
+                    <Route exact path={urls.VERIFYEMAIL} component={VerifyEmail}></Route>
                     <Route path={urls.signin} component={Signin}></Route>
                     <Route path={urls.signup} component={Signup}></Route>
                     <Route path={urls.home} component={Homepage}></Route>
                     <Route path={urls.root} component={WelcomePage}></Route>
-                    <Route path="/reset-password" ><ResetPassword/></Route>
-                    <Route path="/edit-profile" ><EditProfile/></Route>
+                    <Route path={APP_URLS.RESET_PASSWORD} ><ResetPassword/></Route>
+                    <Route path={APP_URLS.EDIT_PROFILE}><EditProfile/></Route>
+                    <Route path={APP_URLS.CREATE_NEW_GROUP}><CreateNewGroup/></Route>
                 </Switch>
             </BrowserRouter>
         </div>
