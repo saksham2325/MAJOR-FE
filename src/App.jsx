@@ -7,7 +7,7 @@ import WelcomePage from './containers/WelcomePage/WelcomePage';
 import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
 import Homepage from './containers/Homepage/Homepage';
-import urls from './constants/urls';
+import { urls } from './constants/urls';
 
 
 function App() {

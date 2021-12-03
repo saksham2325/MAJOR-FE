@@ -1,8 +1,13 @@
-import React, { FormEvent, useState } from 'react';
-import { useToasts } from 'react-toast-notifications';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-import { toastErrorMsg, attributesMsg } from '../../constants/messages.js';
+import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+import validator from 'validator';
+
+import {attributesMsg, toastErrorMsg } from 'constants/messages.js';
+import { signupUser } from 'actions/auth';
+import { urls } from 'constants/urls.js';
 
 
 const Signup = (props) => {
@@ -10,6 +15,9 @@ const Signup = (props) => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const history = useHistory();
+    const { alert, signupUser, user } = props;
 
     const { addToast } = useToasts();
 
@@ -22,11 +30,28 @@ const Signup = (props) => {
                 autoDismiss: true,
             });
         }
-
-        // register user
+        // Email validation and verification is pending.
+        if(firstName.length==0) {
+            return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
+                appearance: 'error',
+                autoDismiss: true,
+            });
+        }
+        if(password!==confirmPassword) {
+            return addToast(toastErrorMsg.PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME ,{
+                appearance: 'error',
+                autoDismiss: true,
+            });
+        }
+        signupUser(email, password, firstName, lastName);
     };
 
-    console.log('here', props);
+    useEffect(() => {
+        if (Object.keys(user).length!=0) {
+            history.push(urls.home);
+        } 
+    }, [user]);
+
     return (
         <div className="signin">
             <header>
@@ -99,9 +124,26 @@ const Signup = (props) => {
                         }
                     />
                 </label>
+
+                <label htmlFor="confirmPassword">
+                    <div>Confirm Password</div>
+                    &nbsp;
+                    <input
+                        id="confirm-password"
+                        className="signin-input"
+                        type="password"
+                        placeholder={attributesMsg.CONFIRM_PASSWORD_PLACE_HOLDER}
+                        name="confirmPassword"
+                        onChange={
+                            (event) => {
+                                setConfirmPassword(event.currentTarget.value);
+                            }
+                        }
+                    />
+                </label>
                 <input type="submit" value="Register" className="signin-button button" />
             </form>
-
+            { alert.length>0 && <h3>{ alert }</h3>}
             <div className="signin-after-form-link">
                 <Link to="/signin">Back To Sign In</Link>
             </div>
@@ -109,4 +151,15 @@ const Signup = (props) => {
     );
 };
 
-export default Signup;
+const mapStateToProps = (state) => ({
+    user: state.authReducers.user,
+    alert: state.alertReducer.singupAlert,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    signupUser: (email, password, firstName, lastName) => {
+        dispatch(signupUser(email, password, firstName, lastName));
+    },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

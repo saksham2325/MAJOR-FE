@@ -1,3 +1,5 @@
+const BASE_URL = 'http://127.0.0.1:8000';
+
 const urls = {
     signin: '/signin',
     signup: '/signup',
@@ -5,4 +7,9 @@ const urls = {
     root: '/',
 };
 
-export default urls;
+const BACKEND_URLS = {
+    LOGIN: '/accounts/login/',
+    SIGNUP: '/accounts/users/',
+};
+
+export { urls, BACKEND_URLS, BASE_URL };
