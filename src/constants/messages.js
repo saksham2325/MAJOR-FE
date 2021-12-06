@@ -24,9 +24,11 @@ export const directionalMsg = {
     loading: 'loading...',
 };
 
-export const AUTH_MESSAGE = {
+export const AUTH_MESSAGES = {
     LOGIN_SUCCESS_MESSAGE: 'login successfully',
     LOGIN_FAILED_MESSAGE: 'something went wrong',
     SIGNUP_SUCCESS_MESSAGE: 'signup successfully',
     SIGNUP_FAILED_MESSAGE: 'something went wrong',
+    LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
+    LOGOUT_FAILED_MESSAGE: 'something went wrong',
 };

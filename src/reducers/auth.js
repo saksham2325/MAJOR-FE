@@ -14,6 +14,12 @@ const authReducers = (state=initialState, action) => {
                 user: action.payload.user,
                 token: action.payload.token,
             };
+        case AUTH_TYPES.LOGOUT_USER:
+            return {
+                ...state,
+                user: {},
+                token: '',
+            };
         default:
             return state;
     }

@@ -4,6 +4,7 @@ import { ALERT_TYPES } from 'constants/actionTypes.js';
 const initialState = {
     loginAlert: '',
     singupAlert: '',
+    logoutAlert: '',
 };
 
 const alertReducer = (state=initialState, action) => {
@@ -27,6 +28,16 @@ const alertReducer = (state=initialState, action) => {
             return {
                 ...state,
                 loginAlert: action.payload.msg,
+            };
+        case ALERT_TYPES.SUCCESSFULL_LOGOUT_ALERT:
+            return {
+                ...state,
+                logoutAlert: action.payload.msg,
+            };
+        case ALERT_TYPES.LOGOUT_FAILED_ALERT:
+            return {
+                ...state,
+                logoutAlert: action.payload.msg,
             };
         default:
             return state;

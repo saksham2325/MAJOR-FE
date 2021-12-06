@@ -20,3 +20,13 @@ export const successLoginMessage = (msg) => ({
     type: ALERT_TYPES.SUCCESSFULL_LOGIN_ALERT,
     payload: {msg},
 });
+
+export const logoutSuccessMessage = (msg) => ({
+    type: ALERT_TYPES.SUCCESSFULL_LOGIN_ALERT,
+    payload: {msg},
+});
+
+export const logoutFailedMessage = (msg) => ({
+    type: ALERT_TYPES.LOGOUT_FAILED_ALERT,
+    payload: {msg},
+});

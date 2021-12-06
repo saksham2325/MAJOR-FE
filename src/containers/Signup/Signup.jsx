@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
-import validator from 'validator';
 
 import {attributesMsg, toastErrorMsg } from 'constants/messages.js';
+import { REGEX } from 'constants/values';
 import { signupUser } from 'actions/auth';
 import { urls } from 'constants/urls.js';
 
@@ -17,7 +17,7 @@ const Signup = (props) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
-    const { alert, signupUser, user } = props;
+    const { alert, signupUser } = props;
 
     const { addToast } = useToasts();
 
@@ -30,7 +30,14 @@ const Signup = (props) => {
                 autoDismiss: true,
             });
         }
-        // Email validation and verification is pending.
+        if(email) {
+            if(!REGEX.test(email)) {
+                return addToast(toastErrorMsg.VALID_EMAIL, {
+                    appearance: 'error',
+                    autoDismiss: true,
+                });
+            }
+        }
         if(firstName.length==0) {
             return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
                 appearance: 'error',
@@ -46,11 +53,12 @@ const Signup = (props) => {
         signupUser(email, password, firstName, lastName);
     };
 
-    useEffect(() => {
-        if (Object.keys(user).length!=0) {
-            history.push(urls.home);
-        } 
-    }, [user]);
+    // useEffect(() => {
+    //     const user = localStorage.getItem('user');
+    //     if(user) {
+    //         history.push(urls.home);
+    //     }
+    // }, []);
 
     return (
         <div className="signin">
@@ -152,7 +160,6 @@ const Signup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    user: state.authReducers.user,
     alert: state.alertReducer.singupAlert,
 });
 

@@ -6,7 +6,7 @@ import { useToasts } from 'react-toast-notifications';
 
 import { attributesMsg, toastErrorMsg } from 'constants/messages';
 import { departFromWelcomePageAC } from 'actions/navbar';
-import { loginUser } from '../../actions/auth';
+import { loginUser } from 'actions/auth';
 import './Signin.css';
 import { urls } from 'constants/urls';
 
@@ -25,12 +25,17 @@ const Signin = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log('saksham');
         if(Object.keys(user).length>0) {
-            console.log(user);
             history.push(urls.home);
         } 
     }, [user]);
+
+    useEffect(()=>{
+        const user1 = localStorage.getItem('user');
+        if(user1) {
+            history.push(urls.home);
+        }
+    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();

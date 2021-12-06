@@ -10,6 +10,7 @@ const urls = {
 const BACKEND_URLS = {
     LOGIN: '/accounts/login/',
     SIGNUP: '/accounts/users/',
+    LOGOUT: '/accounts/logout/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };
