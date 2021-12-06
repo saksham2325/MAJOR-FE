@@ -90,10 +90,10 @@ const logoutUser = () => (dispatch) => {
     const token = localStorage.getItem('token');
     const config = {
         headers: {
-            Authorization: `Token ${token}`,
+            'Authorization': `Token ${token}`,
         },
     };
-    axios.post(url, config).then(() => {
+    axios.post(url, {}, config).then(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         dispatch({
@@ -101,7 +101,6 @@ const logoutUser = () => (dispatch) => {
         });
         dispatch(logoutSuccessMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
     }).catch((err) => {
-        console.log(err.response);
         dispatch(logoutFailedMessage(AUTH_MESSAGES.LOGOUT_FAILED_MESSAGE));
     });
 };

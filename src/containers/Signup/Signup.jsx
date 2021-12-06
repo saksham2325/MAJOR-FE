@@ -53,12 +53,12 @@ const Signup = (props) => {
         signupUser(email, password, firstName, lastName);
     };
 
-    // useEffect(() => {
-    //     const user = localStorage.getItem('user');
-    //     if(user) {
-    //         history.push(urls.home);
-    //     }
-    // }, []);
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if(user) {
+            history.push(urls.home);
+        }
+    }, []);
 
     return (
         <div className="signin">

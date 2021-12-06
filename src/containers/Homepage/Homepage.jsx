@@ -9,14 +9,20 @@ import { urls } from 'constants/urls';
 
 const Homepage = (props) => {
 
-    const { logoutUser } = props;
+    const { logoutUser, user } = props;
     const handleClick = (event) => {
         event.preventDefault();
-        console.log('button clicked');
         logoutUser();
     };
 
     const history = useHistory();
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if(!user) {
+            history.push(urls.signin);
+        }
+    }, [user]);
     
     useEffect(()=>{
         const user = localStorage.getItem('user');
