@@ -7,6 +7,7 @@ import { useToasts } from 'react-toast-notifications';
 import {attributesMsg, toastErrorMsg } from 'constants/messages.js';
 import { REGEX } from 'constants/values';
 import { signupUser } from 'actions/auth';
+import { resetSignupAlert } from 'actions/alert';
 import { urls } from 'constants/urls.js';
 
 
@@ -17,7 +18,7 @@ const Signup = (props) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
-    const { alert, signupUser } = props;
+    const { alert, signupUser, resetSignupAlert } = props;
 
     const { addToast } = useToasts();
 
@@ -52,6 +53,14 @@ const Signup = (props) => {
         }
         signupUser(email, password, firstName, lastName);
     };
+
+    useEffect(() => {
+        const user = localStorage.getItem('user');
+        if(user) {
+            history.push(urls.home);
+        }
+        resetSignupAlert();
+    }, []);
 
     useEffect(() => {
         const user = localStorage.getItem('user');
@@ -166,6 +175,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     signupUser: (email, password, firstName, lastName) => {
         dispatch(signupUser(email, password, firstName, lastName));
+    },
+    resetSignupAlert: () => {
+        dispatch(resetSignupAlert());
     },
 });
 

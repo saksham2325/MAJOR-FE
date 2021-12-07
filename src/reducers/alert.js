@@ -39,6 +39,21 @@ const alertReducer = (state=initialState, action) => {
                 ...state,
                 logoutAlert: action.payload.msg,
             };
+        case ALERT_TYPES.RESET_LOGIN_ALERT:
+            return {
+                ...state,
+                loginAlert: '',
+            };
+        case ALERT_TYPES.RESET_SIGNUP_ALERT:
+            return {
+                ...state,
+                singupAlert: '',
+            };
+        case ALERT_TYPES.RESET_LOGOUT_ALERT:
+            return {
+                ...state,
+                logoutAlert: '',
+            };
         default:
             return state;
     }

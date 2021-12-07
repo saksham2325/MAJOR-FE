@@ -7,6 +7,7 @@ import { useToasts } from 'react-toast-notifications';
 import { attributesMsg, toastErrorMsg } from 'constants/messages';
 import { departFromWelcomePageAC } from 'actions/navbar';
 import { loginUser } from 'actions/auth';
+import { resetLoginAlert } from 'actions/alert';
 import './Signin.css';
 import { urls } from 'constants/urls';
 
@@ -18,10 +19,15 @@ const Signin = (props) => {
     const history = useHistory();
     const { addToast } = useToasts();
 
-    const { navbarUpdateLogin ,loginUser, user, alert} = props;
+    const { navbarUpdateLogin ,loginUser, user, alert, resetLoginAlert} = props;
 
     useEffect(() => {
         navbarUpdateLogin();
+        const user1 = localStorage.getItem('user');
+        if(user1) {
+            history.push(urls.home);
+        }
+        resetLoginAlert();
     }, []);
 
     useEffect(() => {
@@ -29,13 +35,6 @@ const Signin = (props) => {
             history.push(urls.home);
         } 
     }, [user]);
-
-    useEffect(()=>{
-        const user1 = localStorage.getItem('user');
-        if(user1) {
-            history.push(urls.home);
-        }
-    }, []);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -108,6 +107,9 @@ const mapDispatchToProps = (dispatch) => ({
     },
     loginUser: (email, password) => {
         dispatch(loginUser(email, password));
+    },
+    resetLoginAlert: () => {
+        dispatch(resetLoginAlert());
     }
 });
 

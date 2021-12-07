@@ -1,6 +1,18 @@
 import { ALERT_TYPES } from 'constants/actionTypes';
 
 
+export const resetLogoutAlert = () => ({
+    type: ALERT_TYPES.RESET_LOGOUT_ALERT,
+});
+
+export const resetSignupAlert = () => ({
+    type: ALERT_TYPES.RESET_SIGNUP_ALERT,
+});
+
+export const resetLoginAlert = () => ({
+    type: ALERT_TYPES.RESET_LOGIN_ALERT,
+});
+
 export const successSignupMessage = (msg) => ({
     type: ALERT_TYPES.SUCCESSFULL_SIGNUP_ALERT,
     payload: {msg},

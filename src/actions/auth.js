@@ -6,14 +6,9 @@ import { BACKEND_URLS, BASE_URL } from 'constants/urls';
 import { loginErrorMessage, logoutFailedMessage, logoutSuccessMessage, singupErrorMessage, successLoginMessage, successSignupMessage } from 'actions/alert';
 import { RESPONSE_STATUS } from 'constants/values';
 
-// function camelToSnake(string) {
-//     return string.replace(/[\w]([A-Z])/g, function(m) {
-//         return m[0] + '_' + m[1];
-//     }).toLowerCase();
-// }
 
 const loginUser = (email='', password='') => (dispatch) => {
-    const url = BASE_URL.concat(BACKEND_URLS.LOGIN);
+    const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
     const body = {
         email,
         password,
@@ -37,11 +32,7 @@ const loginUser = (email='', password='') => (dispatch) => {
 };
 
 const signupUser = (email='', password='', firstName='', lastName='') => (dispatch) => {
-    const url = BASE_URL.concat(BACKEND_URLS.SIGNUP);
-    // const firstName = camelToSnake('firstName');
-    // const lastName = camelToSnake('lastName');
-    // console.log(firstName);
-    // console.log(lastName);
+    const url = `${BASE_URL}${BACKEND_URLS.SIGNUP}`;
     const body = {
         email,
         password,
@@ -60,7 +51,6 @@ const signupUser = (email='', password='', firstName='', lastName='') => (dispat
             const token = res.data.token;
             localStorage.setItem('token', token);
             localStorage.setItem('user', user);
-            console.log(token);
             dispatch({
                 type: AUTH_TYPES.LOGIN_USER,
                 payload: {
@@ -86,7 +76,7 @@ const signupUser = (email='', password='', firstName='', lastName='') => (dispat
 };
 
 const logoutUser = () => (dispatch) => {
-    const url = BASE_URL.concat(BACKEND_URLS.LOGOUT);
+    const url = `${BASE_URL}${BACKEND_URLS.LOGOUT}`;
     const token = localStorage.getItem('token');
     const config = {
         headers: {
