@@ -7,7 +7,7 @@ import { loginErrorMessage, logoutFailedMessage, logoutSuccessMessage, singupErr
 import { RESPONSE_STATUS } from 'constants/values';
 
 
-const loginUser = (email='', password='') => (dispatch) => {
+const loginUser = (email, password) => (dispatch) => {
     const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
     const body = {
         email,
@@ -31,7 +31,7 @@ const loginUser = (email='', password='') => (dispatch) => {
     });
 };
 
-const signupUser = (email='', password='', firstName='', lastName='') => (dispatch) => {
+const signupUser = (email, password, firstName, lastName='') => (dispatch) => {
     const url = `${BASE_URL}${BACKEND_URLS.SIGNUP}`;
     const body = {
         email,
