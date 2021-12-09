@@ -20,12 +20,12 @@ function App() {
             <BrowserRouter>
                 <Navbar />  
                 <Switch>
-                    <Route path={urls.RESET_PASSWORD} ><ResetPassword/></Route>
-                    <Route path={urls.EDIT_PROFILE} ><EditProfile/></Route>
-                    <Route path={urls.signin} component={Signin}></Route>
-                    <Route path={urls.signup} component={Signup}></Route>
-                    <Route path={urls.home} component={Homepage}></Route>
-                    <Route path={urls.root} component={WelcomePage}></Route>
+                    <Route exact path={urls.root} component={WelcomePage}/>
+                    <Route exact path={urls.signin} component={Signin}/>
+                    <Route exact path={urls.signup} component={Signup}/>
+                    <Route exact path={urls.home} component={Homepage}/>
+                    <Route exact path={urls.RESET_PASSWORD} component={ResetPassword}/>
+                    <Route exact path={urls.EDIT_PROFILE} component={EditProfile}/>
                 </Switch>
             </BrowserRouter>
         </div>
