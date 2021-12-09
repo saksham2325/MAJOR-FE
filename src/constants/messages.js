@@ -32,3 +32,10 @@ export const AUTH_MESSAGES = {
     LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
     LOGOUT_FAILED_MESSAGE: 'something went wrong',
 };
+
+export const PROFILE_MESSAGES = {
+    LOAD_PROFILE_SUCCESS_MESSAGE: 'profile loaded successfully',
+    LOAD_PROFILE_FAILED_MESSAGE: 'failed to load profile',
+    UPDATE_USER_SUCCESS_MESSAGE: 'details updated',
+    UPDATE_USER_FAILED_MESSAGE: 'failed to update details',
+};

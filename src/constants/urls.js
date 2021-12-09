@@ -5,12 +5,17 @@ const urls = {
     signup: '/signup',
     home: '/home',
     root: '/',
+    EDIT_PROFILE: '/edit-profile',
+    RESET_PASSWORD: '/reset-password',
+
 };
 
 const BACKEND_URLS = {
     LOGIN: '/accounts/login/',
     SIGNUP: '/accounts/users/',
+    USER_CRUD: '/accounts/users/',
     LOGOUT: '/accounts/logout/',
+    UPDATE_PASSWORD: '/accounts/updatePassword/'
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

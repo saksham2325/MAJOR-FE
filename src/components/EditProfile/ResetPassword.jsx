@@ -1,9 +1,18 @@
 import React from "react";
 
+import { Button } from "@mui/material";
+import { connect } from "react-redux";
+import { toastErrorMsg } from "constants/messages";
+
+import { updatePassword } from 'actions/editProfile';
+
+
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
+    const id = localStorage.getItem('id');
     this.state = {
+      id: id,
       currentPassword: "",
       password: "",
       confirmPassword: "",
@@ -15,25 +24,21 @@ class ResetPassword extends React.Component {
   }
   handleInputChange(event) {
     event.preventDefault();
-    const target = event.target;
     this.setState({
-      [target.name]: target.value,
+      [event.target.name]: event.target.value,
     });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("saksham");
-    this.setState({ loading: true });
-    if(this.state.loading) {
-      console.log("garg");
+    this.setState({loading: true})
+    if (this.state.password != this.state.confirmPassword) {
+      this.setState({error: toastErrorMsg.PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME})
+      this.setState({loading: false})
+      return;
     }
-    // get current password from database and check it with current password if they does not match return ,then check password and confirm password if they does not match return,else update password in database.
-    // console.log(this.state.loading);
-    // if (this.state.password != this.state.confirmPassword) {
-    //   this.setState({ error: "password does not match" });
-    //   return;
-    // }
+    this.props.updatePassword(this.state);
+    this.setState({loading: false})
   }
 
   render() {
@@ -67,12 +72,26 @@ class ResetPassword extends React.Component {
               onChange={this.handleInputChange}
             />
           </label>
-          <button type="submit">Reset password</button>
+          <Button type="submit" variant="contained">
+            Reset password
+          </Button>
         </form>
-
-        {this.loading && <h2>Loading...!!</h2>}
+        {this.state.error && <h2 className='alert'>{this.state.error}</h2>}
+        {this.props.alert && <h2 className='alert'>{this.props.alert}</h2>}
+        {this.state.loading && <h2>Loading...!!</h2>}
       </div>
     );
   }
 }
-export default ResetPassword;
+
+const mapStateToProps = (state) => ({
+  alert: state.alertReducer.userUpdate,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updatePassword: (body) => {
+    dispatch(updatePassword(body));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);

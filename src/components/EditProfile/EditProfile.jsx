@@ -1,44 +1,83 @@
-import React, {useState} from "react";
-import { useModal } from "react-hooks-use-modal";
+import React, { useEffect, useState } from "react";
 
-const EditProfile = () => {
-  const [Modal, open, close] = useModal();
+import { Button } from "@mui/material";
+import { connect } from "react-redux";
+
+import { editProfile, loadProfile } from "actions/editProfile";
+
+
+const EditProfile = (props) => {
+  const { alert, editProfile, profileData, loadProfile } = props;
   const [userDetails, setUserDetails] = useState({
-    first_name: "",
-    last_name: "",
+    id: profileData.id,
+    firstName: profileData.firstName,
+    lastName: profileData.lastName,
   });
 
   const onChangeHandler = (event) => {
     setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // update profile
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    editProfile(userDetails);
   };
 
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      const id = localStorage.getItem("id");
+      loadProfile(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    setUserDetails(() => ({ ...profileData }));
+  }, [profileData]);
+
   return (
-    <div>
-      <button onClick={open}>Edit Profile</button>
-      <Modal>
-        <form >
-          <h5>Name</h5>
-          <input type="text"
-          value={userDetails.first_name}
-          placeholder="Enter first name"
-          onChange={onChangeHandler}
+    <div className="signin">
+      <h2>Edit Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          First Name
+          <input
+            type="text"
+            name="firstName"
+            placeholder="Enter first name"
+            onChange={onChangeHandler}
           />
-          <input type="text"
-          value={userDetails.last_name}
-          placeholder="Enter last name"
-          onChange={onChangeHandler}
+        </label>
+        <label>
+          Last Name
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Enter last name"
+            onChange={onChangeHandler}
           />
-          <button type="submit" onSubmit={handleSubmit}>Submit</button>
-        </form>
-        <button onClick={close}>x</button>
-      </Modal>
+        </label>
+        <Button type="submit" variant="contained">
+          Update
+        </Button>
+      </form>
+      {alert && <h2 className='alert'>{ alert }</h2>}
     </div>
   );
 };
 
-export default EditProfile;
+const mapStateToProps = (state) => ({
+  profileData: state.loadProfileReducer,
+  alert: state.alertReducer.userUpdate,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  editProfile: (state) => {
+    dispatch(editProfile(state));
+  },
+  loadProfile: (id) => {
+    dispatch(loadProfile(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
