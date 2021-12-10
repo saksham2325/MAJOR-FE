@@ -62,13 +62,6 @@ const Signup = (props) => {
         resetSignupAlert();
     }, []);
 
-    useEffect(() => {
-        const user = localStorage.getItem('user');
-        if(user) {
-            history.push(urls.home);
-        }
-    }, []);
-
     return (
         <div className="signin">
             <header>

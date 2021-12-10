@@ -17,3 +17,18 @@
     left: 90%;
     top: 7px;
 }
+
+.navbar .signout-button {
+    background-color: transparent;
+    color: black;
+    font-weight: 300;
+}
+.navbar img {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    border: solid 2px rgb(1 12 27);
+    position: absolute;
+    left: 48%;
+    top: 0;
+}

@@ -85,6 +85,8 @@ const logoutUser = () => (dispatch) => {
             'Authorization': `Token ${token}`,
         },
     };
+    console.log(url);
+    console.log(token);
     axios.post(url, {}, config).then(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
