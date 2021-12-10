@@ -13,12 +13,12 @@ const Homepage = (props) => {
   const { user } = props;
   const history = useHistory();
 
-//   useEffect(() => {
-//     const user = localStorage.getItem("user");
-//     if (!user) {
-//       history.push(urls.signin);
-//     }
-//   }, [user]);
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      history.push(urls.signin);
+    }
+  }, [user]);
 
   return (
     <div className="homepage">

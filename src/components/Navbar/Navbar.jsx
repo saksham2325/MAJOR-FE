@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { logoutUser } from "actions/auth";
+import { urls } from "constants/urls";
 import "./Navbar.css";
 
 const Navbar = (props) => {
-  let { atWelcome, isSignedIn, logoutUser } = props;
-  atWelcome = false;
-  isSignedIn = true;
+  let { logoutUser } = props;
+  const id = localStorage.getItem('id');
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -20,33 +20,26 @@ const Navbar = (props) => {
       <Link to="/">
         <div className="title">Poker Planner</div>
       </Link>
-      {atWelcome && (
+      {!id && (
         <Link to="/signin">
           <div className="signin-button button">Signin</div>
         </Link>
       )}
-      {isSignedIn && (
-        <Link to="/profile">
-          <img src="" alt="" />
+      {id && (
+        <Link to={urls.MY_PROFILE}>
+          <img src alt="" />
         </Link>
       )}
-      {isSignedIn && (
-        <button
-          onClick={handleClick}
-          className="signin-button button signout-button"
-        >
-          Signout
-        </button>
+      {id && (
+          <button 
+            onClick={handleClick}
+            className="signin-button button signout-button"
+          >
+              Signout
+          </button>
       )}
     </div>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    atWelcome: state.navbar.atWelcome,
-    isSignedIn: state.navbar.isSignedIn,
-  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -55,4 +48,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(null, mapDispatchToProps)(Navbar);
