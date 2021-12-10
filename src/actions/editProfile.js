@@ -60,7 +60,6 @@ const updatePassword = (data) => (dispatch) => {
         new_password: data.password,
     };
     axios.patch(url, body, config).then((res) => {
-        console.log(res.data.message);
         dispatch(updateProfileSuccessfullMessage(res.data.message));
     }).catch((err) => {
         dispatch(updateProfileFailedMessage(err.data.message));

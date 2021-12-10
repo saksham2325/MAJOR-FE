@@ -7,7 +7,7 @@ const urls = {
     root: '/',
     EDIT_PROFILE: '/edit-profile',
     RESET_PASSWORD: '/reset-password',
-
+    MY_PROFILE: '/my-profile',
 };
 
 const BACKEND_URLS = {

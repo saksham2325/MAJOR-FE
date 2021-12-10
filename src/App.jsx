@@ -9,10 +9,9 @@ import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
 import Homepage from './containers/Homepage/Homepage';
 import { urls } from './constants/urls';
-
-
-import EditProfile from "./components/EditProfile/EditProfile";
-import ResetPassword from "./components/EditProfile/ResetPassword";
+import EditProfile from "./components/Profile/EditProfile/EditProfile";
+import MyProfile from 'components/Profile/profileDetails/MyProfile';
+import ResetPassword from "./components/Profile/EditProfile/ResetPassword";
 
 function App() {
     return (
@@ -24,6 +23,7 @@ function App() {
                     <Route exact path={urls.signin} component={Signin}/>
                     <Route exact path={urls.signup} component={Signup}/>
                     <Route exact path={urls.home} component={Homepage}/>
+                    <Route exact path={urls.MY_PROFILE} component={MyProfile}/>
                     <Route exact path={urls.RESET_PASSWORD} component={ResetPassword}/>
                     <Route exact path={urls.EDIT_PROFILE} component={EditProfile}/>
                 </Switch>
