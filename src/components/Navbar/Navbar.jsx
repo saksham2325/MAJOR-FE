@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { urls } from "constants/urls";
 import "./Navbar.css";
 
 const Navbar = (props) => {
-  let { logoutUser } = props;
+  let { logoutUser, isAuthenticate } = props;
   const id = localStorage.getItem('id');
 
   const handleClick = (event) => {
@@ -17,7 +17,7 @@ const Navbar = (props) => {
 
   return (
     <div className="navbar">
-      <Link to="/">
+      <Link to={urls.home}>
         <div className="title">Poker Planner</div>
       </Link>
       {!id && (
@@ -42,10 +42,14 @@ const Navbar = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isAuthenticate: state.authReducers.isAuthenticate,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   logoutUser: () => {
     dispatch(logoutUser());
   },
 });
 
-export default connect(null, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

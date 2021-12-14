@@ -10,8 +10,8 @@ import { urls } from "constants/urls";
 
 const Homepage = (props) => {
 
-  const { user } = props;
   const history = useHistory();
+  const { user } = props;
 
   useEffect(() => {
     const user = localStorage.getItem("user");

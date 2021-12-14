@@ -10,7 +10,7 @@ import { urls } from "constants/urls";
 
 const MyProfile = (props) => {
   const { profileData, loadProfile, user } = props;
-  const history = useHistory
+  const history = useHistory();
   const [details, setDetails] = useState({
     id: profileData.id,
     firstName: profileData.firstName,

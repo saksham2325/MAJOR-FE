@@ -7,7 +7,7 @@ import { loginErrorMessage, logoutFailedMessage, logoutSuccessMessage, singupErr
 import { RESPONSE_STATUS } from 'constants/values';
 
 
-const loginUser = (email='', password='') => (dispatch) => {
+const loginUser = (email, password) => (dispatch) => {
     const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
     const body = {
         email,
