@@ -1,5 +1,4 @@
 import axios from "axios";
-import { URLS } from "../../constants/urls";
 import { errorMessage, successMessage } from "./alert";
 import { GROUP_TYPES } from "./types";
 

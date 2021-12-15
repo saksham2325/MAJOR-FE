@@ -56,4 +56,3 @@ export const logoutFailedMessage = (msg) => ({
     type: ALERT_TYPES.LOGOUT_FAILED_ALERT,
     payload: {msg},
 });
-

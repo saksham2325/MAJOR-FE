@@ -36,7 +36,8 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={APP_URLS.CREATE_NEW_GROUP}><CreateNewGroup/></Route>
+        <Route exact path={APP_URLS.CREATE_NEW_GROUP} component={CreateNewGroup}/>
+        {/* <Route path={APP_URLS.CREATE_NEW_GROUP}><CreateNewGroup/></Route> */}
       </Switch>
     </BrowserRouter>
   );

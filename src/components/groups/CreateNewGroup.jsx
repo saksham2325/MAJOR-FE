@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { URLS } from "../constants/urls";
-import {createGroup, searchUser } from "../redux/actions/group";
+import {createGroup, searchUser } from "../actions/group";
 import Searchbar from "./Searchbar";
 
 
