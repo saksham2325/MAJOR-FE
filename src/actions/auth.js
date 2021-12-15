@@ -28,6 +28,7 @@ const loginUser = (email, password) => (dispatch) => {
       const token = res.data.token;
       localStorage.setItem("token", token);
       localStorage.setItem("user", user);
+      localStorage.setItem('id', user.id);
       dispatch({
         type: AUTH_TYPES.LOGIN_USER,
         payload: {
@@ -69,6 +70,7 @@ const signupUser =
             const token = res.data.token;
             localStorage.setItem("token", token);
             localStorage.setItem("user", user);
+            localStorage.setItem('id',user.id);
             dispatch({
               type: AUTH_TYPES.LOGIN_USER,
               payload: {
@@ -107,6 +109,7 @@ const logoutUser = () => (dispatch) => {
     .then(() => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem('id');
       dispatch({
         type: AUTH_TYPES.LOGOUT_USER,
       });

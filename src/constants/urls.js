@@ -18,7 +18,8 @@ const BACKEND_URLS = {
     SENDTOKEN: '/accounts/send-token/',
     VERIFYTOKEN: '/accounts/verify-token/',
     SEARCH_USER: '/accounts/userFilters/',
-    SEARCH_USER: "accounts/users/",
+    SEARCH_USER: "/accounts/users/",
+    GROUP_CRUD: '/accounts/groups/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };
