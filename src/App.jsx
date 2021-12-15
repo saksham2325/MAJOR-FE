@@ -8,6 +8,7 @@ import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
 import Homepage from './containers/Homepage/Homepage';
 import { urls } from './constants/urls';
+import VerifyEmail from './containers/Signup/Verify'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <BrowserRouter>
                 <Navbar />  
                 <Switch>
+                    <Route path={urls.VERIFYEMAIL} exact component={VerifyEmail}></Route>
                     <Route path={urls.signin} component={Signin}></Route>
                     <Route path={urls.signup} component={Signup}></Route>
                     <Route path={urls.home} component={Homepage}></Route>

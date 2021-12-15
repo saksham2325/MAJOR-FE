@@ -1,6 +1,20 @@
 import { ALERT_TYPES } from 'constants/actionTypes';
 
 
+export const resetAlert = () => ({
+    type: ALERT_TYPES.RESET_ALERT
+});
+
+export const successMessage = (msg) => ({
+    type: ALERT_TYPES.SUCCESS_ALERT,
+    payload: {msg},
+});
+
+export const errorMessage = (msg) => ({
+    type: ALERT_TYPES.ERROR_ALERT,
+    payload: {msg},
+});
+
 export const resetLogoutAlert = () => ({
     type: ALERT_TYPES.RESET_LOGOUT_ALERT,
 });
@@ -42,3 +56,4 @@ export const logoutFailedMessage = (msg) => ({
     type: ALERT_TYPES.LOGOUT_FAILED_ALERT,
     payload: {msg},
 });
+

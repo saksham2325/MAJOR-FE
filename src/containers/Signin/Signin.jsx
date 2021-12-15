@@ -88,7 +88,7 @@ const Signin = (props) => {
             {alert.length>0 && <h3>{ alert }</h3>}
             {loading && <h3>Loading...</h3>}
             <div className="signin-after-form-link">
-                <Link to="/signup">Create New Account</Link>
+                <Link to={urls.VERIFYEMAIL}>Create New Account</Link>
             </div>
         </div>
     );

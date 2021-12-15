@@ -2,23 +2,25 @@ import React, { useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 import { useToasts } from 'react-toast-notifications';
 
 import {attributesMsg, toastErrorMsg } from 'constants/messages.js';
 import { REGEX } from 'constants/values';
-import { signupUser } from 'actions/auth';
-import { resetSignupAlert } from 'actions/alert';
+import { signupUser, verifyToken } from 'actions/auth';
+import { resetAlert } from 'actions/alert';
 import { urls } from 'constants/urls.js';
 
 
 const Signup = (props) => {
     const [firstName, setFirstName] = useState('');
+    const [token, setToken] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
-    const { alert, signupUser, resetSignupAlert } = props;
+    const { alert, resetAlert, signupUser, user, verifyToken } = props;
 
     const { addToast } = useToasts();
 
@@ -31,14 +33,14 @@ const Signup = (props) => {
                 autoDismiss: true,
             });
         }
-        if(email) {
-            if(!REGEX.test(email)) {
-                return addToast(toastErrorMsg.VALID_EMAIL, {
-                    appearance: 'error',
-                    autoDismiss: true,
-                });
-            }
-        }
+        // if(email) {
+        //     if(!REGEX.test(email)) {
+        //         return addToast(toastErrorMsg.VALID_EMAIL, {
+        //             appearance: 'error',
+        //             autoDismiss: true,
+        //         });
+        //     }
+        // }
         if(firstName.length==0) {
             return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
                 appearance: 'error',
@@ -51,15 +53,14 @@ const Signup = (props) => {
                 autoDismiss: true,
             });
         }
-        signupUser(email, password, firstName, lastName);
+        signupUser(email, password, firstName, lastName, token);
     };
 
     useEffect(() => {
-        const user = localStorage.getItem('user');
-        if(user) {
-            history.push(urls.home);
-        }
-        resetSignupAlert();
+        resetAlert();
+        const search = queryString.parse(props.location.search)
+        setToken(search.token);
+        verifyToken(token,history);
     }, []);
 
     useEffect(() => {
@@ -67,7 +68,7 @@ const Signup = (props) => {
         if(user) {
             history.push(urls.home);
         }
-    }, []);
+    }, [user]);
 
     return (
         <div className="signin">
@@ -160,7 +161,7 @@ const Signup = (props) => {
                 </label>
                 <input type="submit" value="Register" className="signin-button button" />
             </form>
-            { alert.length>0 && <h3>{ alert }</h3>}
+            { alert && <h3>{ alert }</h3>}
             <div className="signin-after-form-link">
                 <Link to="/signin">Back To Sign In</Link>
             </div>
@@ -169,15 +170,19 @@ const Signup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    alert: state.alertReducer.singupAlert,
+    user: state.authReducers.user,
+    alert: state.alertReducer.alert,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    signupUser: (email, password, firstName, lastName) => {
-        dispatch(signupUser(email, password, firstName, lastName));
+    verifyToken: (token, history) => {
+        dispatch(verifyToken(token, history));
     },
-    resetSignupAlert: () => {
-        dispatch(resetSignupAlert());
+    signupUser: (email, password, firstName, lastName, token) => {
+        dispatch(signupUser(email, password, firstName, lastName, token));
+    },
+    resetAlert: () => {
+        dispatch(resetAlert());
     },
 });
 

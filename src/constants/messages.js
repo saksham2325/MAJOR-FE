@@ -9,6 +9,7 @@ export const toastErrorMsg = {
     FIRST_NAME_CANNOT_BE_EMPTY:'First name cannot be empty',
     PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME: 'password and confirm password should be same',
     VALID_EMAIL: 'Enter valid email',
+    EMAIL_REQUIRED: 'Email is Required.'
 };
 
 export const attributesMsg = {
@@ -31,4 +32,9 @@ export const AUTH_MESSAGES = {
     SIGNUP_FAILED_MESSAGE: 'something went wrong',
     LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
     LOGOUT_FAILED_MESSAGE: 'something went wrong',
+};
+
+export const STATUS = {
+    HTTP_302_FOUND: 302,
+    HTTP_204_NO_CONTENT: 204,
 };
