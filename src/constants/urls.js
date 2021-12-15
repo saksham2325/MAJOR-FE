@@ -1,6 +1,7 @@
 const BASE_URL = 'http://127.0.0.1:8000';
 
 const urls = {
+    CREATE_NEW_GROUP: "/create-new-group",
     signin: '/signin',
     signup: '/signup',
     home: '/home',
@@ -8,7 +9,6 @@ const urls = {
     VERIFYEMAIL: '/verify',
     RESET_PASSWORD: "/reset-password",
     EDIT_PROFILE: "/edit-profile",
-    CREATE_NEW_GROUP: "/create-new-group",
 };
 
 const BACKEND_URLS = {

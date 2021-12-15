@@ -12,10 +12,9 @@ import VerifyEmail from './containers/Signup/Verify'
 
 import { APP_URLS } from "./constants/urls";
 import CreateNewGroup from "./component/CreateNewGroup";
-import EditProfile from "./component/EditProfile";
-import ResetPassword from "./component/ResetPassword";
 
 function App() {
+<<<<<<< HEAD
     return (
         <div className="App">
             <BrowserRouter>
@@ -33,6 +32,15 @@ function App() {
             </BrowserRouter>
         </div>
     );
+=======
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path={APP_URLS.CREATE_NEW_GROUP}><CreateNewGroup/></Route>
+      </Switch>
+    </BrowserRouter>
+  );
+>>>>>>> temp branch
 }
 
 export default App;
