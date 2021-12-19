@@ -1,13 +1,18 @@
-import { act } from "react-dom/test-utils";
-import { GROUP_TYPES } from "../actions/types";
+import { GROUP_TYPES } from "../constants/actionTypes";
 
 
 const InitialState = {
     search: [],
+    ownedGroups: [],
 };
 
-const GroupReducer = (state = InitialState, action) => {
+const groupReducer = (state = InitialState, action) => {
     switch (action.type) {
+        case GROUP_TYPES.GROUPS_LOADED:
+            return {
+                ...state,
+                ownedGroups: action.payload.loadedGroups,
+            };
         case GROUP_TYPES.SEARH_USER:
             return {
                 ...state,
@@ -18,4 +23,4 @@ const GroupReducer = (state = InitialState, action) => {
     }
 };
 
-export default GroupReducer;
+export default groupReducer;

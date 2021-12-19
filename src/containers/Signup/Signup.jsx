@@ -14,12 +14,13 @@ import { urls } from 'constants/urls.js';
 
 const Signup = (props) => {
     const [firstName, setFirstName] = useState('');
-    const [token, setToken] = useState('');
+    // const [token, setToken] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const history = useHistory();
+    let token = '';
     const { alert, resetAlert, signupUser, user, verifyToken } = props;
 
     const { addToast } = useToasts();
@@ -59,7 +60,8 @@ const Signup = (props) => {
     useEffect(() => {
         resetAlert();
         const search = queryString.parse(props.location.search)
-        setToken(search.token);
+        const {email, token} = search;
+        setEmail(email);
         verifyToken(token,history);
     }, []);
 

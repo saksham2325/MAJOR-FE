@@ -121,8 +121,9 @@ const logoutUser = () => (dispatch) => {
 };
 
 const verifyUser = (formData) => (dispatch) => {
-  // first check if the user with email already exist or not, if yes then simply return with the message else continue the process.
+  //  first check if the user with email already exist or not, if yes then simply return with the message else continue the process.
   const url = `${BASE_URL}${BACKEND_URLS.SEARCH_USER}?search=${formData.email}`;
+  console.log(url);
   axios
     .get(url)
     .then((res) => {
@@ -156,14 +157,15 @@ const verifyToken = (token, history) => (dispatch) => {
     .post(url, body)
     .then((res) => {
         if(res.status == STATUS.HTTP_204_NO_CONTENT) {
-            history.push(urls.signin);
-            return
+          history.push(urls.AFTER_VERIFICATION);
+          dispatch(successMessage(res.data.message));
+        } else {
+          dispatch(successMessage(res.data.message));
         }
-      dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
+      history.push(urls.AFTER_VERIFICATION);
       dispatch(errorMessage(err.response.data.message));
-      history.push(urls.VERIFYEMAIL);
     });
 };
 

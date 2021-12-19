@@ -9,17 +9,20 @@ const urls = {
     VERIFYEMAIL: '/verify',
     RESET_PASSWORD: "/reset-password",
     EDIT_PROFILE: "/edit-profile",
+    OWNED_GROUPS: '/owned-groups',
+    AFTER_VERIFICATION: '/after-verification',
 };
 
 const BACKEND_URLS = {
+    ACCOUNTS: '/accounts/',
     LOGIN: '/accounts/login/',
     SIGNUP: '/accounts/users/',
     LOGOUT: '/accounts/logout/',
     SENDTOKEN: '/accounts/send-token/',
     VERIFYTOKEN: '/accounts/verify-token/',
     SEARCH_USER: '/accounts/userFilters/',
-    SEARCH_USER: "/accounts/users/",
     GROUP_CRUD: '/accounts/groups/',
+    SEND_INVITATION: 'send-invitation/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

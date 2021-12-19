@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import alertReducer from 'reducers/alert';
 import authReducers from 'reducers/auth';
+import groupReducer from './group';
 import navbar from './navbar';
 
 
@@ -12,4 +13,5 @@ export default combineReducers({
     navbar,
     authReducers,
     alertReducer,
+    groupReducer
 });

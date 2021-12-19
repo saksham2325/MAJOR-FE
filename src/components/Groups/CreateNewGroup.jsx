@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 import { toastErrorMsg } from '../../constants/messages'
 import { urls } from "../../constants/urls";
 import {createGroup, searchUser } from '../../actions/group'
 import { resetAlert } from "actions/alert";
-// import Searchbar from "../../component/Searchbar";
 
 
 const CreateNewGroup = (props) => {
   const { alert, createGroup, resetAlert } = props;
   const [Title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
-  const [usersList,setUsersList] = useState([]);
   const { addToast } = useToasts();
   const history = useHistory();
-
-  // const onSearchSubmit = (value) => {
-    // const { searchUser } = props;
-  //   searchUser(value);
-  // }
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -41,12 +34,6 @@ const CreateNewGroup = (props) => {
       history.push(urls.signin);
     }
   }, []);
-  // useEffect(() => {
-  //   if(users) {
-  //     console.log(users);
-  //     setUsersList(users);
-  //   }
-  // }, [users]);
 
 
   return (
@@ -79,7 +66,6 @@ const CreateNewGroup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  // users: state.groupsReducer.search,
   alert: state.alertReducer.alert,
 });
 
@@ -92,4 +78,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(CreateNewGroup);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewGroup);
