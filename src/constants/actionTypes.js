@@ -25,4 +25,3 @@ export const GROUP_TYPES = {
     SEARH_USER: 'SEARCH_USER',
     GROUPS_LOADED: 'GROUPS_LOADED',
 }
-

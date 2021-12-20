@@ -153,15 +153,18 @@ const verifyToken = (token, history) => (dispatch) => {
   const body = {
     token,
   };
+  console.log(url);
+  console.log(body);
   axios
     .post(url, body)
     .then((res) => {
         if(res.status == STATUS.HTTP_204_NO_CONTENT) {
+          console.log(res.status);
           history.push(urls.AFTER_VERIFICATION);
           dispatch(successMessage(res.data.message));
-        } else {
-          dispatch(successMessage(res.data.message));
-        }
+          return
+        } 
+        dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
       history.push(urls.AFTER_VERIFICATION);
