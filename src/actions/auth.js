@@ -15,31 +15,29 @@ import {
 } from "actions/alert";
 import { RESPONSE_STATUS } from "constants/values";
 
+
 const loginUser = (email, password) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
-  const body = {
-    email,
-    password,
-  };
-  return axios
-    .post(url, body)
-    .then((res) => {
-      const user = res.data.user;
-      const token = res.data.token;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", user);
-      localStorage.setItem('id', user.id);
-      dispatch({
-        type: AUTH_TYPES.LOGIN_USER,
-        payload: {
-          user,
-          token,
-        },
-      });
-      dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
-    })
-    .catch(() => {
-      dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
+    const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
+    const body = {
+        email,
+        password,
+    };
+    return axios.post(url,body).then((res) => {
+        const user = res.data.user;
+        const token = res.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', user);
+        localStorage.setItem('id', user.id)
+        dispatch({
+            type: AUTH_TYPES.LOGIN_USER,
+            payload: {
+                user,
+                token
+            },
+        });
+        dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
+    }).catch(() => {
+        dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
     });
 };
 

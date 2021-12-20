@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.page-not-found {
+  text-align: center;
+  font-size: var(--l);
+  padding: 150px;
+  font-weight: 900;
+}

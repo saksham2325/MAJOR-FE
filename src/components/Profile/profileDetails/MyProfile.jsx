@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
+import { useHistory } from "react-router";
 
 import { loadProfile } from "actions/editProfile";
 import { urls } from "constants/urls";
 
 
 const MyProfile = (props) => {
-  const { profileData, loadProfile } = props;
+  const { profileData, loadProfile, user } = props;
+  const history = useHistory();
   const [details, setDetails] = useState({
     id: profileData.id,
     firstName: profileData.firstName,
@@ -20,6 +22,8 @@ const MyProfile = (props) => {
     const id = localStorage.getItem("id");
     if (id) {
       loadProfile(id);
+    } else{
+      history.push(urls.signin);
     }
   }, []);
 
@@ -50,6 +54,7 @@ const MyProfile = (props) => {
 
 const mapStateToProps = (state) => ({
   profileData: state.loadProfileReducer,
+  user: state.authReducers.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

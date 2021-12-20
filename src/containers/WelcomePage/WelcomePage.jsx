@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { arrivalAtWelcomePageAC } from '../../actions/navbar';
+import { useHistory } from 'react-router';
 
+import { arrivalAtWelcomePageAC } from '../../actions/navbar';
+import { urls } from 'constants/urls';
 import './WelcomePage.css';
+
 
 const WelcomePage = (props) => {
     const { navbarUpdateLogin } = props;
+    const history = useHistory();
+    const id = localStorage.getItem('id');
 
     useEffect(() => {
         navbarUpdateLogin();
+        if(id){
+            history.push(urls.home);
+        }
     }, []);
-    console.log(props.parentCallback);
     return (
         <div className='welcome-page'>
             <div className='text'>Wanna play a game?</div>
