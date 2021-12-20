@@ -1,17 +1,18 @@
+import "reactjs-popup/dist/index.css";
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import "reactjs-popup/dist/index.css";
 
 import './App.css';
+import EditProfile from "./components/Profile/EditProfile/EditProfile";
+import Homepage from './containers/Homepage/Homepage';
+import MyProfile from 'components/Profile/profileDetails/MyProfile';
 import Navbar from './components/Navbar/Navbar';
-import WelcomePage from './containers/WelcomePage/WelcomePage';
+import ResetPassword from "./components/Profile/EditProfile/ResetPassword";
 import Signin from './containers/Signin/Signin';
 import Signup from './containers/Signup/Signup';
-import Homepage from './containers/Homepage/Homepage';
+import WelcomePage from './containers/WelcomePage/WelcomePage';
 import { urls } from './constants/urls';
-import EditProfile from "./components/Profile/EditProfile/EditProfile";
-import MyProfile from 'components/Profile/profileDetails/MyProfile';
-import ResetPassword from "./components/Profile/EditProfile/ResetPassword";
+
 
 function App() {
     return (
