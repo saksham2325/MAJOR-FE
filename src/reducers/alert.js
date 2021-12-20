@@ -5,7 +5,8 @@ const initialState = {
     loginAlert: '',
     singupAlert: '',
     logoutAlert: '',
-    alert: ''
+    alert: '',
+    userUpdate: '',
 };
 
 const alertReducer = (state=initialState, action) => {
@@ -69,6 +70,16 @@ const alertReducer = (state=initialState, action) => {
             return {
                 ...state,
                 logoutAlert: '',
+            };
+        case ALERT_TYPES.SUCCESSFUL_UPDATE_USER:
+            return {
+                ...state,
+                userUpdate: action.payload.msg,
+            };
+        case ALERT_TYPES.FAILED_UPDATE_USER:
+            return {
+                ...state,
+                userUpdate: action.payload.msg,
             };
         default:
             return state;

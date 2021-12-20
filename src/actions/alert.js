@@ -48,11 +48,31 @@ export const successLoginMessage = (msg) => ({
 });
 
 export const logoutSuccessMessage = (msg) => ({
-    type: ALERT_TYPES.SUCCESSFULL_LOGIN_ALERT,
+    type: ALERT_TYPES.SUCCESSFULL_LOGOUT_ALERT,
     payload: {msg},
 });
 
 export const logoutFailedMessage = (msg) => ({
     type: ALERT_TYPES.LOGOUT_FAILED_ALERT,
+    payload: {msg},
+});
+
+export const loadProfileSuccessMessage = (msg) => ({
+    type: ALERT_TYPES.SUCCESSFULL_LOAD_USER,
+    payload: {msg},
+});
+
+export const loadProfileFailedMessage = (msg) => ({
+    type: ALERT_TYPES.FAILED_LOAD_USER,
+    payload: {msg},
+});
+
+export const updateProfileSuccessfullMessage = (msg) => ({
+    type: ALERT_TYPES.SUCCESSFUL_UPDATE_USER,
+    payload: {msg},
+});
+
+export const updateProfileFailedMessage = (msg) => ({
+    type: ALERT_TYPES.FAILED_UPDATE_USER,
     payload: {msg},
 });

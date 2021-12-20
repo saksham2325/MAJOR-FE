@@ -24,6 +24,7 @@ const Signin = (props) => {
     useEffect(() => {
         navbarUpdateLogin();
         const user1 = localStorage.getItem('user');
+        console.log(user1);
         if(user1) {
             history.push(urls.home);
         }

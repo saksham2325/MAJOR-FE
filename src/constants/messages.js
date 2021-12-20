@@ -45,3 +45,10 @@ export const STATUS = {
     HTTP_302_FOUND: 302,
     HTTP_204_NO_CONTENT: 204,
 };
+
+export const PROFILE_MESSAGES = {
+    LOAD_PROFILE_SUCCESS_MESSAGE: 'profile loaded successfully',
+    LOAD_PROFILE_FAILED_MESSAGE: 'failed to load profile',
+    UPDATE_USER_SUCCESS_MESSAGE: 'details updated',
+    UPDATE_USER_FAILED_MESSAGE: 'failed to update details',
+};
