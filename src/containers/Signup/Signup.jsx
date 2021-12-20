@@ -65,7 +65,6 @@ const Signup = (props) => {
         verifyToken(token,history);
     }, []);
 
-<<<<<<< HEAD
     useEffect(() => {
         const user = localStorage.getItem('user');
         if(user) {
@@ -73,8 +72,6 @@ const Signup = (props) => {
         }
     }, [user]);
 
-=======
->>>>>>> origin/sg_pf_6.3
     return (
         <div className="signin">
             <header>
