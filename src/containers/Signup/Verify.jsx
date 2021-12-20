@@ -41,12 +41,12 @@ const VerifyEmail = (props) => {
             autoDismiss: true,
         });
     }
-    // if(!REGEX.test(formData.email)) {
-    //     return addToast(toastErrorMsg.VALID_EMAIL, {
-    //         appearance: 'error',
-    //         autoDismiss: true,
-    //     });
-    // }
+    if(!REGEX.test(formData.email)) {
+        return addToast(toastErrorMsg.VALID_EMAIL, {
+            appearance: 'error',
+            autoDismiss: true,
+        });
+    }
     if(formData.name.length==0) {
         return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
             appearance: 'error',
