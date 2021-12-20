@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
+import { useHistory } from 'react-router-dom';
 
 import { toastErrorMsg } from '../../constants/messages'
 import { urls } from "../../constants/urls";
@@ -15,6 +15,7 @@ const CreateNewGroup = (props) => {
   const [Description, setDescription] = useState('');
   const { addToast } = useToasts();
   const history = useHistory();
+
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -30,7 +31,7 @@ const CreateNewGroup = (props) => {
   useEffect(() => {
     resetAlert();
     const id = localStorage.getItem('id');
-    if(id===undefined) {
+    if(!id) {
       history.push(urls.signin);
     }
   }, []);
@@ -78,4 +79,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewGroup);
+export default connect(mapStateToProps,mapDispatchToProps)(CreateNewGroup);
