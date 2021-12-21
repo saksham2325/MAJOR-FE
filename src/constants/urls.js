@@ -27,7 +27,8 @@ const BACKEND_URLS = {
     SEARCH_USER: '/accounts/userFilters/',
     GROUP_CRUD: '/accounts/groups/',
     SEND_INVITATION: 'send-invitation/',
-    UPDATE_PASSWORD: '/accounts/updatePassword/'
+    UPDATE_PASSWORD: '/accounts/updatePassword/',
+    USER_GROUPS: 'accounts/userGroups/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

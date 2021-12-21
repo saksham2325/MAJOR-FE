@@ -51,4 +51,7 @@ export const PROFILE_MESSAGES = {
     LOAD_PROFILE_FAILED_MESSAGE: 'failed to load profile',
     UPDATE_USER_SUCCESS_MESSAGE: 'details updated',
     UPDATE_USER_FAILED_MESSAGE: 'failed to update details',
+    LOAD_USER_GROUPS_SUCCESS_MESSAGE: 'user groups loaded successfully',
+    LOAD_USER_GROUPS_FAILED_MESSAGE: 'user groups load failed',
+
 };

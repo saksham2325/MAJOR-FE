@@ -2,20 +2,28 @@ import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import "../profile.css";
-import { loadProfile } from "actions/editProfile";
+import { loadProfile, loadUserGroups } from "actions/editProfile";
 import { urls } from "constants/urls";
 
 
 const MyProfile = (props) => {
-    const { profileData, loadProfile, user } = props;
+    const { profileData, loadProfile, user, loadUserGroups, userGroups } = props;
+    const history = useHistory();
 
     useEffect(() => {
         const id = localStorage.getItem("id");
         id && loadProfile(id);
+        id && loadUserGroups(id);
     }, []);
+
+    useEffect(() => {
+        if (Object.keys(user).length == 0) {
+            history.push(urls.root);
+        }
+    }, [user])
 
     return (
         <div className="my-profile">
@@ -38,8 +46,8 @@ const MyProfile = (props) => {
                 Associated groups
                 <ul>
                     {
-                        profileData.groups &&
-                        profileData.groups.map((group) =>
+                        userGroups.groups &&
+                        userGroups.groups.map((group) =>
                             group &&
                             <li>
                                 {group.id} - {group.title}
@@ -57,6 +65,11 @@ const MyProfile = (props) => {
                     Edit Profile
                 </button>
             </Link>
+            <Link to={urls.RESET_PASSWORD}>
+                <button className="button">
+                    Reset Password
+                </button>
+            </Link>
         </div>
     );
 };
@@ -64,12 +77,16 @@ const MyProfile = (props) => {
 const mapStateToProps = (state) => ({
     profileData: state.loadProfileReducer,
     user: state.authReducers.user,
+    userGroups: state.loadProfileReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     loadProfile: (id) => {
         dispatch(loadProfile(id));
     },
+    loadUserGroups: (id) => {
+        dispatch(loadUserGroups(id));
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

@@ -67,6 +67,16 @@ export const loadProfileFailedMessage = (msg) => ({
     payload: {msg},
 });
 
+export const loadUserGroupsSuccessMessage = (msg) => ({
+    type: ALERT_TYPES.SUCCESSFULL_LOAD_USER_GROUPS,
+    payload: {msg},
+});
+
+export const loadUserGroupsFailedMessage = (msg) => ({
+    type: ALERT_TYPES.FAILED_LOAD_USER_GROUPS,
+    payload: {msg},
+});
+
 export const updateProfileSuccessfullMessage = (msg) => ({
     type: ALERT_TYPES.SUCCESSFUL_UPDATE_USER,
     payload: {msg},

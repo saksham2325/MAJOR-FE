@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 
-import { logoutUser } from "actions/auth";
 import "./Homepage.css";
 import { urls } from "constants/urls";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const Homepage = (props) => {
@@ -34,9 +34,9 @@ const Homepage = (props) => {
       <div className="groups">
         <div className="group-text">Boost up your productivity in a team</div>
         <div className="group-buttons">
-          <button className="new-group button">New Group</button>
+          <Link to={urls.CREATE_NEW_GROUP}><button className="new-group button">New Group</button></Link>
           <button className="group-invites button">Group Invites</button>
-          <button className="active-groups button">Active Groups</button>
+          <Link to={urls.OWNED_GROUPS}><button className="active-groups button">Active Groups</button></Link>
         </div>
       </div>
     </div>

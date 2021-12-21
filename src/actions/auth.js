@@ -108,6 +108,7 @@ const logoutUser = () => (dispatch) => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem('id');
+      localStorage.removeItem('userToken');
       dispatch({
         type: AUTH_TYPES.LOGOUT_USER,
       });

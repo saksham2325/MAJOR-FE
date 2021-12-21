@@ -18,6 +18,11 @@ const loadProfileReducer = (state = initialState, action) => {
                 firstName: action.payload.first_name,
                 lastName: action.payload.last_name,
             };
+        case PROFILE_TYPES.LOAD_USER_GROUPS:
+            return {
+                ...state,
+                userGroups: action.payload,
+            }
         default:
             return state;
     }

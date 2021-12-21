@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { BACKEND_URLS, BASE_URL } from 'constants/urls';
-import { loadProfileFailedMessage, loadProfileSuccessMessage, updateProfileFailedMessage, updateProfileSuccessfullMessage } from 'actions/alert';
+import { loadProfileFailedMessage, loadProfileSuccessMessage, loadUserGroupsFailedMessage, loadUserGroupsSuccessMessage, updateProfileFailedMessage, updateProfileSuccessfullMessage } from 'actions/alert';
 import { PROFILE_MESSAGES } from 'constants/messages';
 import { PROFILE_TYPES } from 'constants/actionTypes';
 
@@ -21,6 +21,26 @@ const loadProfile = (id) => (dispatch) => {
         });
     }).catch((err) => {
         dispatch(loadProfileFailedMessage(PROFILE_MESSAGES.LOAD_PROFILE_FAILED_MESSAGE));
+    });
+};
+
+const loadUserGroups = (id) => (dispatch) => {
+    console.log('load user groips');
+    const url = `${BASE_URL}${BACKEND_URLS.USER_GROUPS}${id}/`;
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            'Authorization': `Token ${token}`,
+        },
+    };
+    return axios.get(url, config).then((res) => {
+        dispatch(loadUserGroupsSuccessMessage(PROFILE_MESSAGES.LOAD_USER_GROUPS_SUCCESS_MESSAGE));
+        dispatch({
+            type: PROFILE_TYPES.LOAD_USER_GROUPS,
+            payload: res.data,
+        });
+    }).catch((err) => {
+        dispatch(loadUserGroupsFailedMessage(PROFILE_MESSAGES.LOAD_PROFILE_FAILED_MESSAGE));
     });
 };
 
@@ -48,7 +68,7 @@ const editProfile = (data) => (dispatch) => {
 };
 
 const updatePassword = (data) => (dispatch) => {
-    const url =`${BASE_URL}${BACKEND_URLS.UPDATE_PASSWORD}${data.id}/`;
+    const url = `${BASE_URL}${BACKEND_URLS.UPDATE_PASSWORD}${data.id}/`;
     const token = localStorage.getItem('token');
     const config = {
         headers: {
@@ -66,4 +86,4 @@ const updatePassword = (data) => (dispatch) => {
     })
 };
 
-export { editProfile, loadProfile, updatePassword };
+export { editProfile, loadProfile, updatePassword, loadUserGroups };

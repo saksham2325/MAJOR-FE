@@ -23,6 +23,7 @@
     color: black;
     font-weight: 300;
 }
+
 .navbar img {
     height: 70px;
     width: 70px;
@@ -31,4 +32,14 @@
     position: absolute;
     left: 48%;
     top: 0;
+}
+
+.my-profile-button {
+    position: absolute;
+    left: 80%;
+    top: 7px;
+    font-size: 22px;
+    width: fit-content;
+    background-color: inherit;
+    text-shadow: 0 0 3px #666666, 0 0 5px #000000;
 }
