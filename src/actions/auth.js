@@ -110,7 +110,6 @@ const logoutUser = () => (dispatch) => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("id");
-      localStorage.removeItem("userToken");
       dispatch({
         type: AUTH_TYPES.LOGOUT_USER,
       });
@@ -122,7 +121,6 @@ const logoutUser = () => (dispatch) => {
 };
 
 const verifyUser = (formData) => (dispatch) => {
-
   const url = `${BASE_URL}${BACKEND_URLS.SENDTOKEN}`;
   const body = {
     email: formData.email,
@@ -135,10 +133,10 @@ const verifyUser = (formData) => (dispatch) => {
       dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
-      const response = err.response
-      if(response && response.data.email) {
+      const response = err.response;
+      if (response && response.data.email) {
         dispatch(errorMessage(response.data.email));
-      } else{
+      } else {
         dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
       }
     });
@@ -161,7 +159,7 @@ const verifyToken = (token, history) => (dispatch) => {
       dispatch({
         type: AUTH_TYPES.VERIFY_USER,
         payload: res.data,
-      })
+      });
     })
     .catch((err) => {
       history.push(urls.AFTER_VERIFICATION);
