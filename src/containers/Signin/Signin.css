@@ -23,20 +23,9 @@ label {
     align-items: center;
 }
 
-.signin-input {
-    width: 250px;
-    height: 36px;
-    font-size: 16px;
-    border: none;
-    font-family: inherit;
-    border: 1px solid rgb(31, 31, 31);
-    border-radius: 5px;
-}
-
 .signin .signin-button {
     margin-top: 60px;
 }
-
 
 .signin-after-form-link {
     margin-top: 40px;
@@ -48,4 +37,10 @@ label {
     font-weight: 500;
     color: rgb(0,0,0);
     cursor: pointer;
+}
+
+.verify-signup .button{
+    margin: 40px;
+    width: fit-content;
+    padding: 20px;
 }

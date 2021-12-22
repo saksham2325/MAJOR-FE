@@ -11,6 +11,7 @@ import { signupUser, verifyToken } from "actions/auth";
 import { resetAlert } from "actions/alert";
 import { urls } from "constants/urls.js";
 
+
 const Signup = (props) => {
   const [firstName, setFirstName] = useState("");
   const [token, setToken] = useState("");
@@ -22,6 +23,7 @@ const Signup = (props) => {
   const { alert, resetAlert, signupUser, user, verifyToken, verifyState } = props;
 
   const { addToast } = useToasts();
+  const id = localStorage.getItem('id');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,23 +61,26 @@ const Signup = (props) => {
   };
 
   useEffect(() => {
+    console.log(id);
+    if(!id) {
+      history.push(urls.VERIFYEMAIL);
+    }
     resetAlert();
     const search = queryString.parse(props.location.search);
     setToken(search.token);
   }, []);
-
+  
   useEffect(() => {
-    if (token.length !== 0) {
+    if (token && token.length !== 0) {
       verifyToken(token, history);
     }
   }, [token]);
-
+  
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
+    if (id) {
       history.push(urls.home);
     }
-  }, [user]);
+  }, [id]);
 
   useEffect(() => {
     if(verifyState.email) {
@@ -86,14 +91,15 @@ const Signup = (props) => {
 
   return (
     <div className="signin">
-      <header>Signup</header>
+      <header>Register</header>
+      {alert && <h3>{alert}</h3>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="first-name">
-          <div>First Name</div>
+          <div>*First Name</div>
           &nbsp;
           <input
             id="first-name"
-            className="signin-input"
+            className="input"
             type="text"
             placeholder={attributesMsg.firstNamePlaceholder}
             name="first-name"
@@ -109,7 +115,7 @@ const Signup = (props) => {
           &nbsp;
           <input
             id="last-name"
-            className="signin-input"
+            className="input"
             type="text"
             placeholder={attributesMsg.lastNamePlaceholder}
             name="last-name"
@@ -119,48 +125,51 @@ const Signup = (props) => {
           />
         </label>
         <label htmlFor="email">
-          <div>Email</div>
+          <div>*Email</div>
           &nbsp;
           <input
             id="email"
-            className="signin-input"
+            className="input"
             type="text"
             placeholder={attributesMsg.emailPlaceholder}
             name="email"
             value={email}
-            onChange={(event) => {
-              setEmail(event.currentTarget.value);
-            }}
+            readOnly //changed by ankur (msg for saksham)
+            // onChange={(event) => {
+            //   setEmail(event.currentTarget.value);
+            // }}
           />
         </label>
 
         <label htmlFor="password">
-          <div>Password</div>
+          <div>*Password</div>
           &nbsp;
           <input
             id="password"
-            className="signin-input"
+            className="input"
             type="password"
             placeholder={attributesMsg.passwordPlacegolder}
             name="password"
             onChange={(event) => {
               setPassword(event.currentTarget.value);
             }}
+            required
           />
         </label>
 
         <label htmlFor="confirmPassword">
-          <div>Confirm Password</div>
+          <div>*Confirm Password</div>
           &nbsp;
           <input
             id="confirm-password"
-            className="signin-input"
+            className="input"
             type="password"
             placeholder={attributesMsg.CONFIRM_PASSWORD_PLACE_HOLDER}
             name="confirmPassword"
             onChange={(event) => {
               setConfirmPassword(event.currentTarget.value);
             }}
+            required
           />
         </label>
         <input
@@ -169,7 +178,6 @@ const Signup = (props) => {
           className="signin-button button"
         />
       </form>
-      {alert && <h3>{alert}</h3>}
       <div className="signin-after-form-link">
         <Link to="/signin">Back To Sign In</Link>
       </div>

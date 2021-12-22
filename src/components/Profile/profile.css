@@ -19,3 +19,22 @@
     width: 150px;
     margin: 10px 0;
 }
+
+.my-profile .input {
+    width: 300px;
+}
+
+.edit-profile {
+    text-align: center;
+}
+
+.edit-profile .button {
+    margin: 40px;
+    padding: 20px;
+}
+
+.reset-password .button{
+    width: fit-content;
+    padding: 20px;
+    margin: 50px;
+}

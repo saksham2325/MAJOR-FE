@@ -24,6 +24,16 @@
     font-weight: 300;
 }
 
+.navbar .signup-button {
+    position: absolute;
+    left: 82%;
+    top: 7px;
+    background-color: transparent;
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+}
+
 .navbar img {
     height: 70px;
     width: 70px;

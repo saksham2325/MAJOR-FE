@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
+import './InviteUsers.css';
 import { INVITATION_PURPOSE } from "constants/values";
 import { resetAlert } from "actions/alert";
 import { sendInvitation } from "actions/group";
@@ -30,16 +31,18 @@ const InviteUsers = (props) => {
   }, []);
 
   return (
-    <div>
-      <h4>Invite Users</h4>
+    <div className="invite-users">
+      {/* <h4>Invite Users</h4> */}
       <input
-        placeholder="Enter User Email"
+        placeholder="enter email to invite"
         value={email}
         type="text"
+        className="input"
         onChange={(event) => setEmail(event.target.value)}
       ></input>
-      <button onClick={handleClick}>Send Invitation</button>
-      { alert && <h3>{ alert }</h3>}
+      <button className="button" onClick={handleClick}>Invite</button>
+      {/* { alert && <h3>{ alert }</h3>}   */}
+      {/* commented by ankur; as 'Groups loaded successfully' msg should not be there */}
     </div>
   );
 };

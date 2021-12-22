@@ -35,6 +35,13 @@ const Navbar = (props) => {
                 </Link>
             )}
 
+            {!id && atWelcome && (
+                <Link to="/verify">
+                    <div className="signup-button button">Signup</div>
+                </Link>
+            )}
+
+
             {id && (
                 <Link to={urls.MY_PROFILE}>
                     {/* <img src alt="" /> */}
