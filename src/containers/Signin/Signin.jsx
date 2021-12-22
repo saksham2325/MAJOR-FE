@@ -54,10 +54,10 @@ const Signin = (props) => {
             </header>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">
-                    <div>Email</div>
+                    <div>*Email</div>
                     <input
                         id="email"
-                        className="signin-input"
+                        className="input"
                         type="text"
                         placeholder={attributesMsg.emailPlaceholder}
                         name="email"
@@ -69,10 +69,10 @@ const Signin = (props) => {
                     />
                 </label>
                 <label htmlFor="password">
-                    <div>Password</div>
+                    <div>*Password</div>
                     <input
                         id="password"
-                        className="signin-input"
+                        className="input"
                         type="password"
                         placeholder={attributesMsg.passwordPlacegolder}
                         name="password"
@@ -85,7 +85,7 @@ const Signin = (props) => {
                 </label>
                 <input type="submit" value="Signin" className="signin-button button" />
             </form>
-            {alert.length>0 && <h3>{ alert }</h3>}
+            {alert.length>0 && <h3 className='error-msg'>{ alert }</h3>}
             {loading && <h3>Loading...</h3>}
             <div className="signin-after-form-link">
                 <Link to={urls.VERIFYEMAIL}>Create New Account</Link>

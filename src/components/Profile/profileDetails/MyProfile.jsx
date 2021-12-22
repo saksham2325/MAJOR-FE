@@ -29,16 +29,16 @@ const MyProfile = (props) => {
         <div className="my-profile">
             <div className='user-details'>
                 <div>
-                    Email:
-                    {profileData.email}
+                    <div>Email:</div>
+                    <input className="input" value={profileData.email} readOnly />
                 </div>
                 <div>
-                    First Name:
-                    {profileData.firstName}
+                    <div>First Name:</div>
+                    <input className="input" value={profileData.firstName} readOnly />
                 </div>
                 <div>
-                    Last Name:
-                    {profileData.lastName}
+                    <div>Last Name:</div>
+                    <input className="input" value={profileData.lastName} readOnly />
                 </div>
             </div>
 

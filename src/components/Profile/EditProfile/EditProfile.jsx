@@ -36,7 +36,7 @@ const EditProfile = (props) => {
   }, [profileData]);
 
   return (
-    <div className="signin">
+    <div className="edit-profile">
       <h2>Edit Profile</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -45,6 +45,7 @@ const EditProfile = (props) => {
             type="text"
             name="firstName"
             placeholder="Enter first name"
+            className="input"
             onChange={onChangeHandler}
           />
         </label>
@@ -54,12 +55,13 @@ const EditProfile = (props) => {
             type="text"
             name="lastName"
             placeholder="Enter last name"
+            className="input"
             onChange={onChangeHandler}
           />
         </label>
-        <Button type="submit" variant="contained">
+        <button type="submit" className="button">
           Update
-        </Button>
+        </button>
       </form>
       {alert && <h2 className='alert'>{ alert }</h2>}
     </div>

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useToasts } from 'react-toast-notifications';
 
-import {attributesMsg, toastErrorMsg } from 'constants/messages.js';
+import { attributesMsg, toastErrorMsg } from 'constants/messages.js';
 import { REGEX } from 'constants/values';
 import { verifyUser } from "actions/auth";
 import { resetAlert } from "actions/alert";
@@ -21,7 +21,7 @@ const VerifyEmail = (props) => {
   useEffect(() => {
     resetAlert();
     const user = localStorage.getItem('user');
-    if(user) {
+    if (user) {
       history.push(urls.signin);
     }
   }, []);
@@ -36,10 +36,10 @@ const VerifyEmail = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!formData.email) {
-        return addToast(toastErrorMsg.EMAIL_REQUIRED, {
-            appearance: 'error',
-            autoDismiss: true,
-        });
+      return addToast(toastErrorMsg.EMAIL_REQUIRED, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
     }
     // if(!REGEX.test(formData.email)) {
     //     return addToast(toastErrorMsg.VALID_EMAIL, {
@@ -47,40 +47,44 @@ const VerifyEmail = (props) => {
     //         autoDismiss: true,
     //     });
     // }
-    if(formData.name.length==0) {
-        return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
-            appearance: 'error',
-            autoDismiss: true,
-        });
+    if (formData.name.length == 0) {
+      return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
+        appearance: 'error',
+        autoDismiss: true,
+      });
     }
     verifyUser(formData);
   };
 
   return (
-    <div className="signin">
+    <div className="signin verify-signup">
       <header>Signup</header>
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          className="signin-input"
-          value={formData.email}
-          name="email"
-          type="text"
-          placeholder={attributesMsg.emailPlaceholder}
-          onChange={onChangeHandler}
-        />
-        <label>Name</label>
-        <input
-          className="signin-input"
-          value={formData.name}
-          name="name"
-          type="text"
-          placeholder={attributesMsg.firstNamePlaceholder}
-          onChange={onChangeHandler}
-        />
-        <Button type="submit" variant="contained">Signup</Button>
+        <label>
+          <div>*Email</div>
+          <input
+            className="input"
+            value={formData.email}
+            name="email"
+            type="text"
+            placeholder={attributesMsg.emailPlaceholder}
+            onChange={onChangeHandler}
+          />
+        </label>
+        <label>
+          <div>*Name</div>
+          <input
+            className="input"
+            value={formData.name}
+            name="name"
+            type="text"
+            placeholder={attributesMsg.firstNamePlaceholder}
+            onChange={onChangeHandler}
+          />
+        </label>
+        <button type="submit" className="button">Verify Email</button>
       </form>
-      {alert && <h3>{ alert }</h3>}
+      {alert && <h3>{alert}</h3>}
     </div>
   );
 };
@@ -93,8 +97,8 @@ const mapDispatchToProps = (dispatch) => ({
   resetAlert: () => {
     dispatch(resetAlert());
   },
-  verifyUser : (formData) => {
-      dispatch(verifyUser(formData));
+  verifyUser: (formData) => {
+    dispatch(verifyUser(formData));
   },
 });
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import './Groups.css';
 import { loadGroup } from "actions/group";
 import OwnedGroupItems from "./OwnedGroupsItems";
 import { resetAlert } from "actions/alert";
@@ -22,12 +23,16 @@ const OwnedGroups = (props) => {
   }, []);
 
   return (
-    <div>
-      <h3>Owned Groups</h3>
-      {(ownedGroups === undefined || ownedGroups.length === 0) && (
-        <p>No Group Owned</p>
-      )}
-      {ownedGroups && ownedGroups.map((elem) => <OwnedGroupItems {...elem} />)}
+    <div className='owned-groups'>
+      <h2>Owned Groups</h2>
+      <div>
+        {(ownedGroups === undefined || ownedGroups.length === 0) && (
+          <p className="error-msg">No Group Owned</p>
+        )}
+      </div>
+      <div>
+        {ownedGroups && ownedGroups.map((elem) => <OwnedGroupItems {...elem} />)}
+      </div>
     </div>
   );
 };
