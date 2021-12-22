@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { BACKEND_URLS, BASE_URL, urls } from "../constants/urls";
 import { errorMessage, successMessage } from "./alert";
-import { GROUP_MESSAGES } from "constants/messages";
+import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
 import { GROUP_TYPES } from "../constants/actionTypes";
 
 
@@ -29,7 +29,12 @@ const createGroup =
         dispatch(successMessage(GROUP_MESSAGES.GROUP_CREATED));
       })
       .catch((err) => {
-        dispatch(errorMessage(err.message));
+        console.log(err.response.data);
+        if(err.response.data.title) {
+          dispatch(errorMessage(err.response.data.title));
+        } else {
+          dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+        }
       });
   };
 

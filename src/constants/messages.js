@@ -32,7 +32,9 @@ export const AUTH_MESSAGES = {
     SIGNUP_SUCCESS_MESSAGE: 'signup successfully',
     SIGNUP_FAILED_MESSAGE: 'something went wrong',
     LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
-    ALREADY_SIGNEUP: 'Already signedup pls login. '
+    LOGOUT_FAILED_MESSAGE: 'logout failed',
+    ALREADY_SIGNEUP: 'Already signedup pls login.',
+    SOMETHING_WENT_WRONG: 'something went wrong',
 };
 
 export const GROUP_MESSAGES = {

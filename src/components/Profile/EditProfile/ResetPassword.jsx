@@ -2,9 +2,11 @@ import React from "react";
 
 import { Button } from "@mui/material";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { toastErrorMsg } from "constants/messages";
 
 import { updatePassword } from 'actions/editProfile';
+import { urls } from "constants/urls";
 
 
 class ResetPassword extends React.Component {
@@ -39,6 +41,18 @@ class ResetPassword extends React.Component {
     }
     this.props.updatePassword(this.state);
     this.setState({loading: false})
+  }
+
+  componentDidMount() {
+    if(!this.state.id) {
+      this.props.history.push(urls.root);
+    }
+  }
+
+  componentDidUpdate() {
+    if(!this.state.id) {
+      this.props.history.push(urls.root);
+    }
   }
 
   render() {

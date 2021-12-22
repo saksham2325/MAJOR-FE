@@ -10,11 +10,12 @@ import { resetAlert } from "actions/alert";
 
 
 const CreateNewGroup = (props) => {
-  const { alert, createGroup, resetAlert } = props;
+  const { alert, createGroup, resetAlert, user } = props;
   const [Title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
   const { addToast } = useToasts();
   const history = useHistory();
+  const id = localStorage.getItem('id');
 
 
   const onFormSubmit = (event) => {
@@ -30,11 +31,16 @@ const CreateNewGroup = (props) => {
 
   useEffect(() => {
     resetAlert();
-    const id = localStorage.getItem('id');
     if(!id) {
-      history.push(urls.signin);
+      history.push(urls.root);
     }
   }, []);
+
+  useEffect(() => {
+    if(!id) {
+      history.push(urls.root);
+    }
+  }, [id]);
 
 
   return (
@@ -67,6 +73,7 @@ const CreateNewGroup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.authReducers.user,
   alert: state.alertReducer.alert,
 });
 

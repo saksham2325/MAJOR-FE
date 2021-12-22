@@ -15,29 +15,31 @@ import {
 } from "actions/alert";
 import { RESPONSE_STATUS } from "constants/values";
 
-
 const loginUser = (email, password) => (dispatch) => {
-    const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
-    const body = {
-        email,
-        password,
-    };
-    return axios.post(url,body).then((res) => {
-        const user = res.data.user;
-        const token = res.data.token;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', user);
-        localStorage.setItem('id', user.id)
-        dispatch({
-            type: AUTH_TYPES.LOGIN_USER,
-            payload: {
-                user,
-                token
-            },
-        });
-        dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
-    }).catch(() => {
-        dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
+  const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
+  const body = {
+    email,
+    password,
+  };
+  return axios
+    .post(url, body)
+    .then((res) => {
+      const user = res.data.user;
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", user);
+      localStorage.setItem("id", user.id);
+      dispatch({
+        type: AUTH_TYPES.LOGIN_USER,
+        payload: {
+          user,
+          token,
+        },
+      });
+      dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
+    })
+    .catch(() => {
+      dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
     });
 };
 
@@ -50,7 +52,7 @@ const signupUser =
       password,
       first_name: firstName,
       last_name: lastName,
-      token
+      token,
     };
     return axios
       .post(url, body)
@@ -68,7 +70,7 @@ const signupUser =
             const token = res.data.token;
             localStorage.setItem("token", token);
             localStorage.setItem("user", user);
-            localStorage.setItem('id',user.id);
+            localStorage.setItem("id", user.id);
             dispatch({
               type: AUTH_TYPES.LOGIN_USER,
               payload: {
@@ -107,8 +109,8 @@ const logoutUser = () => (dispatch) => {
     .then(() => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      localStorage.removeItem('id');
-      localStorage.removeItem('userToken');
+      localStorage.removeItem("id");
+      localStorage.removeItem("userToken");
       dispatch({
         type: AUTH_TYPES.LOGOUT_USER,
       });
@@ -120,30 +122,25 @@ const logoutUser = () => (dispatch) => {
 };
 
 const verifyUser = (formData) => (dispatch) => {
-  //  first check if the user with email already exist or not, if yes then simply return with the message else continue the process.
-  const url = `${BASE_URL}${BACKEND_URLS.SEARCH_USER}?search=${formData.email}`;
-  console.log(url);
+
+  const url = `${BASE_URL}${BACKEND_URLS.SENDTOKEN}`;
+  const body = {
+    email: formData.email,
+    name: formData.name,
+    purpose: 0,
+  };
   axios
-    .get(url)
+    .post(url, body)
     .then((res) => {
-      if (res.data.length == 0) {
-        const url = `${BASE_URL}${BACKEND_URLS.SENDTOKEN}`;
-        const body = {
-            email: formData.email,
-            name: formData.name,
-            purpose: 0,
-        }
-        axios.post(url, body).then((res) => {
-            dispatch(successMessage(res.data.message));
-        }).catch((err) => {
-            dispatch(errorMessage(err.response));
-        });
-      } else {
-        dispatch(successMessage('user already exist with this mail'));
-      }
+      dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
-      dispatch(errorMessage('something went wrong'));
+      const response = err.response
+      if(response && response.data.email) {
+        dispatch(errorMessage(response.data.email));
+      } else{
+        dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+      }
     });
 };
 
@@ -152,18 +149,19 @@ const verifyToken = (token, history) => (dispatch) => {
   const body = {
     token,
   };
-  console.log(url);
-  console.log(body);
   axios
     .post(url, body)
     .then((res) => {
-        if(res.status == STATUS.HTTP_204_NO_CONTENT) {
-          console.log(res.status);
-          history.push(urls.AFTER_VERIFICATION);
-          dispatch(successMessage(res.data.message));
-          return
-        } 
+      if (res.status == STATUS.HTTP_204_NO_CONTENT) {
+        history.push(urls.AFTER_VERIFICATION);
         dispatch(successMessage(res.data.message));
+        return;
+      }
+      dispatch(successMessage(res.data.message));
+      dispatch({
+        type: AUTH_TYPES.VERIFY_USER,
+        payload: res.data,
+      })
     })
     .catch((err) => {
       history.push(urls.AFTER_VERIFICATION);

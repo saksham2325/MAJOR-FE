@@ -19,7 +19,7 @@ const Signup = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const history = useHistory();
-  const { alert, resetAlert, signupUser, user, verifyToken } = props;
+  const { alert, resetAlert, signupUser, user, verifyToken, verifyState } = props;
 
   const { addToast } = useToasts();
 
@@ -61,12 +61,11 @@ const Signup = (props) => {
   useEffect(() => {
     resetAlert();
     const search = queryString.parse(props.location.search);
-    setEmail(search.email);
     setToken(search.token);
   }, []);
 
   useEffect(() => {
-    if(token.length!==0) {
+    if (token.length !== 0) {
       verifyToken(token, history);
     }
   }, [token]);
@@ -77,6 +76,13 @@ const Signup = (props) => {
       history.push(urls.home);
     }
   }, [user]);
+
+  useEffect(() => {
+    if(verifyState.email) {
+      setEmail(verifyState.email);
+      setFirstName(verifyState.name);
+    }
+  }, [verifyState.email]);
 
   return (
     <div className="signin">
@@ -91,6 +97,7 @@ const Signup = (props) => {
             type="text"
             placeholder={attributesMsg.firstNamePlaceholder}
             name="first-name"
+            value={firstName}
             onChange={(event) => {
               setFirstName(event.currentTarget.value);
             }}
@@ -171,6 +178,7 @@ const Signup = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  verifyState: state.authReducers.verifyState,
   user: state.authReducers.user,
   alert: state.alertReducer.alert,
 });

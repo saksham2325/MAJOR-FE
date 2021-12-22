@@ -9,17 +9,23 @@ import { urls } from "constants/urls";
 
 
 const OwnedGroups = (props) => {
-  const { alert, loadGroup, ownedGroups, resetAlert } = props;
+  const { alert, loadGroup, ownedGroups, resetAlert, user } = props;
   const history = useHistory();
+  const id = localStorage.getItem('id');
 
   useEffect(() => {
-    const id = localStorage.getItem("id");
-    if (!id) {
-      history.push(urls.signin);
-    }
     resetAlert();
     loadGroup();
+    if(!id) {
+      history.push(urls.root);
+    }
   }, []);
+
+  useEffect(() => {
+    if(!id) {
+      history.push(urls.root);
+    }
+  }, [id]);
 
   return (
     <div>
@@ -33,6 +39,7 @@ const OwnedGroups = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.authReducers.user,
   alert: state.alertReducer.alert,
   ownedGroups: state.groupReducer.ownedGroups,
 });

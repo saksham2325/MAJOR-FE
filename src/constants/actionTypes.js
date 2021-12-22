@@ -4,6 +4,7 @@ export const arrivalAtWelcomePage = 'ARRIVAL_AT_WELCOME_PAGE';
 export const AUTH_TYPES = {
     LOGIN_USER: 'LOGIN_USER',
     LOGOUT_USER: 'LOGOUT_USER',
+    VERIFY_USER: 'VERIFY_USER',
 };
 
 export const ALERT_TYPES = {

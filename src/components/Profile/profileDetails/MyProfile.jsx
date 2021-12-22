@@ -12,18 +12,21 @@ import { urls } from "constants/urls";
 const MyProfile = (props) => {
     const { profileData, loadProfile, user, loadUserGroups, userGroups } = props;
     const history = useHistory();
+    const id = localStorage.getItem("id");
 
     useEffect(() => {
-        const id = localStorage.getItem("id");
         id && loadProfile(id);
         id && loadUserGroups(id);
+        if(!id) {
+            history.push(urls.root);
+        }
     }, []);
 
     useEffect(() => {
-        if (Object.keys(user).length == 0) {
+        if(!id) {
             history.push(urls.root);
         }
-    }, [user])
+    }, [id])
 
     return (
         <div className="my-profile">

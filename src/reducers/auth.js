@@ -5,6 +5,7 @@ const initialState = {
     user: {},
     token: '',
     isAuthenticate: false,
+    verifyState: {},
 };
 
 const authReducers = (state=initialState, action) => {
@@ -23,6 +24,12 @@ const authReducers = (state=initialState, action) => {
                 token: '',
                 isAuthenticate: false,
             };
+        case AUTH_TYPES.VERIFY_USER:
+            console.log(action.payload);
+            return {
+                ...state,
+                verifyState: {...state.verifyState, email: action.payload.email, name: action.payload.name},
+            }
         default:
             return state;
     }

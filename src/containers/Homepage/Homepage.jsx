@@ -16,7 +16,7 @@ const Homepage = (props) => {
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
-      history.push(urls.signin);
+      history.push(urls.root);
     }
   }, [user]);
 
