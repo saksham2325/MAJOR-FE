@@ -3,17 +3,8 @@ import axios from "axios";
 import { AUTH_MESSAGES, STATUS } from "constants/messages";
 import { AUTH_TYPES } from "constants/actionTypes";
 import { BACKEND_URLS, BASE_URL, urls } from "constants/urls";
-import {
-  errorMessage,
-  loginErrorMessage,
-  logoutFailedMessage,
-  logoutSuccessMessage,
-  singupErrorMessage,
-  successLoginMessage,
-  successMessage,
-  successSignupMessage,
-} from "actions/alert";
-import { RESPONSE_STATUS } from "constants/values";
+import { errorMessage, successMessage } from "actions/alert";
+import { INVITATION_PURPOSE, RESPONSE_STATUS } from "constants/values";
 
 const loginUser = (email, password) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
@@ -36,10 +27,16 @@ const loginUser = (email, password) => (dispatch) => {
           token,
         },
       });
-      dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
+      dispatch(successMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
     })
-    .catch(() => {
-      dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
+    .catch((err) => {
+      let message = '';
+      if(err.response && err.response.data && err.response.data.non_field_errors && err.response.data.non_field_errors[0]) {
+        message = err.response.data.non_field_errors[0];
+      } else{
+        message = AUTH_MESSAGES.LOGIN_FAILED_MESSAGE;
+      }
+      dispatch(errorMessage(message));
     });
 };
 
@@ -57,8 +54,8 @@ const signupUser =
     return axios
       .post(url, body)
       .then((res) => {
-        dispatch(successSignupMessage(AUTH_MESSAGES.SIGNUP_SUCCESS_MESSAGE));
-        const loginUrl = BASE_URL.concat(BACKEND_URLS.LOGIN);
+        dispatch(successMessage(AUTH_MESSAGES.SIGNUP_SUCCESS_MESSAGE));
+        const loginUrl = `${BASE_URL}${BACKEND_URLS.LOGIN}`;
         const loginBody = {
           email,
           password,
@@ -78,20 +75,20 @@ const signupUser =
                 token,
               },
             });
-            dispatch(successLoginMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
+            dispatch(successMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
           })
           .catch(() => {
-            dispatch(loginErrorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
+            dispatch(errorMessage(AUTH_MESSAGES.LOGIN_FAILED_MESSAGE));
           });
       })
       .catch((err) => {
         const response = err.response;
         if (response.status === RESPONSE_STATUS.ERROR) {
           if (response.data.email) {
-            dispatch(singupErrorMessage(response.data.email));
+            dispatch(errorMessage(response.data.email));
           }
         } else {
-          dispatch(singupErrorMessage(AUTH_MESSAGES.SIGNUP_FAILED_MESSAGE));
+          dispatch(errorMessage(AUTH_MESSAGES.SIGNUP_FAILED_MESSAGE));
         }
       });
   };
@@ -113,10 +110,10 @@ const logoutUser = () => (dispatch) => {
       dispatch({
         type: AUTH_TYPES.LOGOUT_USER,
       });
-      dispatch(logoutSuccessMessage(AUTH_MESSAGES.LOGIN_SUCCESS_MESSAGE));
+      dispatch(successMessage(AUTH_MESSAGES.LOGOUT_SUCCESS_MESSAGE));
     })
     .catch((err) => {
-      dispatch(logoutFailedMessage(AUTH_MESSAGES.LOGOUT_FAILED_MESSAGE));
+      dispatch(errorMessage(AUTH_MESSAGES.LOGOUT_FAILED_MESSAGE));
     });
 };
 
@@ -125,7 +122,7 @@ const verifyUser = (formData) => (dispatch) => {
   const body = {
     email: formData.email,
     name: formData.name,
-    purpose: 0,
+    purpose: INVITATION_PURPOSE.SIGNUP,
   };
   axios
     .post(url, body)
@@ -150,9 +147,13 @@ const verifyToken = (token, history) => (dispatch) => {
   axios
     .post(url, body)
     .then((res) => {
-      if (res.status == STATUS.HTTP_204_NO_CONTENT) {
+      if (res.data.status == STATUS.HTTP_204_NO_CONTENT) {
+        if (res.data.message) {
+          dispatch(successMessage(res.data.message));
+        } else {
+          dispatch(successMessage(AUTH_MESSAGES.ALREADY_SIGNEUP));
+        }
         history.push(urls.AFTER_VERIFICATION);
-        dispatch(successMessage(res.data.message));
         return;
       }
       dispatch(successMessage(res.data.message));
@@ -162,9 +163,15 @@ const verifyToken = (token, history) => (dispatch) => {
       });
     })
     .catch((err) => {
+      let message = "";
+      if (err.response.data && err.response.data.message) {
+        message = err.response.data.message;
+      } else {
+        message = AUTH_MESSAGES.REQUEST_TOKEN;
+      }
       history.push(urls.AFTER_VERIFICATION);
-      dispatch(errorMessage(err.response.data.message));
+      dispatch(errorMessage(message));
     });
 };
 
-export { loginUser, logoutUser, signupUser, verifyUser, verifyToken };
+export { loginUser, logoutUser, signupUser, verifyToken, verifyUser };

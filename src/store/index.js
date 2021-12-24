@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import reducer from '../reducers/index';
+import rootReducer from 'reducers/index';
 
 
 const configureStore = () => {
@@ -13,7 +13,7 @@ const configureStore = () => {
         thunk : to call the action creators that return a function(thunk) which takes the store’s dispatch method as the argument and use it to dispatch the actions.
         logger : which logs actions in developer console
     */
-    const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+    const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
     return store;
 };
 

@@ -1,18 +1,17 @@
 import React from "react";
 
-import { Button } from "@mui/material";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { toastErrorMsg } from "constants/messages";
 
-import { updatePassword } from 'actions/editProfile';
+import { resetAlert } from "actions/alert";
+import { toastErrorMsg } from "constants/messages";
+import { updatePassword } from "actions/editProfile";
 import { urls } from "constants/urls";
 
 
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
-    const id = localStorage.getItem('id');
+    const id = localStorage.getItem("id");
     this.state = {
       id: id,
       currentPassword: "",
@@ -33,24 +32,37 @@ class ResetPassword extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     if (this.state.password != this.state.confirmPassword) {
-      this.setState({ error: toastErrorMsg.PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME })
-      this.setState({ loading: false })
+      this.setState({
+        error: toastErrorMsg.PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME,
+      });
+      this.setState({ loading: false });
       return;
     }
     this.props.updatePassword(this.state);
-    this.setState({ loading: false })
+    this.setState({ currentPassword: "", password: "", confirmPassword: "" });
+    this.setState({ loading: false });
   }
 
   componentDidMount() {
-    if(!this.state.id) {
+    if (!this.state.id) {
       this.props.history.push(urls.root);
     }
+    this.props.resetAlert();
   }
 
-  componentDidUpdate() {
-    if(!this.state.id) {
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.profileUpdated !== prevProps.profileUpdated &&
+      this.props.profileUpdated
+    ) {
+      this.props.history.push(urls.MY_PROFILE);
+    }
+    if (
+      this.props.isAuthenticate !== prevProps.isAuthenticate &&
+      !this.props.isAuthenticate
+    ) {
       this.props.history.push(urls.root);
     }
   }
@@ -96,8 +108,8 @@ class ResetPassword extends React.Component {
             Reset password
           </button>
         </form>
-        {this.state.error && <h2 className='alert'>{this.state.error}</h2>}
-        {this.props.alert && <h2 className='alert'>{this.props.alert}</h2>}
+        {this.state.error && <h2 className="alert">{this.state.error}</h2>}
+        {this.props.alert && <h2 className="alert">{this.props.alert}</h2>}
         {this.state.loading && <h2>Loading...!!</h2>}
       </div>
     );
@@ -105,12 +117,17 @@ class ResetPassword extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  alert: state.alertReducer.userUpdate,
+  alert: state.alertReducer.alert,
+  profileUpdated: state.loadProfileReducer.profileUpdated,
+  isAuthenticate: state.authReducers.isAuthenticate,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updatePassword: (body) => {
     dispatch(updatePassword(body));
+  },
+  resetAlert: () => {
+    dispatch(resetAlert());
   },
 });
 

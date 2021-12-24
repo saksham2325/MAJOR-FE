@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Link, useHistory} from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
+import './Signin.css';
 import { attributesMsg, toastErrorMsg } from 'constants/messages';
 import { departFromWelcomePageAC } from 'actions/navbar';
 import { loginUser } from 'actions/auth';
-import { resetLoginAlert } from 'actions/alert';
-import './Signin.css';
+import { resetAlert } from 'actions/alert';
 import { urls } from 'constants/urls';
 
 
@@ -19,15 +19,15 @@ const Signin = (props) => {
     const history = useHistory();
     const { addToast } = useToasts();
 
-    const { navbarUpdateLogin ,loginUser, user, alert, resetLoginAlert} = props;
+    const { navbarUpdateLogin ,loginUser, user, alert, resetAlert} = props;
 
     useEffect(() => {
         navbarUpdateLogin();
-        const user1 = localStorage.getItem('user');
-        if(user1) {
+        resetAlert();
+        const id = localStorage.getItem('id');
+        if(id) {
             history.push(urls.home);
         }
-        resetLoginAlert();
     }, []);
 
     useEffect(() => {
@@ -44,7 +44,9 @@ const Signin = (props) => {
                 autoDismiss: true,
             });
         }
+        setLoading(true);
         loginUser(email, password);
+        setLoading(false);
     };
 
     return (
@@ -54,7 +56,7 @@ const Signin = (props) => {
             </header>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">
-                    <div>*Email</div>
+                    <div>Email *</div>
                     <input
                         id="email"
                         className="input"
@@ -69,7 +71,7 @@ const Signin = (props) => {
                     />
                 </label>
                 <label htmlFor="password">
-                    <div>*Password</div>
+                    <div>Password *</div>
                     <input
                         id="password"
                         className="input"
@@ -97,7 +99,7 @@ const Signin = (props) => {
 const mapStateToProps = (state) => ({
     atWelcome: state.navbar.atWelcome,
     user: state.authReducers.user,
-    alert: state.alertReducer.loginAlert,
+    alert: state.alertReducer.alert,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -108,8 +110,8 @@ const mapDispatchToProps = (dispatch) => ({
     loginUser: (email, password) => {
         dispatch(loginUser(email, password));
     },
-    resetLoginAlert: () => {
-        dispatch(resetLoginAlert());
+    resetAlert: () => {
+        dispatch(resetAlert());
     }
 });
 

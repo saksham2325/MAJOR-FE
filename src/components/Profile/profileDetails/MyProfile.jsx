@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import "../profile.css";
-import { loadProfile, loadUserGroups } from "actions/editProfile";
+import { loadProfile, resetprofileUpdated } from "actions/editProfile";
 import { urls } from "constants/urls";
 
 
 const MyProfile = (props) => {
-    const { profileData, loadProfile, user, loadUserGroups, userGroups } = props;
+    const { profileData, loadProfile, resetprofileUpdated, user } = props;
     const history = useHistory();
     const id = localStorage.getItem("id");
 
     useEffect(() => {
         id && loadProfile(id);
-        id && loadUserGroups(id);
+        resetprofileUpdated();
         if(!id) {
             history.push(urls.root);
         }
@@ -44,25 +44,6 @@ const MyProfile = (props) => {
                     <input className="input" value={profileData.lastName} readOnly />
                 </div>
             </div>
-
-            <div class='associated-groups' style={{ fontWeight: 'bold' }}>
-                Associated groups
-                <ul>
-                    {
-                        userGroups.groups &&
-                        userGroups.groups.map((group) =>
-                            group &&
-                            <li>
-                                {group.id} - {group.title}
-                                {
-                                    group.admin.email == profileData.email &&
-                                    <span>&nbsp;(admin)</span>
-                                }
-                            </li>
-                        )
-                    }
-                </ul>
-            </div>
             <Link to={urls.EDIT_PROFILE}>
                 <button className="button">
                     Edit Profile
@@ -80,15 +61,14 @@ const MyProfile = (props) => {
 const mapStateToProps = (state) => ({
     profileData: state.loadProfileReducer,
     user: state.authReducers.user,
-    userGroups: state.loadProfileReducer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    resetprofileUpdated: () => {
+        dispatch(resetprofileUpdated());
+    },
     loadProfile: (id) => {
         dispatch(loadProfile(id));
-    },
-    loadUserGroups: (id) => {
-        dispatch(loadUserGroups(id));
     }
 });
 

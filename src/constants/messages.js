@@ -33,8 +33,9 @@ export const AUTH_MESSAGES = {
     SIGNUP_FAILED_MESSAGE: 'something went wrong',
     LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
     LOGOUT_FAILED_MESSAGE: 'logout failed',
-    ALREADY_SIGNEUP: 'Already signedup pls login.',
+    ALREADY_SIGNEUP: 'Already Registered with this email, pls login.',
     SOMETHING_WENT_WRONG: 'something went wrong',
+    REQUEST_TOKEN: 'something went wrong. Please request for another token'
 };
 
 export const GROUP_MESSAGES = {
@@ -55,5 +56,5 @@ export const PROFILE_MESSAGES = {
     UPDATE_USER_FAILED_MESSAGE: 'failed to update details',
     LOAD_USER_GROUPS_SUCCESS_MESSAGE: 'user groups loaded successfully',
     LOAD_USER_GROUPS_FAILED_MESSAGE: 'user groups load failed',
-
+    EDIT_DETAILS: 'Please edit the details',
 };

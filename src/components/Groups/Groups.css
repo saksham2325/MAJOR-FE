@@ -23,6 +23,8 @@
 .owned-group-title {
     font-size: 30px;
     color:rgb(0, 39, 56);
+    display: flex;
+    gap: 200px;
 }
 
 .owned-group-desc {
@@ -43,4 +45,14 @@
 
 .owned-group-members .button:hover {
     background-color: rgba(80, 21, 21, 0.877);
+}
+
+.group-list {
+    list-style: none;
+    padding: 10px;
+    color: #000000;;
+  }
+
+.owned-groups .button{
+    margin-top: 20px;
 }

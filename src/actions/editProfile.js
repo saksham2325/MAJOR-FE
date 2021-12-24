@@ -1,16 +1,13 @@
 import axios from "axios";
 
 import { BACKEND_URLS, BASE_URL } from "constants/urls";
-import {
-  loadProfileFailedMessage,
-  loadProfileSuccessMessage,
-  loadUserGroupsFailedMessage,
-  loadUserGroupsSuccessMessage,
-  updateProfileFailedMessage,
-  updateProfileSuccessfullMessage,
-} from "actions/alert";
-import { PROFILE_MESSAGES } from "constants/messages";
+import { errorMessage, successMessage } from "actions/alert";
+import { AUTH_MESSAGES, PROFILE_MESSAGES } from "constants/messages";
 import { PROFILE_TYPES } from "constants/actionTypes";
+
+const resetprofileUpdated = () => ({
+  type: PROFILE_TYPES.RESET_PROFILE_UPDATED,
+});
 
 const loadProfile = (id) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.USER_CRUD}${id}/`;
@@ -23,49 +20,13 @@ const loadProfile = (id) => (dispatch) => {
   return axios
     .get(url, config)
     .then((res) => {
-      dispatch(
-        loadProfileSuccessMessage(PROFILE_MESSAGES.LOAD_PROFILE_SUCCESS_MESSAGE)
-      );
       dispatch({
         type: PROFILE_TYPES.LOAD_PROFILE,
         payload: res.data,
       });
     })
     .catch((err) => {
-      dispatch(
-        loadProfileFailedMessage(PROFILE_MESSAGES.LOAD_PROFILE_FAILED_MESSAGE)
-      );
-    });
-};
-
-const loadUserGroups = (id) => (dispatch) => {
-  console.log("load user groips");
-  const url = `${BASE_URL}${BACKEND_URLS.USER_GROUPS}${id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  return axios
-    .get(url, config)
-    .then((res) => {
-      dispatch(
-        loadUserGroupsSuccessMessage(
-          PROFILE_MESSAGES.LOAD_USER_GROUPS_SUCCESS_MESSAGE
-        )
-      );
-      dispatch({
-        type: PROFILE_TYPES.LOAD_USER_GROUPS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch(
-        loadUserGroupsFailedMessage(
-          PROFILE_MESSAGES.LOAD_PROFILE_FAILED_MESSAGE
-        )
-      );
+      dispatch(errorMessage(PROFILE_MESSAGES.LOAD_PROFILE_FAILED_MESSAGE));
     });
 };
 
@@ -84,20 +45,17 @@ const editProfile = (data) => (dispatch) => {
   axios
     .patch(url, body, config)
     .then((res) => {
-      dispatch(
-        updateProfileSuccessfullMessage(
-          PROFILE_MESSAGES.UPDATE_USER_SUCCESS_MESSAGE
-        )
-      );
+      dispatch({
+        type: PROFILE_TYPES.PROFILE_UPDATED,
+      });
+      dispatch(successMessage(PROFILE_MESSAGES.UPDATE_USER_SUCCESS_MESSAGE));
       dispatch({
         type: PROFILE_TYPES.LOAD_PROFILE,
         payload: res.data,
       });
     })
     .catch((err) => {
-      dispatch(
-        updateProfileFailedMessage(PROFILE_MESSAGES.UPDATE_USER_FAILED_MESSAGE)
-      );
+      dispatch(errorMessage(PROFILE_MESSAGES.UPDATE_USER_FAILED_MESSAGE));
     });
 };
 
@@ -116,11 +74,18 @@ const updatePassword = (data) => (dispatch) => {
   axios
     .patch(url, body, config)
     .then((res) => {
-      dispatch(updateProfileSuccessfullMessage(res.data.message));
+      dispatch({
+        type: PROFILE_TYPES.PROFILE_UPDATED,
+      });
+      dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
-      dispatch(updateProfileFailedMessage(err.data.message));
+      if (err.response.data && err.response.data.message) {
+        dispatch(errorMessage(err.response.data.message));
+      } else {
+        dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+      }
     });
 };
 
-export { editProfile, loadProfile, updatePassword, loadUserGroups };
+export { editProfile, loadProfile, resetprofileUpdated, updatePassword };

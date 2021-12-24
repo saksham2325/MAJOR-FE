@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-import { Button } from "@mui/material";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useToasts } from 'react-toast-notifications';
 
 import { attributesMsg, toastErrorMsg } from 'constants/messages.js';
 import { REGEX } from 'constants/values';
-import { verifyUser } from "actions/auth";
 import { resetAlert } from "actions/alert";
+import { verifyUser } from "actions/auth";
 import { urls } from "constants/urls";
 
 
@@ -61,7 +60,7 @@ const VerifyEmail = (props) => {
       <header>Signup</header>
       <form onSubmit={handleSubmit}>
         <label>
-          <div>*Email</div>
+          <div>Email *</div>
           <input
             className="input"
             value={formData.email}
@@ -72,7 +71,7 @@ const VerifyEmail = (props) => {
           />
         </label>
         <label>
-          <div>*Name</div>
+          <div>First Name *</div>
           <input
             className="input"
             value={formData.name}

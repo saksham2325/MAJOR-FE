@@ -2,34 +2,35 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import './Groups.css';
-import { loadGroup } from "actions/group";
-import OwnedGroupItems from "./OwnedGroupsItems";
+import "./Groups.css";
+import { loadGroup, resetGroupCreated } from "actions/group";
+import OwnedGroupItems from "components/Groups/OwnedGroupsItems";
 import { resetAlert } from "actions/alert";
 import { urls } from "constants/urls";
 
 
 const OwnedGroups = (props) => {
-  const { alert, loadGroup, ownedGroups, resetAlert, user } = props;
+  const { alert, loadGroup, ownedGroups, resetAlert, resetGroupCreated, user } = props;
   const history = useHistory();
-  const id = localStorage.getItem('id');
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
+    resetGroupCreated();
     resetAlert();
     loadGroup();
-    if(!id) {
+    if (!id) {
       history.push(urls.root);
     }
   }, []);
 
   useEffect(() => {
-    if(!id) {
+    if (!id) {
       history.push(urls.root);
     }
   }, [id]);
 
   return (
-    <div className='owned-groups'>
+    <div className="owned-groups">
       <h2>Owned Groups</h2>
       <div>
         {(ownedGroups === undefined || ownedGroups.length === 0) && (
@@ -37,7 +38,14 @@ const OwnedGroups = (props) => {
         )}
       </div>
       <div>
-        {ownedGroups && ownedGroups.map((elem) => <OwnedGroupItems {...elem} />)}
+        {ownedGroups && (
+          <h3>
+            {"Total Groups: - "}
+            {ownedGroups.length}
+          </h3>
+        )}
+        {ownedGroups &&
+          ownedGroups.map((elem) => <OwnedGroupItems {...elem} />)}
       </div>
     </div>
   );
@@ -50,6 +58,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  resetGroupCreated: () => {
+    dispatch(resetGroupCreated());
+  },
   loadGroup: () => {
     dispatch(loadGroup());
   },

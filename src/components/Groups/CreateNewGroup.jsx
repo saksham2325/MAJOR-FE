@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import { useToasts } from 'react-toast-notifications';
-import { useHistory } from 'react-router-dom';
 
-import { toastErrorMsg } from '../../constants/messages'
-import { urls } from "../../constants/urls";
-import {createGroup, searchUser } from '../../actions/group'
+import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+
+import { createGroup } from 'actions/group'
 import { resetAlert } from "actions/alert";
+import { toastErrorMsg } from 'constants/messages'
+import { urls } from "constants/urls";
 
 
 const CreateNewGroup = (props) => {
-  const { alert, createGroup, resetAlert, user } = props;
+  const { alert, createGroup, groupCreated, resetAlert, user } = props;
   const [Title, setTitle] = useState('');
   const [Description, setDescription] = useState('');
   const { addToast } = useToasts();
   const history = useHistory();
   const id = localStorage.getItem('id');
-
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -28,6 +28,12 @@ const CreateNewGroup = (props) => {
     }
     createGroup(Title,Description);
   }
+
+  useEffect(() => {
+    if(groupCreated) {
+      history.push(urls.OWNED_GROUPS);
+    }
+  }, [groupCreated]);
 
   useEffect(() => {
     resetAlert();
@@ -44,11 +50,11 @@ const CreateNewGroup = (props) => {
 
 
   return (
-    <div>
-      <h4>Create New Group</h4>
+    <div className="owned-groups">
+      <h2>Create New Group</h2>
       <form >
         <label>
-          Title
+          Title *
           <input
             type="text"
             placeholder="Enter Group Title"
@@ -65,7 +71,7 @@ const CreateNewGroup = (props) => {
             onChange={(event) => setDescription(event.target.value)}
           />
         </label>
-        <button onClick={onFormSubmit}>Create</button>
+        <button className="button" onClick={onFormSubmit}>Create</button>
       </form>
       {alert && <h3>{ alert }</h3>}
     </div>
@@ -75,6 +81,7 @@ const CreateNewGroup = (props) => {
 const mapStateToProps = (state) => ({
   user: state.authReducers.user,
   alert: state.alertReducer.alert,
+  groupCreated: state.groupReducer.groupCreated,
 });
 
 const mapDispatchToProps = (dispatch) => ({

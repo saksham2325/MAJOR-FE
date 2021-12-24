@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
 
-import { Button } from "@mui/material";
 import { connect } from "react-redux";
 
 import { editProfile, loadProfile } from "actions/editProfile";
+import { PROFILE_MESSAGES } from "constants/messages";
+import { resetAlert } from "actions/alert";
 import { urls } from "constants/urls";
 import { useHistory } from "react-router-dom";
 
-
 const EditProfile = (props) => {
-  const { alert, editProfile, profileData, loadProfile, user } = props;
+  const {
+    alert,
+    editProfile,
+    profileData,
+    profileUpdated,
+    resetAlert,
+    loadProfile,
+    user,
+  } = props;
   const history = useHistory();
   const [userDetails, setUserDetails] = useState({
     id: profileData.id,
     firstName: profileData.firstName,
     lastName: profileData.lastName,
   });
-  const id = localStorage.getItem('id');
+  const [error, setError] = useState({
+    firstName: "",
+    lastName: "",
+    update: "",
+  });
+  const id = localStorage.getItem("id");
 
   const onChangeHandler = (event) => {
     setUserDetails({ ...userDetails, [event.target.name]: event.target.value });
@@ -24,18 +37,39 @@ const EditProfile = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    editProfile(userDetails);
+    setError({});
+    const errors = {};
+    if (
+      profileData.firstName === userDetails.firstName &&
+      profileData.lastName === userDetails.lastName
+    ) {
+      errors.update = PROFILE_MESSAGES.EDIT_DETAILS;
+    }
+    if (Object.keys(errors).length === 0) {
+      editProfile(userDetails);
+    } else {
+      setError(errors);
+    }
   };
 
   useEffect(() => {
+    if (alert.length > 0) {
+      setTimeout(() => {
+        resetAlert();
+      }, 3000);
+    }
+  }, [alert]);
+
+  useEffect(() => {
+    resetAlert();
     loadProfile(id);
-    if(!id) {
+    if (!id) {
       history.push(urls.root);
     }
   }, []);
 
   useEffect(() => {
-    if(!id) {
+    if (!id) {
       history.push(urls.root);
     }
   }, [id]);
@@ -43,6 +77,12 @@ const EditProfile = (props) => {
   useEffect(() => {
     setUserDetails(() => ({ ...profileData }));
   }, [profileData]);
+
+  useEffect(() => {
+    if (profileUpdated) {
+      history.push(urls.MY_PROFILE);
+    }
+  }, [profileUpdated]);
 
   return (
     <div className="edit-profile">
@@ -57,6 +97,7 @@ const EditProfile = (props) => {
             value={userDetails.firstName}
             className="input"
             onChange={onChangeHandler}
+            required
           />
         </label>
         <label>
@@ -74,6 +115,7 @@ const EditProfile = (props) => {
           Update
         </button>
       </form>
+      {error.update && <h2>{error.update}</h2>}
       {alert && <h2 className="alert">{alert}</h2>}
     </div>
   );
@@ -82,7 +124,8 @@ const EditProfile = (props) => {
 const mapStateToProps = (state) => ({
   user: state.authReducers.user,
   profileData: state.loadProfileReducer,
-  alert: state.alertReducer.userUpdate,
+  alert: state.alertReducer.alert,
+  profileUpdated: state.loadProfileReducer.profileUpdated,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,6 +134,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadProfile: (id) => {
     dispatch(loadProfile(id));
+  },
+  resetAlert: () => {
+    dispatch(resetAlert());
   },
 });
 

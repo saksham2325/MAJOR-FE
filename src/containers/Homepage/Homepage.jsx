@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import "./Homepage.css";
 import { urls } from "constants/urls";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const Homepage = (props) => {
@@ -14,8 +14,8 @@ const Homepage = (props) => {
   const { user } = props;
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) {
+    const id = localStorage.getItem("id");
+    if (!id) {
       history.push(urls.root);
     }
   }, [user]);

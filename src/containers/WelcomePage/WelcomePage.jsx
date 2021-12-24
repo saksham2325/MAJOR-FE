@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import { arrivalAtWelcomePageAC } from '../../actions/navbar';
-import { urls } from 'constants/urls';
 import './WelcomePage.css';
+import { arrivalAtWelcomePageAC } from 'actions/navbar';
+import { urls } from 'constants/urls';
 
 
 const WelcomePage = (props) => {

@@ -28,7 +28,7 @@ const BACKEND_URLS = {
     GROUP_CRUD: '/accounts/groups/',
     SEND_INVITATION: 'send-invitation/',
     UPDATE_PASSWORD: '/accounts/updatePassword/',
-    USER_GROUPS: 'accounts/userGroups/',
+    USER_GROUPS: '/accounts/userGroups/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

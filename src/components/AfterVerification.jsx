@@ -1,29 +1,15 @@
-import React, { useEffect } from 'react';
+import React from "react";
 
-import { connect } from 'react-redux';
-
-import { resetAlert } from 'actions/alert';
-
+import { connect } from "react-redux";
 
 const AfterVerification = (props) => {
+  const { alert } = props;
 
-    const { alert, resetAlert } = props;
-
-    return (
-        <div>
-            { alert && <h2>{ alert }</h2>}
-        </div>
-    );
+  return <div>{alert && <h2>{alert}</h2>}</div>;
 };
 
 const mapStateToProps = (state) => ({
-    alert: state.alertReducer.alert
-  })
-  
-  const mapDispatchToProps = (dispatch) => ({
-    resetAlert: () => {
-      dispatch(resetAlert());
-    },
-  });
+  alert: state.alertReducer.alert,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(AfterVerification);
+export default connect(mapStateToProps)(AfterVerification);

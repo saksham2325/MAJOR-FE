@@ -7,8 +7,8 @@ import { useToasts } from "react-toast-notifications";
 
 import { attributesMsg, toastErrorMsg } from "constants/messages.js";
 import { REGEX } from "constants/values";
-import { signupUser, verifyToken } from "actions/auth";
 import { resetAlert } from "actions/alert";
+import { signupUser, verifyToken } from "actions/auth";
 import { urls } from "constants/urls.js";
 
 
@@ -21,7 +21,6 @@ const Signup = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const history = useHistory();
   const { alert, resetAlert, signupUser, user, verifyToken, verifyState } = props;
-
   const { addToast } = useToasts();
   const id = localStorage.getItem('id');
 
@@ -61,21 +60,20 @@ const Signup = (props) => {
   };
 
   useEffect(() => {
-    console.log(id);
-    if(!id) {
-      history.push(urls.VERIFYEMAIL);
-    }
     resetAlert();
     const search = queryString.parse(props.location.search);
+    if(!search.token) {
+      history.push(urls.VERIFYEMAIL);
+    }
     setToken(search.token);
   }, []);
-  
+
   useEffect(() => {
     if (token && token.length !== 0) {
       verifyToken(token, history);
     }
   }, [token]);
-  
+
   useEffect(() => {
     if (id) {
       history.push(urls.home);
@@ -84,8 +82,8 @@ const Signup = (props) => {
 
   useEffect(() => {
     if(verifyState.email) {
-      setEmail(verifyState.email);
-      setFirstName(verifyState.name);
+      setEmail(verifyState.email[0]);
+      setFirstName(verifyState.name[0]);
     }
   }, [verifyState.email]);
 
@@ -95,7 +93,7 @@ const Signup = (props) => {
       {alert && <h3>{alert}</h3>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="first-name">
-          <div>*First Name</div>
+          <div>First Name *</div>
           &nbsp;
           <input
             id="first-name"
@@ -104,6 +102,7 @@ const Signup = (props) => {
             placeholder={attributesMsg.firstNamePlaceholder}
             name="first-name"
             value={firstName}
+            readOnly
             onChange={(event) => {
               setFirstName(event.currentTarget.value);
             }}
@@ -134,15 +133,12 @@ const Signup = (props) => {
             placeholder={attributesMsg.emailPlaceholder}
             name="email"
             value={email}
-            readOnly //changed by ankur (msg for saksham)
-            // onChange={(event) => {
-            //   setEmail(event.currentTarget.value);
-            // }}
+            readOnly
           />
         </label>
 
         <label htmlFor="password">
-          <div>*Password</div>
+          <div>Password *</div>
           &nbsp;
           <input
             id="password"
@@ -158,7 +154,7 @@ const Signup = (props) => {
         </label>
 
         <label htmlFor="confirmPassword">
-          <div>*Confirm Password</div>
+          <div>Confirm Password *</div>
           &nbsp;
           <input
             id="confirm-password"
@@ -181,6 +177,7 @@ const Signup = (props) => {
       <div className="signin-after-form-link">
         <Link to="/signin">Back To Sign In</Link>
       </div>
+      {alert && <h3>{ alert }</h3>}
     </div>
   );
 };

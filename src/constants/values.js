@@ -7,6 +7,7 @@ export const RESPONSE_STATUS ={
 };
 
 export const INVITATION_PURPOSE = {
+    SIGNUP: 0,
     GROUP: 1,
     POKERBOARD: 2,
 }

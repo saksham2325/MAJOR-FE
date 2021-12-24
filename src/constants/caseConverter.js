@@ -9,5 +9,3 @@ function camelToSnake(string) {
         return m[0] + "_" + m[1];
     }).toLowerCase();
 }
-
-
