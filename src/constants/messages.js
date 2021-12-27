@@ -58,3 +58,8 @@ export const PROFILE_MESSAGES = {
     LOAD_USER_GROUPS_FAILED_MESSAGE: 'user groups load failed',
     EDIT_DETAILS: 'Please edit the details',
 };
+
+export const INVITATION_MESSAGE = {
+    INVITATION_ACCEPTED: 'Invitation Accepted successfully!',
+    INVITATION_DECLINED: 'Invitation Declined successfully!'
+};

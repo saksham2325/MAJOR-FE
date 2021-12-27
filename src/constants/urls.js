@@ -14,6 +14,9 @@ const urls = {
     EDIT_PROFILE: '/edit-profile',
     RESET_PASSWORD: '/reset-password',
     MY_PROFILE: '/my-profile',
+    SENT_GROUP_INVITES: '/sent-group-invites',
+    RECEIVED_GROUP_INVITES: '/received-group-invites',
+    ALL_GROUP_INVITES: '/all-group-invites',
 };
 
 const BACKEND_URLS = {
@@ -29,6 +32,8 @@ const BACKEND_URLS = {
     SEND_INVITATION: 'send-invitation/',
     UPDATE_PASSWORD: '/accounts/updatePassword/',
     USER_GROUPS: '/accounts/userGroups/',
+    SENT_GROUP_INVITES: '/accounts/group-invites/',
+    RECEIVED_GROUP_INVITES: '/accounts/user-group-invites'
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

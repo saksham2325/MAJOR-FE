@@ -38,7 +38,7 @@ const OwnedGroups = (props) => {
         )}
       </div>
       <div>
-        {ownedGroups && (
+        {ownedGroups && ownedGroups.length!==0 && (
           <h3>
             {"Total Groups: - "}
             {ownedGroups.length}
