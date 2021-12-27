@@ -67,7 +67,13 @@ const sendInvitation = (id, email, purpose) => (dispatch) => {
       dispatch(successMessage(res.data.message));
     })
     .catch((err) => {
-      dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+      let message = "";
+      if (err.response.data) {
+        message = err.response.data[0];
+      } else {
+        message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
+      }
+      dispatch(errorMessage(message));
     });
 };
 
@@ -88,10 +94,46 @@ const deleteGroup = (id) => (dispatch) => {
     });
 };
 
+const removeUser = (id, user) => (dispatch) => {
+  const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}${id}/`;
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+    data: {
+      users: [user]
+    }
+  };
+  axios
+    .delete(url, config)
+    .then((res) => {
+      let message = "";
+      if (res.data.message) {
+        message = res.data.message;
+      } else {
+        message = "success";
+      }
+      dispatch({
+        type: GROUP_TYPES.REMOVE_USER,
+        payload: {
+          id,
+          user,
+        },
+      });
+      dispatch(successMessage(message));
+    })
+    .catch((err) => {
+      const message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
+      dispatch(errorMessage(message));
+    });
+};
+
 export {
   createGroup,
   deleteGroup,
   loadGroup,
+  removeUser,
   resetGroupCreated,
   sendInvitation,
 };

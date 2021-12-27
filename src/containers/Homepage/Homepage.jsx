@@ -7,9 +7,7 @@ import { useHistory } from "react-router";
 import "./Homepage.css";
 import { urls } from "constants/urls";
 
-
 const Homepage = (props) => {
-
   const history = useHistory();
   const { user } = props;
 
@@ -34,9 +32,15 @@ const Homepage = (props) => {
       <div className="groups">
         <div className="group-text">Boost up your productivity in a team</div>
         <div className="group-buttons">
-          <Link to={urls.CREATE_NEW_GROUP}><button className="new-group button">New Group</button></Link>
-          <button className="group-invites button">Group Invites</button>
-          <Link to={urls.OWNED_GROUPS}><button className="active-groups button">Active Groups</button></Link>
+          <Link to={urls.CREATE_NEW_GROUP}>
+            <button className="new-group button">New Group</button>
+          </Link>
+          <Link to={urls.ALL_GROUP_INVITES}>
+            <button className="group-invites button">Group Invites</button>
+          </Link>
+          <Link to={urls.OWNED_GROUPS}>
+            <button className="active-groups button">Active Groups</button>
+          </Link>
         </div>
       </div>
     </div>

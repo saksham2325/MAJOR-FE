@@ -2,7 +2,8 @@ import { combineReducers } from "redux";
 
 import alertReducer from "reducers/alert";
 import authReducers from "reducers/auth";
-import groupReducer from "./group";
+import groupReducer from "reducers/group";
+import invitesReducer from "reducers/invites";
 import loadProfileReducer from "reducers/editprofile";
 import navbar from "./navbar";
 
@@ -14,5 +15,6 @@ export default combineReducers({
   authReducers,
   alertReducer,
   groupReducer,
+  invitesReducer,
   loadProfileReducer,
 });

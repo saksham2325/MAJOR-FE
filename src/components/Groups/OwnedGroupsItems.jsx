@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import "./Groups.css";
-import { deleteGroup } from "actions/group";
+import { deleteGroup, removeUser } from "actions/group";
 import InviteUsers from "components/InviteUsers/InviteUsers";
 import { resetAlert } from "actions/alert";
 
@@ -14,6 +14,7 @@ const OwnedGroupItems = (props) => {
     deleteGroup,
     id,
     admin,
+    removeUser,
     resetAlert,
     title,
     description,
@@ -29,9 +30,19 @@ const OwnedGroupItems = (props) => {
     setToggle(!toggle);
   };
 
+  const removeHandleClick = (userId) => {
+    removeUser(id, userId);
+  };
+
   const showGroupMembers =
     users && users.length > 0 ? (
-      users.map((user) => <li className="group-list">{user.email}</li>)
+      users.map((user) => (
+        <li className="group-list">
+          {user.email}
+          {" - "}
+          {<button onClick={() => removeHandleClick(user.id)}>Remove</button>}
+        </li>
+      ))
     ) : (
       <li>No members to Show</li>
     );
@@ -75,6 +86,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   deleteGroup: (id) => {
     dispatch(deleteGroup(id));
+  },
+  removeUser: (id, userId) => {
+    dispatch(removeUser(id, userId));
   },
   resetAlert: () => {
     dispatch(resetAlert());
