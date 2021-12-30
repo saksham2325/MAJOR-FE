@@ -6,6 +6,7 @@ import groupReducer from "reducers/group";
 import invitesReducer from "reducers/invites";
 import loadProfileReducer from "reducers/editprofile";
 import navbar from "./navbar";
+import pokerboardReducer from "reducers/pokerboard";
 
 export default combineReducers({
   /*
@@ -17,4 +18,5 @@ export default combineReducers({
   groupReducer,
   invitesReducer,
   loadProfileReducer,
+  pokerboardReducer,
 });

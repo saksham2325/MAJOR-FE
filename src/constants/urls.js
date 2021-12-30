@@ -17,6 +17,10 @@ const urls = {
     SENT_GROUP_INVITES: '/sent-group-invites',
     RECEIVED_GROUP_INVITES: '/received-group-invites',
     ALL_GROUP_INVITES: '/all-group-invites',
+    CREATE_GAME: '/create-game',
+    OWNED_POKERBOARD: '/owned-pokerboards',
+    DASHBOARD: '/pokeboard/:id',
+    POKERBOARD_MEMBERS: '/pokeboard/:id/members',
 };
 
 const BACKEND_URLS = {
@@ -33,7 +37,9 @@ const BACKEND_URLS = {
     UPDATE_PASSWORD: '/accounts/updatePassword/',
     USER_GROUPS: '/accounts/userGroups/',
     SENT_GROUP_INVITES: '/accounts/group-invites/',
-    RECEIVED_GROUP_INVITES: '/accounts/user-group-invites'
+    RECEIVED_GROUP_INVITES: '/accounts/user-group-invites',
+    POKER_CRUD: '/poker/pokerboard/',
+    POKER_USERS: '/poker/user-pokerboard/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

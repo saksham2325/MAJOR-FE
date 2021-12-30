@@ -3,15 +3,18 @@ const credentialsErrorMsg = {
   userNotFound: "User not found!!",
 };
 
-const toastErrorMsg = {
-  emailAndPassword: "Please enter both email & password",
-  email: "Please enter email",
-  FIRST_NAME_CANNOT_BE_EMPTY: "First name cannot be empty",
-  PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME:
-    "Password and confirm password should be same",
-  VALID_EMAIL: "Enter valid email",
-  EMAIL_REQUIRED: "Email is Required.",
-  GROUP_TITLE_REQUIRED: "Group title cannot be empty",
+export const toastErrorMsg = {
+    emailAndPassword: 'Please enter both email & password',
+    email: 'Please enter email',
+    FIRST_NAME_CANNOT_BE_EMPTY:'First name cannot be empty',
+    PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME: 'password and confirm password should be same',
+    VALID_EMAIL: 'Enter valid email',
+    EMAIL_REQUIRED: 'Email is Required.',
+    GROUP_TITLE_REQUIRED: 'Group title cannot be empty',
+    GAME_NAME: 'Length of name should be in between 1 and 50',
+    DECK_DUPLICATE: 'all values in the deck should be unique.',
+    DECK_SIZE: 'Deck cannot be empty',
+    VALID_NUMBER_LIST: 'Invalid input, enter comma seperated numbers like 1,2,3',
 };
 
 const attributesMsg = {
@@ -65,6 +68,12 @@ const INVITATION_MESSAGE = {
   INVITATION_DECLINED: "Invitation Declined successfully!",
 };
 
+
+const POKER_MESSAGE = {
+  GAME_CREATED: 'Pokerboard created successfully!',
+  GAME_EDITED: 'Game edited successfully,'
+}
+
 export {
   credentialsErrorMsg,
   toastErrorMsg,
@@ -75,4 +84,5 @@ export {
   STATUS,
   PROFILE_MESSAGES,
   INVITATION_MESSAGE,
+  POKER_MESSAGE
 };
