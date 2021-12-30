@@ -11,6 +11,10 @@ export const toastErrorMsg = {
     VALID_EMAIL: 'Enter valid email',
     EMAIL_REQUIRED: 'Email is Required.',
     GROUP_TITLE_REQUIRED: 'Group title cannot be empty',
+    GAME_NAME: 'Length of name should be in between 1 and 50',
+    DECK_DUPLICATE: 'all values in the deck should be unique.',
+    DECK_SIZE: 'Deck cannot be empty',
+    VALID_NUMBER_LIST: 'Invalid input, enter comma seperated numbers like 1,2,3',
 };
 
 export const attributesMsg = {
@@ -63,3 +67,8 @@ export const INVITATION_MESSAGE = {
     INVITATION_ACCEPTED: 'Invitation Accepted successfully!',
     INVITATION_DECLINED: 'Invitation Declined successfully!'
 };
+
+export const POKER_MESSAGE = {
+    GAME_CREATED: 'Pokerboard created successfully!',
+    GAME_EDITED: 'Game edited successfully,'
+}

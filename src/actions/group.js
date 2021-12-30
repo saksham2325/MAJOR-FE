@@ -2,8 +2,9 @@ import axios from "axios";
 
 import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
 import { BACKEND_URLS, BASE_URL, urls } from "../constants/urls";
-import { GROUP_TYPES } from "constants/actionTypes";
 import { errorMessage, successMessage } from "actions/alert";
+import { GROUP_TYPES } from "constants/actionTypes";
+import { INVITATION_PURPOSE } from "constants/values";
 
 const resetGroupCreated = () => ({
   type: GROUP_TYPES.RESET_GROUP_CREATED,
@@ -66,34 +67,43 @@ const loadGroup = () => (dispatch) => {
     });
 };
 
-const sendInvitation = (id, email, purpose) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
+const sendInvitation =
+  (id, email, purpose, role = "") =>
+  (dispatch) => {
+    let url;
+    if (purpose == INVITATION_PURPOSE.POKERBOARD) {
+      url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}`;
+    } else {
+      url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
+    }
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    };
+    const body = {
+      email: email,
+      purpose: purpose,
+      id: id,
+    };
+    console.log(url);
+    console.log(body);
+    axios
+      .post(url, body, config)
+      .then((res) => {
+        dispatch(successMessage(res.data.message));
+      })
+      .catch((err) => {
+        let message = "";
+        if (err.response.data) {
+          message = err.response.data[0];
+        } else {
+          message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
+        }
+        dispatch(errorMessage(message));
+      });
   };
-  const body = {
-    email: email,
-    purpose: purpose,
-    id: id,
-  };
-  axios
-    .post(url, body, config)
-    .then((res) => {
-      dispatch(successMessage(res.data.message));
-    })
-    .catch((err) => {
-      let message = "";
-      if (err.response.data) {
-        message = err.response.data[0];
-      } else {
-        message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
-      }
-      dispatch(errorMessage(message));
-    });
-};
 
 const deleteGroup = (id) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}${id}`;
@@ -126,8 +136,8 @@ const removeUser = (id, user) => (dispatch) => {
       Authorization: `Token ${token}`,
     },
     data: {
-      users: [user]
-    }
+      users: [user],
+    },
   };
   axios
     .delete(url, config)

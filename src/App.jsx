@@ -5,13 +5,17 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import AfterVerification from 'components/AfterVerification';
 import AllGroupInvites from "components/Invites/AllGroupInvites";
+import CreateGame from "components/Pokerboards/CreateGame";
 import CreateNewGroup from "components/Groups/CreateNewGroup";
+import Dashboard from "components/Pokerboards/Dashboard";
 import EditProfile from "components/Profile/EditProfile/EditProfile";
 import Homepage from 'containers/Homepage/Homepage';
 import MyProfile from 'components/Profile/profileDetails/MyProfile';
 import Navbar from 'components/Navbar/Navbar';
 import OwnedGroups from 'components/Groups/OwnedGroups';
+import OwnedPokerboards from "components/Pokerboards/OwnedPokerboards";
 import PageNotFound from 'components/PageNotFound/PageNotFound';
+import PokerboardUsers from "components/Pokerboards/PokerboardUsers";
 import ReceiveGroupInvites from "components/Invites/RecieveGroupInvites";
 import ResetPassword from "components/Profile/EditProfile/ResetPassword";
 import Signin from 'containers/Signin/Signin';
@@ -42,6 +46,10 @@ function App() {
                     <Route exact path={urls.SENT_GROUP_INVITES} component={SentGroupInvites}/>
                     <Route exact path={urls.ALL_GROUP_INVITES} component={AllGroupInvites}/>
                     <Route exact path={urls.RECEIVED_GROUP_INVITES} component={ReceiveGroupInvites}/>
+                    <Route exact path={urls.CREATE_GAME} component={CreateGame}/>
+                    <Route exact path={urls.OWNED_POKERBOARD} component={OwnedPokerboards}/>
+                    <Route exact path={urls.DASHBOARD} component={Dashboard}/>
+                    <Route exact path={urls.POKERBOARD_MEMBERS} component={PokerboardUsers}/>
                     <Route component={PageNotFound}/>
                 </Switch>
             </BrowserRouter>
