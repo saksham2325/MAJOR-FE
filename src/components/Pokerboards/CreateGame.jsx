@@ -90,7 +90,7 @@ const CreateGame = (props) => {
           Duration
           <input
             type="string"
-            placeholder="Enter Game duration"
+            placeholder="Enter Game duration in minutes"
             onChange={(event) => {
               setDuration(event.target.value);
             }}
@@ -100,7 +100,7 @@ const CreateGame = (props) => {
           Deck *
           <input
             type="text"
-            placeholder="Enter deck of cards"
+            placeholder="Enter deck of cards like 1,2,3"
             onChange={(event) => {
               setDeck(event.target.value);
             }}

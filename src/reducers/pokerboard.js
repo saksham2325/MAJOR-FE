@@ -29,7 +29,13 @@ const pokerboardReducer = (state = initialState, action) => {
       return {
         ...state,
         pokerUsers: action.payload,
-      }
+      };
+    case POKERBOARD_TYPES.REMOVE_POKER_USER:
+      const newPokerUsers = state.pokerUsers.filter((pokerUser) => pokerUser.id!==action.payload);
+      return {
+        ...state,
+        pokerUsers: newPokerUsers,
+      };
     default:
       return state;
   }

@@ -23,9 +23,13 @@ const Homepage = (props) => {
       <div className="games">
         <div className="game-text">Power up your planning</div>
         <div className="game-buttons">
-          <button className="new-game button">New Game</button>
+          <Link to={urls.CREATE_GAME}>
+            <button className="new-game button">New Game</button>
+          </Link>
           <button className="game-invites button">Game Invites</button>
-          <button className="active-games button">Active Games</button>
+          <Link to={urls.OWNED_POKERBOARD}>
+            <button className="active-games button">Active Games</button>
+          </Link>
         </div>
       </div>
 
