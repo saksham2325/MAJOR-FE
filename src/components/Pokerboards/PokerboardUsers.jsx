@@ -4,12 +4,12 @@ import { Button, FormControl, MenuItem, Select } from "@mui/material";
 import { connect } from "react-redux";
 
 import { INVITATION_PURPOSE, USER_ROLE1 } from "constants/values";
-import { loadPokerUsers } from "actions/pokerBoard";
+import { loadPokerUsers, removePokerUser } from "actions/pokerBoard";
 import { REGEX, USER_ROLE } from "constants/values";
 import { resetAlert } from "actions/alert";
 import { sendInvitation } from "actions/group";
 import { toastErrorMsg } from "constants/messages";
-import {urls} from "constants/urls";
+import { urls } from "constants/urls";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const PokerboardUsers = (props) => {
@@ -25,6 +25,7 @@ const PokerboardUsers = (props) => {
       params: { id },
     },
     pokerUsers,
+    removePokerUser,
     resetAlert,
     sendInvitation,
     user,
@@ -67,8 +68,8 @@ const PokerboardUsers = (props) => {
     }
   }, [alert, error]);
 
-  const removeHandleClick = (userId) => {
-    // removeUser(id, userId);
+  const removeHandleClick = (pokerUserId) => {
+    removePokerUser(pokerUserId);
   };
 
   const handleClick = (event) => {
@@ -80,12 +81,9 @@ const PokerboardUsers = (props) => {
     pokerUsers && pokerUsers.length > 0 ? (
       pokerUsers.map((pokerUser) => (
         <li className="group-list">
-          {pokerUser.user.email}
-          {" -> "}
-          {USER_ROLE1[pokerUser.role]}
-          {" -> "}
+          {`${pokerUser.user.email} -> ${USER_ROLE1[pokerUser.role]} -> `}
           {
-            <button onClick={() => removeHandleClick(pokerUser.user.id)}>
+            <button onClick={() => removeHandleClick(pokerUser.id)}>
               Remove
             </button>
           }
@@ -152,6 +150,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   resetAlert: () => {
     dispatch(resetAlert());
+  },
+  removePokerUser: (pokerUserId) => {
+    dispatch(removePokerUser(pokerUserId));
   },
   sendInvitation: (pokerboardId, email, purpose, role) => {
     dispatch(sendInvitation(pokerboardId, email, purpose, role));

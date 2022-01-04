@@ -137,4 +137,22 @@ const loadPokerUsers = (id) => (dispatch) => {
   });
 }
 
-export { createGame, loadPoker, loadPokerboard, loadPokerUsers, updatePoker };
+const removePokerUser = (pokerUserId) => (dispatch) => {
+  const url = `${BASE_URL}${BACKEND_URLS.POKER_USERS}${pokerUserId}/`;
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  };
+  axios.delete(url, config).then((res) => {
+    dispatch({
+      type: POKERBOARD_TYPES.REMOVE_POKER_USER,
+      payload: pokerUserId,
+    });
+  }).catch((err) => {
+    dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+  });
+}
+
+export { createGame, loadPoker, loadPokerboard, loadPokerUsers, removePokerUser, updatePoker };
