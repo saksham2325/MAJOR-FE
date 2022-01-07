@@ -5,18 +5,18 @@ import { useHistory } from "react-router";
 import { Link } from 'react-router-dom';
 
 import "../profile.css";
-import { loadProfile, resetprofileUpdated } from "actions/editProfile";
+import { loadProfile, resetProfileUpdated } from "actions/editProfile";
 import { urls } from "constants/urls";
 
 
 const MyProfile = (props) => {
-    const { profileData, loadProfile, resetprofileUpdated, user } = props;
+    const { profileData, loadProfile, resetProfileUpdated, user } = props;
     const history = useHistory();
     const id = localStorage.getItem("id");
 
     useEffect(() => {
         id && loadProfile(id);
-        resetprofileUpdated();
+        resetProfileUpdated();
         if(!id) {
             history.push(urls.root);
         }
@@ -64,8 +64,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    resetprofileUpdated: () => {
-        dispatch(resetprofileUpdated());
+    resetProfileUpdated: () => {
+        dispatch(resetProfileUpdated());
     },
     loadProfile: (id) => {
         dispatch(loadProfile(id));

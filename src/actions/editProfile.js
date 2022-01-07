@@ -1,24 +1,19 @@
 import axios from "axios";
 
-import { BACKEND_URLS, BASE_URL } from "constants/urls";
+import { BACKEND_URLS } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
 import { AUTH_MESSAGES, PROFILE_MESSAGES } from "constants/messages";
 import { PROFILE_TYPES } from "constants/actionTypes";
+import { objectKeysToSnake } from "constants/caseConverter";
 
-const resetprofileUpdated = () => ({
+const resetProfileUpdated = () => ({
   type: PROFILE_TYPES.RESET_PROFILE_UPDATED,
 });
 
 const loadProfile = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.USER_CRUD}${id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
+  const url = `${BACKEND_URLS.USER_CRUD}${id}/`;
   return axios
-    .get(url, config)
+    .get(url)
     .then((res) => {
       dispatch({
         type: PROFILE_TYPES.LOAD_PROFILE,
@@ -31,19 +26,13 @@ const loadProfile = (id) => (dispatch) => {
 };
 
 const editProfile = (data) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.USER_CRUD}${data.id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  const body = {
-    first_name: data.firstName,
-    last_name: data.lastName,
-  };
+  const url = `${BACKEND_URLS.USER_CRUD}${data.id}/`;
+  const body = objectKeysToSnake({
+    firstName: data.firstName,
+    lastName: data.lastName,
+  });
   axios
-    .patch(url, body, config)
+    .patch(url, body)
     .then((res) => {
       dispatch({
         type: PROFILE_TYPES.PROFILE_UPDATED,
@@ -60,19 +49,13 @@ const editProfile = (data) => (dispatch) => {
 };
 
 const updatePassword = (data) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.UPDATE_PASSWORD}${data.id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  const body = {
-    old_password: data.currentPassword,
-    new_password: data.password,
-  };
+  const url = `${BACKEND_URLS.UPDATE_PASSWORD}${data.id}/`;
+  const body = objectKeysToSnake({
+    oldPassword: data.currentPassword,
+    newPassword: data.password,
+  });
   axios
-    .patch(url, body, config)
+    .patch(url, body)
     .then((res) => {
       dispatch({
         type: PROFILE_TYPES.PROFILE_UPDATED,
@@ -88,4 +71,4 @@ const updatePassword = (data) => (dispatch) => {
     });
 };
 
-export { editProfile, loadProfile, resetprofileUpdated, updatePassword };
+export { editProfile, loadProfile, resetProfileUpdated, updatePassword };

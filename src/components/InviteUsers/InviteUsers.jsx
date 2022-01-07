@@ -27,7 +27,7 @@ const InviteUsers = (props) => {
   return (
     <div className="invite-users">
       <input
-        placeholder="enter email to invite"
+        placeholder="Enter User's Email."
         value={email}
         type="text"
         className="input"

@@ -15,7 +15,7 @@ const groupReducer = (state = InitialState, action) => {
       };
     case GROUP_TYPES.DELETE_GROUP:
       const newOwnedGroups = state.ownedGroups.filter(
-        (elem) => elem.id !== action.payload.id
+        (group) => group.id !== action.payload.id
       );
       return {
         ...state,

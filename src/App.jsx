@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import AfterVerification from 'components/AfterVerification';
 import AllGroupInvites from "components/Invites/AllGroupInvites";
+import PostVerification from 'components/PostVerification';
 import CreateNewGroup from "components/Groups/CreateNewGroup";
 import EditProfile from "components/Profile/EditProfile/EditProfile";
 import Homepage from 'containers/Homepage/Homepage';
@@ -28,10 +28,10 @@ function App() {
             <BrowserRouter>
                 <Navbar />  
                 <Switch>
-                    <Route exact path={urls.VERIFYEMAIL} component={VerifyEmail}/>
+                    <Route exact path={urls.VERIFY_EMAIL} component={VerifyEmail}/>
                     <Route exact path={urls.CREATE_NEW_GROUP} component={CreateNewGroup}/>
                     <Route exact path={urls.OWNED_GROUPS} component={OwnedGroups}/>
-                    <Route exact path={urls.AFTER_VERIFICATION} component={AfterVerification}/>
+                    <Route exact path={urls.POST_VERIFICATION} component={PostVerification}/>
                     <Route exact path={urls.root} component={WelcomePage}/>
                     <Route exact path={urls.signin} component={Signin}/>
                     <Route exact path={urls.signup} component={Signup}/>

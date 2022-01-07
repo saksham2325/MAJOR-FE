@@ -18,7 +18,7 @@ const OwnedGroupItems = (props) => {
     resetAlert,
     title,
     description,
-    users
+    users,
   } = props;
 
   useEffect(() => {
@@ -64,13 +64,10 @@ const OwnedGroupItems = (props) => {
           Delete Group
         </button>
       </div>
-
       {description && <div className="owned-group-desc">{description}</div>}
-
       <div className="owned-group-invite">
         <InviteUsers groupId={id} />
       </div>
-
       <div className="owned-group-members">
         <button type="button" className="button" onClick={handleClick}>
           {!toggle ? "View Group Members" : "Hide Group Members"}

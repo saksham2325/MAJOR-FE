@@ -63,7 +63,7 @@ const Signup = (props) => {
     resetAlert();
     const search = queryString.parse(props.location.search);
     if(!search.token) {
-      history.push(urls.VERIFYEMAIL);
+      history.push(urls.VERIFY_EMAIL);
     }
     setToken(search.token);
   }, []);
@@ -82,8 +82,8 @@ const Signup = (props) => {
 
   useEffect(() => {
     if(verifyState.email) {
-      setEmail(verifyState.email[0]);
-      setFirstName(verifyState.name[0]);
+      setEmail(verifyState.email);
+      setFirstName(verifyState.name);
     }
   }, [verifyState.email]);
 

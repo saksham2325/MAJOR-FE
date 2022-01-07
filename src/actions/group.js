@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
-import { BACKEND_URLS, BASE_URL, urls } from "../constants/urls";
+import { BACKEND_URLS } from "../constants/urls";
 import { GROUP_TYPES } from "constants/actionTypes";
 import { errorMessage, successMessage } from "actions/alert";
 
@@ -12,14 +12,8 @@ const resetGroupCreated = () => ({
 const createGroup =
   (title, description = "") =>
   (dispatch) => {
-    const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}`;
+    const url = `${BACKEND_URLS.GROUP_CRUD}`;
     const id = localStorage.getItem("id");
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    };
     const body = {
       title: title,
       description: description,
@@ -27,7 +21,7 @@ const createGroup =
       admin: id,
     };
     axios
-      .post(url, body, config)
+      .post(url, body)
       .then((res) => {
         dispatch(successMessage(GROUP_MESSAGES.GROUP_CREATED));
         dispatch({
@@ -44,15 +38,9 @@ const createGroup =
   };
 
 const loadGroup = () => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
+  const url = `${BACKEND_URLS.GROUP_CRUD}`;
   axios
-    .get(url, config)
+    .get(url)
     .then((res) => {
       dispatch({
         type: GROUP_TYPES.GROUPS_LOADED,
@@ -67,20 +55,14 @@ const loadGroup = () => (dispatch) => {
 };
 
 const sendInvitation = (id, email, purpose) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
+  const url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
   const body = {
     email: email,
     purpose: purpose,
     id: id,
   };
   axios
-    .post(url, body, config)
+    .post(url, body)
     .then((res) => {
       dispatch(successMessage(res.data.message));
     })
@@ -96,15 +78,9 @@ const sendInvitation = (id, email, purpose) => (dispatch) => {
 };
 
 const deleteGroup = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}${id}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
+  const url = `${BACKEND_URLS.GROUP_CRUD}${id}`;
   axios
-    .delete(url, config)
+    .delete(url)
     .then((res) => {
       dispatch({
         type: GROUP_TYPES.DELETE_GROUP,

@@ -90,7 +90,7 @@ const Signin = (props) => {
             {alert.length>0 && <h3 className='error-msg'>{ alert }</h3>}
             {loading && <h3>Loading...</h3>}
             <div className="signin-after-form-link">
-                <Link to={urls.VERIFYEMAIL}>Create New Account</Link>
+                <Link to={urls.VERIFY_EMAIL}>Create New Account</Link>
             </div>
         </div>
     );
