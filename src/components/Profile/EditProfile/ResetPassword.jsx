@@ -72,7 +72,7 @@ class ResetPassword extends React.Component {
       <div className="reset-password">
         <form onSubmit={this.handleSubmit}>
           <label>
-            *Current Password
+            Current Password *
             <input
               name="currentPassword"
               type="password"
@@ -83,7 +83,7 @@ class ResetPassword extends React.Component {
             />
           </label>
           <label>
-            *Password
+            Password *
             <input
               name="password"
               type="password"
@@ -94,7 +94,7 @@ class ResetPassword extends React.Component {
             />
           </label>
           <label>
-            *Confirm Password
+            Confirm Password *
             <input
               name="confirmPassword"
               type="password"

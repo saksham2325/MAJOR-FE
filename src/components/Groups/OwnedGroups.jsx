@@ -40,12 +40,11 @@ const OwnedGroups = (props) => {
       <div>
         {ownedGroups && (
           <h3>
-            {"Total Groups: - "}
-            {ownedGroups.length}
+            {`Total Groups - ${ownedGroups.length}`}
           </h3>
         )}
         {ownedGroups &&
-          ownedGroups.map((elem) => <OwnedGroupItems {...elem} />)}
+          ownedGroups.map((group) => <OwnedGroupItems {...group} />)}
       </div>
     </div>
   );

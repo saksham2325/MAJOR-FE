@@ -1,24 +1,24 @@
 export const credentialsErrorMsg = {
-    emailAndPasswordIncorrect: 'email or password incorrect!',
-    userNotFound: 'user not found!!',
+    emailAndPasswordIncorrect: 'Email or password incorrect!',
+    userNotFound: 'User not found!!',
 };
 
 export const toastErrorMsg = {
     emailAndPassword: 'Please enter both email & password',
     email: 'Please enter email',
     FIRST_NAME_CANNOT_BE_EMPTY:'First name cannot be empty',
-    PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME: 'password and confirm password should be same',
+    PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME: 'Password and confirm password should be same',
     VALID_EMAIL: 'Enter valid email',
     EMAIL_REQUIRED: 'Email is Required.',
     GROUP_TITLE_REQUIRED: 'Group title cannot be empty',
 };
 
 export const attributesMsg = {
-    emailPlaceholder: 'enter email',
-    passwordPlacegolder: 'enter password',
-    firstNamePlaceholder: 'enter first name',
-    lastNamePlaceholder: 'enter last name',
-    CONFIRM_PASSWORD_PLACE_HOLDER: 're-enter password'
+    emailPlaceholder: 'Enter email',
+    passwordPlacegolder: 'Enter password',
+    firstNamePlaceholder: 'Enter your first name',
+    lastNamePlaceholder: 'Enter your last name',
+    CONFIRM_PASSWORD_PLACE_HOLDER: 'Re-enter password'
 };
 
 export const directionalMsg = {
@@ -27,15 +27,15 @@ export const directionalMsg = {
 };
 
 export const AUTH_MESSAGES = {
-    LOGIN_SUCCESS_MESSAGE: 'login successfully',
-    LOGIN_FAILED_MESSAGE: 'something went wrong',
-    SIGNUP_SUCCESS_MESSAGE: 'signup successfully',
-    SIGNUP_FAILED_MESSAGE: 'something went wrong',
-    LOGOUT_SUCCESS_MESSAGE: 'logout successfully',
-    LOGOUT_FAILED_MESSAGE: 'logout failed',
+    LOGIN_SUCCESS_MESSAGE: 'Login successfully',
+    LOGIN_FAILED_MESSAGE: 'Something went wrong',
+    SIGNUP_SUCCESS_MESSAGE: 'Signup successfully',
+    SIGNUP_FAILED_MESSAGE: 'Something went wrong',
+    LOGOUT_SUCCESS_MESSAGE: 'Logout successfully',
+    LOGOUT_FAILED_MESSAGE: 'Logout failed',
     ALREADY_SIGNEUP: 'Already Registered with this email, pls login.',
-    SOMETHING_WENT_WRONG: 'something went wrong',
-    REQUEST_TOKEN: 'something went wrong. Please request for another token'
+    SOMETHING_WENT_WRONG: 'Something went wrong',
+    REQUEST_TOKEN: 'Something went wrong. Please request for another token'
 };
 
 export const GROUP_MESSAGES = {
@@ -50,11 +50,11 @@ export const STATUS = {
 };
 
 export const PROFILE_MESSAGES = {
-    LOAD_PROFILE_SUCCESS_MESSAGE: 'profile loaded successfully',
-    LOAD_PROFILE_FAILED_MESSAGE: 'failed to load profile',
-    UPDATE_USER_SUCCESS_MESSAGE: 'details updated',
-    UPDATE_USER_FAILED_MESSAGE: 'failed to update details',
-    LOAD_USER_GROUPS_SUCCESS_MESSAGE: 'user groups loaded successfully',
-    LOAD_USER_GROUPS_FAILED_MESSAGE: 'user groups load failed',
+    LOAD_PROFILE_SUCCESS_MESSAGE: 'Profile loaded successfully',
+    LOAD_PROFILE_FAILED_MESSAGE: 'Failed to load profile',
+    UPDATE_USER_SUCCESS_MESSAGE: 'Details updated',
+    UPDATE_USER_FAILED_MESSAGE: 'Failed to update details',
+    LOAD_USER_GROUPS_SUCCESS_MESSAGE: 'User groups loaded successfully',
+    LOAD_USER_GROUPS_FAILED_MESSAGE: 'User groups load failed',
     EDIT_DETAILS: 'Please edit the details',
 };

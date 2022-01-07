@@ -29,8 +29,8 @@ const authReducers = (state = initialState, action) => {
         ...state,
         verifyState: {
           ...state.verifyState,
-          email: action.payload.email,
-          name: action.payload.name,
+          email: action.payload.email[0],
+          name: action.payload.name[0],
         },
       };
     default:

@@ -37,7 +37,6 @@ const EditProfile = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setError({});
     const errors = {};
     if (
       profileData.firstName === userDetails.firstName &&
@@ -53,7 +52,7 @@ const EditProfile = (props) => {
   };
 
   useEffect(() => {
-    if (alert.length > 0) {
+    if (alert && alert.length > 0) {
       setTimeout(() => {
         resetAlert();
       }, 3000);

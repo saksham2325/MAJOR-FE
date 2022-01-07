@@ -4,12 +4,12 @@ export const resetAlert = () => ({
   type: ALERT_TYPES.RESET_ALERT,
 });
 
-export const successMessage = (msg) => ({
+export const successMessage = (message) => ({
   type: ALERT_TYPES.SUCCESS_ALERT,
-  payload: { msg },
+  payload: { message },
 });
 
-export const errorMessage = (msg) => ({
+export const errorMessage = (message) => ({
   type: ALERT_TYPES.ERROR_ALERT,
-  payload: { msg },
+  payload: { message },
 });

@@ -1,3 +1,4 @@
+import { objectKeysToCamel } from "constants/caseConverter";
 import { PROFILE_TYPES } from "constants/actionTypes";
 
 const initialState = {
@@ -11,12 +12,13 @@ const initialState = {
 const loadProfileReducer = (state = initialState, action) => {
   switch (action.type) {
     case PROFILE_TYPES.LOAD_PROFILE:
+      const data = objectKeysToCamel(action.payload);
       return {
         ...state,
-        id: action.payload.id,
-        email: action.payload.email,
-        firstName: action.payload.first_name,
-        lastName: action.payload.last_name,
+        id: data.id,
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
       };
     case PROFILE_TYPES.PROFILE_UPDATED:
       return {

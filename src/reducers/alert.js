@@ -14,12 +14,12 @@ const alertReducer = (state = initialState, action) => {
     case ALERT_TYPES.SUCCESS_ALERT:
       return {
         ...state,
-        alert: action.payload.msg,
+        alert: action.payload.message,
       };
     case ALERT_TYPES.ERROR_ALERT:
       return {
         ...state,
-        alert: action.payload.msg,
+        alert: action.payload.message,
       };
     default:
       return state;

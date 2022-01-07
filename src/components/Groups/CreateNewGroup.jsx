@@ -12,21 +12,21 @@ import { urls } from "constants/urls";
 
 const CreateNewGroup = (props) => {
   const { alert, createGroup, groupCreated, resetAlert, user } = props;
-  const [Title, setTitle] = useState('');
-  const [Description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const { addToast } = useToasts();
   const history = useHistory();
   const id = localStorage.getItem('id');
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    if(Title.length==0) {
+    if(title.length==0) {
       return addToast(toastErrorMsg.GROUP_TITLE_REQUIRED, {
         appearance: 'error',
         autoDismiss: true,
     });
     }
-    createGroup(Title,Description);
+    createGroup(title,description);
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const CreateNewGroup = (props) => {
           <input
             type="text"
             placeholder="Enter Group Title"
-            value={Title}
+            value={title}
             onChange={(event) => setTitle(event.target.value)}
           />
         </label>
@@ -67,7 +67,7 @@ const CreateNewGroup = (props) => {
           <input
             type="text"
             placeholder="Enter Group Description"
-            value={Description}
+            value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
         </label>
@@ -85,8 +85,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createGroup: (Title, Description = '') => {
-    dispatch(createGroup(Title, Description));
+  createGroup: (title, description = '') => {
+    dispatch(createGroup(title, description));
   },
   resetAlert: () => {
     dispatch(resetAlert());
