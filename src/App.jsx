@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
+import AllGroupInvites from "components/Invites/AllGroupInvites";
 import PostVerification from 'components/PostVerification';
 import AllGroupInvites from "components/Invites/AllGroupInvites";
 import CreateNewGroup from "components/Groups/CreateNewGroup";
