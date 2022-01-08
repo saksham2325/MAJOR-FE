@@ -5,8 +5,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import AllGroupInvites from "components/Invites/AllGroupInvites";
-import PostVerification from 'components/PostVerification';
-import AllGroupInvites from "components/Invites/AllGroupInvites";
 import CreateNewGroup from "components/Groups/CreateNewGroup";
 import EditProfile from "components/Profile/EditProfile/EditProfile";
 import Homepage from 'containers/Homepage/Homepage';
@@ -14,6 +12,7 @@ import MyProfile from 'components/Profile/profileDetails/MyProfile';
 import Navbar from 'components/Navbar/Navbar';
 import OwnedGroups from 'components/Groups/OwnedGroups';
 import PageNotFound from 'components/PageNotFound/PageNotFound';
+import PostVerification from 'components/PostVerification';
 import PrivateRoute from "components/Routes/PrivateRoute";
 import PublicRoute from "components/Routes/PublicRoute";
 import ReceiveGroupInvites from "components/Invites/RecieveGroupInvites";
