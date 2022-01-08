@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
 import "./InviteUsers.css";
-import { INVITATION_PURPOSE } from "constants/values";
+import { INVITATION_PURPOSE } from "constants/constant";
 import { sendInvitation } from "actions/group";
 import { toastErrorMsg } from "constants/messages";
 

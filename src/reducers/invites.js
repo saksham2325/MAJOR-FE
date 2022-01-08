@@ -1,5 +1,5 @@
 import { INVITE_TYPES } from "constants/actionTypes";
-import { GROUP_INVITATION_STATUS } from "constants/values";
+import { GROUP_INVITATION_STATUS } from "constants/constant";
 
 const InitialState = {
   groupInvitedUsers: [],
@@ -20,7 +20,7 @@ const invitesReducer = (state = InitialState, action) => {
       };
     case INVITE_TYPES.CANCEL_INVITE:
       const newGroupInvitedUsers = state.groupInvitedUsers.filter(
-        (elem) => elem.id !== action.payload.id
+        (invitedUser) => invitedUser.id !== action.payload.id
       );
       newGroupInvitedUsers.push(action.payload.data);
       return {
@@ -29,10 +29,10 @@ const invitesReducer = (state = InitialState, action) => {
       };
     case INVITE_TYPES.ACCEPT_INVITE:
       const newRecievedGroupInvites = state.recievedGroupInvites.filter(
-        (elem) => elem.id !== action.payload
+        (receivedInvites) => receivedInvites.id !== action.payload
       );
       let singleInvite = state.recievedGroupInvites.find(
-        (elem) => elem.id === action.payload
+        (singleReceivedInvite) => singleReceivedInvite.id === action.payload
       );
       singleInvite.status = GROUP_INVITATION_STATUS.ACCEPTED;
       newRecievedGroupInvites.push(singleInvite);
@@ -41,8 +41,8 @@ const invitesReducer = (state = InitialState, action) => {
         recievedGroupInvites: newRecievedGroupInvites,
       };
     case INVITE_TYPES.DECLINE_INVITE:
-      const newRecievedGroupInvitess = state.recievedGroupInvites.filter((elem) => elem.id!==action.payload);
-      let singleInvites = state.recievedGroupInvites.find(elem => elem.id===action.payload);
+      const newRecievedGroupInvitess = state.recievedGroupInvites.filter((receivedInvites) => receivedInvites.id!==action.payload);
+      let singleInvites = state.recievedGroupInvites.find(singleReceivedInvite => singleReceivedInvite.id===action.payload);
       singleInvites.status = GROUP_INVITATION_STATUS.DECLINED;
       newRecievedGroupInvitess.push(singleInvites);
       return {

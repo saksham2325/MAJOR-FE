@@ -4,7 +4,7 @@ import { AUTH_MESSAGES, STATUS } from "constants/messages";
 import { AUTH_TYPES } from "constants/actionTypes";
 import { BACKEND_URLS, urls } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
-import { INVITATION_PURPOSE, RESPONSE_STATUS } from "constants/values";
+import { INVITATION_PURPOSE, RESPONSE_STATUS } from "constants/constant";
 import { objectKeysToSnake } from "constants/caseConverter";
 
 const loginUser = (email, password) => (dispatch) => {
@@ -140,7 +140,7 @@ const verifyToken = (token, history) => (dispatch) => {
     })
     .catch((err) => {
       let message = "";
-      if (err.response.data && err.response.data.message) {
+      if (err.response && err.response.data && err.response.data.message) {
         message = err.response.data.message;
       } else {
         message = AUTH_MESSAGES.REQUEST_TOKEN;

@@ -3,14 +3,16 @@ import {
   departFromWelcomePage,
 } from "constants/actionTypes";
 
-export const departFromWelcomePageAC = () => {
+const departFromWelcomePageAC = () => {
   return {
     type: departFromWelcomePage,
   };
 };
 
-export const arrivalAtWelcomePageAC = () => {
+const arrivalAtWelcomePageAC = () => {
   return {
     type: arrivalAtWelcomePage,
   };
 };
+
+export { departFromWelcomePageAC, arrivalAtWelcomePageAC };

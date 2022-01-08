@@ -1,23 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
 
 import "./Homepage.css";
 import { urls } from "constants/urls";
 
 const Homepage = (props) => {
-  const history = useHistory();
-  const { user } = props;
-
-  useEffect(() => {
-    const id = localStorage.getItem("id");
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [user]);
-
   return (
     <div className="homepage">
       <div className="games">
@@ -48,7 +37,7 @@ const Homepage = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.authReducers.user,
+  // user: state.authReducers.user,
 });
 
 export default connect(mapStateToProps)(Homepage);

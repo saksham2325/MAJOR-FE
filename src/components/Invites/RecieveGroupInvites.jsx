@@ -6,7 +6,6 @@ import { loadProfile } from "actions/editProfile";
 import { loadRecieveGroipInvites } from "actions/invites";
 import ReceiveGroupInvitesItems from "components/Invites/ReceiveGroupInvitesItems";
 import { resetAlert } from "actions/alert";
-import { urls } from "constants/urls";
 
 const ReceiveGroupInvites = (props) => {
   const {
@@ -21,9 +20,6 @@ const ReceiveGroupInvites = (props) => {
   const id = localStorage.getItem("id");
 
   useEffect(() => {
-    if (!id) {
-      history.pushState(urls.root);
-    }
     resetAlert();
     loadProfile(id);
   }, []);
@@ -34,17 +30,11 @@ const ReceiveGroupInvites = (props) => {
     }
   }, [profileData]);
 
-  useEffect(() => {
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [id]);
-
   return (
     <div className="owned-groups">
       <h2>Group Invitations</h2>
       <div className="owned-groups">
-        {(recievedGroupInvites === undefined ||
+        {(
           recievedGroupInvites.length === 0) && (
           <p className="error-msg">No Invitation</p>
         )}
@@ -52,13 +42,12 @@ const ReceiveGroupInvites = (props) => {
       <div>
         {recievedGroupInvites && recievedGroupInvites.length !== 0 && (
           <h3>
-            {"Total Invitations: - "}
-            {recievedGroupInvites.length}
+            {`Total Invitations: - ${recievedGroupInvites.length}`}
           </h3>
         )}
         {recievedGroupInvites &&
-          recievedGroupInvites.map((elem) => (
-            <ReceiveGroupInvitesItems {...elem} />
+          recievedGroupInvites.map((invite) => (
+            <ReceiveGroupInvitesItems {...invite} />
           ))}
       </div>
     </div>

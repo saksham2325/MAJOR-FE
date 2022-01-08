@@ -23,13 +23,13 @@ const groupReducer = (state = InitialState, action) => {
       };
     case GROUP_TYPES.REMOVE_USER:
       const newOwnedGroupss = state.ownedGroups.filter(
-        (elem) => elem.id !== action.payload.id
+        (group) => group.id !== action.payload.id
       );
       let newGroup = state.ownedGroups.find(
-        (elem) => elem.id === action.payload.id
+        (group) => group.id === action.payload.id
       );
       const newUsers = newGroup.users.filter(
-        (item) => item.id !== action.payload.user
+        (user) => user.id !== action.payload.user
       );
       newGroup.users = newUsers;
       newOwnedGroupss.push(newGroup);

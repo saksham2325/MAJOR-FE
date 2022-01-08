@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 
-import { GROUP_INVITATION_STATUS, GROUP_INVITE_STATUS } from "constants/values";
+import {
+  GROUP_INVITATION_STATUS,
+  GROUP_INVITE_STATUS,
+} from "constants/constant";
 import { acceptInvite, declineInvite } from "actions/invites";
 import { resetAlert } from "actions/alert";
 
@@ -28,11 +31,11 @@ const ReceiveGroupInvitesItems = (props) => {
     <div className="owned-group-item">
       <div className="owned-group-title">{group.title}</div>
       <div>
-        <h3>{"Owner - "}</h3>
+        <h3>Owner - </h3>
         {group.admin.email}
       </div>
       <div>
-        <h3>{"Status - "}</h3>
+        <h3>Status - </h3>
         {GROUP_INVITE_STATUS[status]}
         {status === GROUP_INVITATION_STATUS.PENDING && (
           <button onClick={clickHandler}>Accept Invite</button>

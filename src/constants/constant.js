@@ -1,30 +1,39 @@
-export const index = {
+const index = {
   toastTimeout: 2000,
 };
 
-export const RESPONSE_STATUS = {
+const RESPONSE_STATUS = {
   ERROR: 400,
 };
 
-export const INVITATION_PURPOSE = {
+const INVITATION_PURPOSE = {
   SIGNUP: 0,
   GROUP: 1,
   POKERBOARD: 2,
 };
 
-export const GROUP_INVITE_STATUS = {
+const GROUP_INVITE_STATUS = {
   0: "PENDING",
   1: "ACCEPTED",
   2: "DECLINED",
   3: "CANCELLED",
 };
 
-export const GROUP_INVITATION_STATUS = {
+const GROUP_INVITATION_STATUS = {
   PENDING: 0,
   ACCEPTED: 1,
   DECLINED: 2,
   CANCELLED: 3,
 };
 
-export const REGEX =
+const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+export {
+  index,
+  RESPONSE_STATUS,
+  INVITATION_PURPOSE,
+  GROUP_INVITATION_STATUS,
+  GROUP_INVITE_STATUS,
+  EMAIL_REGEX,
+};

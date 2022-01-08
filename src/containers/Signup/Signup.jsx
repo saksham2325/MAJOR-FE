@@ -6,11 +6,10 @@ import queryString from "query-string";
 import { useToasts } from "react-toast-notifications";
 
 import { attributesMsg, toastErrorMsg } from "constants/messages.js";
-import { REGEX } from "constants/values";
+import { EMAIL_REGEX } from "constants/constant";
 import { resetAlert } from "actions/alert";
 import { signupUser, verifyToken } from "actions/auth";
 import { urls } from "constants/urls.js";
-
 
 const Signup = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -20,9 +19,9 @@ const Signup = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const history = useHistory();
-  const { alert, resetAlert, signupUser, user, verifyToken, verifyState } = props;
+  const { alert, resetAlert, signupUser, user, verifyToken, verifyState } =
+    props;
   const { addToast } = useToasts();
-  const id = localStorage.getItem('id');
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +33,7 @@ const Signup = (props) => {
       });
     }
     if (email) {
-      if (!REGEX.test(email)) {
+      if (!EMAIL_REGEX.test(email)) {
         return addToast(toastErrorMsg.VALID_EMAIL, {
           appearance: "error",
           autoDismiss: true,
@@ -62,7 +61,7 @@ const Signup = (props) => {
   useEffect(() => {
     resetAlert();
     const search = queryString.parse(props.location.search);
-    if(!search.token) {
+    if (!search.token) {
       history.push(urls.VERIFY_EMAIL);
     }
     setToken(search.token);
@@ -75,13 +74,7 @@ const Signup = (props) => {
   }, [token]);
 
   useEffect(() => {
-    if (id) {
-      history.push(urls.home);
-    }
-  }, [id]);
-
-  useEffect(() => {
-    if(verifyState.email) {
+    if (verifyState.email) {
       setEmail(verifyState.email);
       setFirstName(verifyState.name);
     }
@@ -177,7 +170,7 @@ const Signup = (props) => {
       <div className="signin-after-form-link">
         <Link to="/signin">Back To Sign In</Link>
       </div>
-      {alert && <h3>{ alert }</h3>}
+      {alert && <h3>{alert}</h3>}
     </div>
   );
 };

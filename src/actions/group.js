@@ -95,18 +95,9 @@ const deleteGroup = (id) => (dispatch) => {
 };
 
 const removeUser = (id, user) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.GROUP_CRUD}${id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-    data: {
-      users: [user]
-    }
-  };
+  const url = `${BACKEND_URLS.GROUP_CRUD}${id}/?user=${user}`;
   axios
-    .delete(url, config)
+    .delete(url)
     .then((res) => {
       let message = "";
       if (res.data.message) {

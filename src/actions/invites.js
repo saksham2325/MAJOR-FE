@@ -3,19 +3,13 @@ import axios from "axios";
 import { AUTH_MESSAGES, INVITATION_MESSAGE } from "constants/messages";
 import { BACKEND_URLS, BASE_URL } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
-import { GROUP_INVITATION_STATUS } from "constants/values";
+import { GROUP_INVITATION_STATUS } from "constants/constant";
 import { INVITE_TYPES } from "constants/actionTypes";
 
 
 const loadSentGroupInvites = () => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.SENT_GROUP_INVITES}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.get(url, config).then((res) => {
+  const url = `${BACKEND_URLS.SENT_GROUP_INVITES}`;
+  axios.get(url).then((res) => {
     dispatch({
       type: INVITE_TYPES.LOAD_SENT_INVITES,
       payload: res.data,
@@ -26,17 +20,11 @@ const loadSentGroupInvites = () => (dispatch) => {
 };
 
 const cancelInvite = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.SENT_GROUP_INVITES}${id}/`;
+  const url = `${BACKEND_URLS.SENT_GROUP_INVITES}${id}/`;
   const body = {
     status: GROUP_INVITATION_STATUS.CANCELLED
   }
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.patch(url, body, config).then((res) => {
+  axios.patch(url, body).then((res) => {
     dispatch({
       type: INVITE_TYPES.CANCEL_INVITE,
       payload: {
@@ -50,14 +38,8 @@ const cancelInvite = (id) => (dispatch) => {
 };
 
 const loadRecieveGroipInvites = (email) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.RECEIVED_GROUP_INVITES}?email=${email}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.get(url,config).then((res) => {
+  const url = `${BACKEND_URLS.RECEIVED_GROUP_INVITES}?email=${email}`;
+  axios.get(url).then((res) => {
     dispatch({
       type: INVITE_TYPES.LOAD_RECEIVED_INVITES,
       payload: res.data,
@@ -68,17 +50,11 @@ const loadRecieveGroipInvites = (email) => (dispatch) => {
 };
 
 const acceptInvite = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.RECEIVED_GROUP_INVITES}/${id}/`;
+  const url = `${BACKEND_URLS.RECEIVED_GROUP_INVITES}/${id}/`;
   const body = {
     status: GROUP_INVITATION_STATUS.ACCEPTED,
   }
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.patch(url, body, config).then((res) => {
+  axios.patch(url, body).then((res) => {
     dispatch({
       type: INVITE_TYPES.ACCEPT_INVITE,
       payload: id,
@@ -89,17 +65,11 @@ const acceptInvite = (id) => (dispatch) => {
 };
 
 const declineInvite = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.RECEIVED_GROUP_INVITES}/${id}/`;
+  const url = `${BACKEND_URLS.RECEIVED_GROUP_INVITES}/${id}/`;
   const body = {
     status: GROUP_INVITATION_STATUS.DECLINED,
   }
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.patch(url, body, config).then((res) => {
+  axios.patch(url, body).then((res) => {
     dispatch({
       type: INVITE_TYPES.DECLINE_INVITE,
       payload: id,

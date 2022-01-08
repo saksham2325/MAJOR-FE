@@ -37,11 +37,14 @@ const OwnedGroupItems = (props) => {
   const showGroupMembers =
     users && users.length > 0 ? (
       users.map((user) => (
-        <li className="group-list">
-          {user.email}
-          {" - "}
-          {<button onClick={() => removeHandleClick(user.id)}>Remove</button>}
-        </li>
+        <div>
+          <li className="group-list">
+            {`${user.email}`}
+            {admin.email !== user.email ? (
+              <button onClick={() => removeHandleClick(user.id)}>Remove</button>
+            ) : null}
+          </li>
+        </div>
       ))
     ) : (
       <li>No members to Show</li>

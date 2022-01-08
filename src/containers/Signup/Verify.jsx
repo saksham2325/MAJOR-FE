@@ -1,56 +1,47 @@
 import React, { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useToasts } from 'react-toast-notifications';
+import { useToasts } from "react-toast-notifications";
 
-import { attributesMsg, toastErrorMsg } from 'constants/messages.js';
-import { REGEX } from 'constants/values';
+import { attributesMsg, toastErrorMsg } from "constants/messages.js";
+import { EMAIL_REGEX } from "constants/constant";
 import { resetAlert } from "actions/alert";
 import { verifyUser } from "actions/auth";
-import { urls } from "constants/urls";
-
 
 const VerifyEmail = (props) => {
   const [formData, setFormData] = useState({ email: "", name: "" });
   const { alert, resetAlert, verifyUser } = props;
-  const history = useHistory();
   const { addToast } = useToasts();
 
   useEffect(() => {
     resetAlert();
-    const user = localStorage.getItem('user');
-    if (user) {
-      history.push(urls.signin);
-    }
   }, []);
 
   const onChangeHandler = (event) => {
     let { value } = event.target;
-    value = event.target.name === 'email' ? value.toLowerCase() : value;
+    value = event.target.name === "email" ? value.toLowerCase() : value;
     setFormData({ ...formData, [event.target.name]: value });
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!formData.email) {
       return addToast(toastErrorMsg.EMAIL_REQUIRED, {
-        appearance: 'error',
+        appearance: "error",
         autoDismiss: true,
       });
     }
-    if(!REGEX.test(formData.email)) {
-        return addToast(toastErrorMsg.VALID_EMAIL, {
-            appearance: 'error',
-            autoDismiss: true,
-        });
+    if (!EMAIL_REGEX.test(formData.email)) {
+      return addToast(toastErrorMsg.VALID_EMAIL, {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
-    if(formData.name.length==0) {
-        return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
-            appearance: 'error',
-            autoDismiss: true,
-        });
+    if (formData.name.length == 0) {
+      return addToast(toastErrorMsg.FIRST_NAME_CANNOT_BE_EMPTY, {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
     verifyUser(formData);
   };
@@ -81,7 +72,9 @@ const VerifyEmail = (props) => {
             onChange={onChangeHandler}
           />
         </label>
-        <button type="submit" className="button">Verify Email</button>
+        <button type="submit" className="button">
+          Verify Email
+        </button>
       </form>
       {alert && <h3>{alert}</h3>}
     </div>
@@ -89,8 +82,8 @@ const VerifyEmail = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  alert: state.alertReducer.alert
-})
+  alert: state.alertReducer.alert,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   resetAlert: () => {

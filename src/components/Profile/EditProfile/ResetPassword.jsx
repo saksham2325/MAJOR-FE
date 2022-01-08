@@ -7,13 +7,10 @@ import { toastErrorMsg } from "constants/messages";
 import { updatePassword } from "actions/editProfile";
 import { urls } from "constants/urls";
 
-
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
-    const id = localStorage.getItem("id");
     this.state = {
-      id: id,
       currentPassword: "",
       password: "",
       confirmPassword: "",
@@ -46,9 +43,6 @@ class ResetPassword extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.state.id) {
-      this.props.history.push(urls.root);
-    }
     this.props.resetAlert();
   }
 
@@ -58,12 +52,6 @@ class ResetPassword extends React.Component {
       this.props.profileUpdated
     ) {
       this.props.history.push(urls.MY_PROFILE);
-    }
-    if (
-      this.props.isAuthenticate !== prevProps.isAuthenticate &&
-      !this.props.isAuthenticate
-    ) {
-      this.props.history.push(urls.root);
     }
   }
 

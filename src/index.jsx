@@ -7,15 +7,12 @@ import { ToastProvider } from "react-toast-notifications";
 
 import "./index.css";
 import App from "./App";
-import { BASE_URL } from "constants/urls";
 import configureStore from "store/index";
 import reportWebVitals from "reportWebVitals";
-import { index as index_const } from "constants/values";
+import { index as index_const } from "constants/constant";
 
 // importing store
 const store = configureStore();
-
-// axios.defaults.baseURL = BASE_URL;
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");

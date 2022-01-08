@@ -6,7 +6,6 @@ import { editProfile, loadProfile } from "actions/editProfile";
 import { PROFILE_MESSAGES } from "constants/messages";
 import { resetAlert } from "actions/alert";
 import { urls } from "constants/urls";
-import { useHistory } from "react-router-dom";
 
 const EditProfile = (props) => {
   const {
@@ -18,7 +17,6 @@ const EditProfile = (props) => {
     loadProfile,
     user,
   } = props;
-  const history = useHistory();
   const [userDetails, setUserDetails] = useState({
     id: profileData.id,
     firstName: profileData.firstName,
@@ -62,16 +60,7 @@ const EditProfile = (props) => {
   useEffect(() => {
     resetAlert();
     loadProfile(id);
-    if (!id) {
-      history.push(urls.root);
-    }
   }, []);
-
-  useEffect(() => {
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [id]);
 
   useEffect(() => {
     setUserDetails(() => ({ ...profileData }));
