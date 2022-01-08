@@ -24,7 +24,6 @@ import { urls } from 'constants/urls';
 import VerifyEmail from 'containers/Signup/Verify'
 import WelcomePage from 'containers/WelcomePage/WelcomePage';
 
-
 function App() {
     return (
         <div className="App">
