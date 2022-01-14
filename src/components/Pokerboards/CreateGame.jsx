@@ -8,14 +8,12 @@ import {
   Select,
 } from "@mui/material";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
 import { createGame } from "actions/pokerBoard";
-import { ESTIMATE_TYPE, GAME_VALUES, validNumberList } from "constants/values";
+import { ESTIMATE_TYPE, GAME_VALUES, validNumberList } from "constants/constant";
 import { resetAlert } from "actions/alert";
 import { toastErrorMsg } from "constants/messages.js";
-import { urls } from "constants/urls";
 
 const CreateGame = (props) => {
   const [name, setName] = useState("");
@@ -24,8 +22,6 @@ const CreateGame = (props) => {
   const [estimateType, setEstimateType] = useState(ESTIMATE_TYPE.FIBONACCI);
   const [error, setError] = useState({});
   const { addToast } = useToasts();
-  const history = useHistory();
-  const id = localStorage.getItem("id");
   const { alert, createGame, resetAlert, user } = props;
 
   const handleInputSubmit = (event) => {
@@ -60,16 +56,7 @@ const CreateGame = (props) => {
 
   useEffect(() => {
     resetAlert();
-    if (!id) {
-      history.push(urls.root);
-    }
   }, []);
-
-  useEffect(() => {
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [id]);
 
   return (
     <div>

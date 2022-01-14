@@ -25,13 +25,6 @@ const OwnedPokerboardsItems = (props) => {
         >
           {name}
         </Link>
-        {/* <button
-          type="button"
-          className="button-style-2"
-          onClick={onClickHandler}
-        >
-          Delete Pokerboard
-        </button> */}
       </div>
     </div>
   );

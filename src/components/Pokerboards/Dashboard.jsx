@@ -10,12 +10,11 @@ import {
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
-import { ESTIMATE_TYPE, GAME_VALUES, validNumberList } from "constants/values";
-import { Link, useHistory } from "react-router-dom";
+import { ESTIMATE_TYPE, GAME_VALUES, validNumberList } from "constants/constant";
+import { Link } from "react-router-dom";
 import { loadPoker, updatePoker } from "actions/pokerBoard";
 import { resetAlert } from "actions/alert";
 import { toastErrorMsg } from "constants/messages.js";
-import { urls } from "constants/urls";
 
 const Dashboard = (props) => {
   const {
@@ -35,8 +34,6 @@ const Dashboard = (props) => {
     deck: poker.deck,
   });
   const { addToast } = useToasts();
-  const history = useHistory();
-  const authId = localStorage.getItem("id");
 
   const onChangeHandler = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -87,18 +84,9 @@ const Dashboard = (props) => {
   }, [alert]);
 
   useEffect(() => {
-    if (!authId) {
-      history.push(urls.root);
-    }
     resetAlert();
     loadPoker(id);
   }, []);
-
-  useEffect(() => {
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [id]);
 
   useEffect(() => {
     setFormData(() => ({ ...poker }));

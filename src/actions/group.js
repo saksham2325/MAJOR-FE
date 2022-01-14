@@ -4,7 +4,7 @@ import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
 import { BACKEND_URLS, BASE_URL, urls } from "../constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
 import { GROUP_TYPES } from "constants/actionTypes";
-import { INVITATION_PURPOSE } from "constants/values";
+import { INVITATION_PURPOSE } from "constants/constant";
 
 const resetGroupCreated = () => ({
   type: GROUP_TYPES.RESET_GROUP_CREATED,
@@ -64,30 +64,27 @@ const sendInvitation =
     } else {
       url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
     }
-    const token = localStorage.getItem("token");
-    const config = {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    };
     const body = {
       email: email,
       purpose: purpose,
       id: id,
     };
-    console.log(url);
-    console.log(body);
     axios
-      .post(url, body, config)
+      .post(url, body)
       .then((res) => {
-        dispatch(successMessage(res.data.message));
+        dispatch(successMessage(GROUP_MESSAGES.INVITED_SUCCESSFULLY));
       })
       .catch((err) => {
         let message = "";
-        if (err.response.data) {
-          message = err.response.data[0];
+        if (
+          err.response &&
+          err.response.data &&
+          err.response.data.non_field_errors &&
+          err.response.data.non_field_errors[0]
+        ) {
+          message = err.response.data.non_field_errors[0];
         } else {
-          message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
+          message = AUTH_MESSAGES.LOGIN_FAILED_MESSAGE;
         }
         dispatch(errorMessage(message));
       });

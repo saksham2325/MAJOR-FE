@@ -103,7 +103,7 @@ const verifyUser = (formData) => (dispatch) => {
   axios
     .post(url, body)
     .then((res) => {
-      dispatch(successMessage(res.data.message));
+      dispatch(successMessage(AUTH_MESSAGES.MAIL_SENT));
     })
     .catch((err) => {
       const response = err.response;
@@ -115,23 +115,14 @@ const verifyUser = (formData) => (dispatch) => {
     });
 };
 
-const verifyToken = (token, history) => (dispatch) => {
-  const url = `${BACKEND_URLS.VERIFYTOKEN}`;
+const verifySignupToken = (token, history) => (dispatch) => {
+  const url = `${BACKEND_URLS.VERIFYSIGNUPTOKEN}`;
   const body = {
     token,
   };
   axios
     .post(url, body)
     .then((res) => {
-      if (res.data.status == STATUS.HTTP_204_NO_CONTENT) {
-        if (res.data.message) {
-          dispatch(successMessage(res.data.message));
-        } else {
-          dispatch(successMessage(AUTH_MESSAGES.ALREADY_SIGNEUP));
-        }
-        history.push(urls.POST_VERIFICATION);
-        return;
-      }
       dispatch(successMessage(res.data.message));
       dispatch({
         type: AUTH_TYPES.VERIFY_USER,
@@ -140,14 +131,63 @@ const verifyToken = (token, history) => (dispatch) => {
     })
     .catch((err) => {
       let message = "";
-      if (err.response && err.response.data && err.response.data.message) {
-        message = err.response.data.message;
+      if (
+        err.response &&
+        err.response.data &&
+        err.response.data.non_field_errors &&
+        err.response.data.non_field_errors[0]
+      ) {
+        message = err.response.data.non_field_errors[0];
       } else {
-        message = AUTH_MESSAGES.REQUEST_TOKEN;
+        message = AUTH_MESSAGES.LOGIN_FAILED_MESSAGE;
       }
       history.push(urls.POST_VERIFICATION);
       dispatch(errorMessage(message));
     });
 };
 
-export { loginUser, logoutUser, signupUser, verifyToken, verifyUser };
+const verifyGroupToken = (token, history) => (dispatch) => {
+  const url = `${BACKEND_URLS.VERIFYGROUPTOKEN}`;
+  const body = {
+    token,
+  };
+  axios
+    .post(url, body)
+    .then((res) => {
+      let message = res.data.message;
+      if (res.data.status && res.data.status === STATUS.HTTP_201_CREATED) {
+        history.push(urls.POST_VERIFICATION);
+        dispatch(successMessage(message));
+      } else {
+        dispatch(successMessage(res.data.message));
+        dispatch({
+          type: AUTH_TYPES.VERIFY_USER,
+          payload: res.data,
+        });
+      }
+    })
+    .catch((err) => {
+      let message = "";
+      if (
+        err.response &&
+        err.response.data &&
+        err.response.data.non_field_errors &&
+        err.response.data.non_field_errors[0]
+      ) {
+        message = err.response.data.non_field_errors[0];
+      } else {
+        message = AUTH_MESSAGES.LOGIN_FAILED_MESSAGE;
+      }
+      history.push(urls.POST_VERIFICATION);
+      dispatch(errorMessage(message));
+    });
+};
+
+export {
+  loginUser,
+  logoutUser,
+  signupUser,
+  verifyUser,
+  verifySignupToken,
+  verifyGroupToken,
+};

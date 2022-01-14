@@ -3,18 +3,19 @@ const credentialsErrorMsg = {
   userNotFound: "User not found!!",
 };
 
-export const toastErrorMsg = {
-    emailAndPassword: 'Please enter both email & password',
-    email: 'Please enter email',
-    FIRST_NAME_CANNOT_BE_EMPTY:'First name cannot be empty',
-    PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME: 'password and confirm password should be same',
-    VALID_EMAIL: 'Enter valid email',
-    EMAIL_REQUIRED: 'Email is Required.',
-    GROUP_TITLE_REQUIRED: 'Group title cannot be empty',
-    GAME_NAME: 'Length of name should be in between 1 and 50',
-    DECK_DUPLICATE: 'all values in the deck should be unique.',
-    DECK_SIZE: 'Deck cannot be empty',
-    VALID_NUMBER_LIST: 'Invalid input, enter comma seperated numbers like 1,2,3',
+const toastErrorMsg = {
+  emailAndPassword: "Please enter both email & password",
+  email: "Please enter email",
+  FIRST_NAME_CANNOT_BE_EMPTY: "First name cannot be empty",
+  PASSWORD_AND_CONFIRM_PASSWORD_SHOULD_BE_SAME:
+    "password and confirm password should be same",
+  VALID_EMAIL: "Enter valid email",
+  EMAIL_REQUIRED: "Email is Required.",
+  GROUP_TITLE_REQUIRED: "Group title cannot be empty",
+  GAME_NAME: "Length of name should be in between 1 and 50",
+  DECK_DUPLICATE: "all values in the deck should be unique.",
+  DECK_SIZE: "Deck cannot be empty",
+  VALID_NUMBER_LIST: "Invalid input, enter comma seperated numbers like 1,2,3",
 };
 
 const attributesMsg = {
@@ -40,17 +41,20 @@ const AUTH_MESSAGES = {
   ALREADY_SIGNEUP: "Already Registered with this email, pls login.",
   SOMETHING_WENT_WRONG: "Something went wrong",
   REQUEST_TOKEN: "Something went wrong. Please request for another token",
+  MAIL_SENT: "Verification link send at your mail, Please verify."
 };
 
 const GROUP_MESSAGES = {
   GROUP_CREATED: "Group created successfully",
   GROUPS_LOADED: "Groups loaded successfully",
   GROUPS_LOADED_FAILED: "Failed to load groups",
+  INVITED_SUCCESSFULLY: "Invited successfully",
 };
 
 const STATUS = {
   HTTP_302_FOUND: 302,
   HTTP_204_NO_CONTENT: 204,
+  HTTP_201_CREATED: 201,
 };
 
 const PROFILE_MESSAGES = {
@@ -68,11 +72,10 @@ const INVITATION_MESSAGE = {
   INVITATION_DECLINED: "Invitation Declined successfully!",
 };
 
-
 const POKER_MESSAGE = {
-  GAME_CREATED: 'Pokerboard created successfully!',
-  GAME_EDITED: 'Game edited successfully,'
-}
+  GAME_CREATED: "Pokerboard created successfully!",
+  GAME_EDITED: "Game edited successfully,",
+};
 
 export {
   credentialsErrorMsg,
@@ -84,5 +87,5 @@ export {
   STATUS,
   PROFILE_MESSAGES,
   INVITATION_MESSAGE,
-  POKER_MESSAGE
+  POKER_MESSAGE,
 };

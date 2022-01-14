@@ -3,11 +3,11 @@ import axios from "axios";
 import { AUTH_MESSAGES, POKER_MESSAGE } from "constants/messages";
 import { BACKEND_URLS, BASE_URL } from "constants/urls";
 import { errorMessage, successMessage } from "./alert";
-import { GAME_VALUES } from "constants/values";
+import { GAME_VALUES } from "constants/constant";
 import { POKERBOARD_TYPES } from "constants/actionTypes";
 
 const createGame = (body) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}`;
+  const url = `${BACKEND_URLS.POKER_CRUD}`;
   if (!body.duration || body.duration.length === 0) {
     body.duration = GAME_VALUES.DEFAULT_DURATION;
   }
@@ -18,14 +18,8 @@ const createGame = (body) => (dispatch) => {
     deck: deck,
     estimate_type: body.estimateType,
   };
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
   axios
-    .post(url, data, config)
+    .post(url, data)
     .then((res) => {
       dispatch(successMessage(POKER_MESSAGE.GAME_CREATED));
     })
@@ -36,21 +30,14 @@ const createGame = (body) => (dispatch) => {
       } else {
         message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
       }
-      console.log(message);
       dispatch(errorMessage(message));
     });
 };
 
 const loadPokerboard = () => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
   axios
-    .get(url, config)
+    .get(url)
     .then((res) => {
       dispatch({
         type: POKERBOARD_TYPES.LOAD_POKERBOARD,
@@ -64,14 +51,8 @@ const loadPokerboard = () => (dispatch) => {
 
 const loadPoker = (id) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}${id}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
   axios
-    .get(url, config)
+    .get(url)
     .then((res) => {
       dispatch({
         type: POKERBOARD_TYPES.LOAD_POKER,
@@ -99,14 +80,8 @@ const updatePoker = (body, id) => (dispatch) => {
     deck: deck,
     estimate_type: body.estimateType,
   };
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
   axios
-    .patch(url, data, config)
+    .patch(url, data)
     .then((res) => {
       dispatch({
         type: POKERBOARD_TYPES.LOAD_POKER,
@@ -121,13 +96,7 @@ const updatePoker = (body, id) => (dispatch) => {
 
 const loadPokerUsers = (id) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.POKER_USERS}?pokerboard_id=${id}`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.get(url, config).then((res) => {
+  axios.get(url).then((res) => {
     dispatch({
       type: POKERBOARD_TYPES.LOAD_POKER_USERS,
       payload: res.data,
@@ -139,13 +108,7 @@ const loadPokerUsers = (id) => (dispatch) => {
 
 const removePokerUser = (pokerUserId) => (dispatch) => {
   const url = `${BASE_URL}${BACKEND_URLS.POKER_USERS}${pokerUserId}/`;
-  const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  };
-  axios.delete(url, config).then((res) => {
+  axios.delete(url).then((res) => {
     dispatch({
       type: POKERBOARD_TYPES.REMOVE_POKER_USER,
       payload: pokerUserId,

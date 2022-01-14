@@ -5,28 +5,15 @@ import { connect } from "react-redux";
 import { loadPokerboard } from "actions/pokerBoard";
 import OwnedPokerboardsItems from "./OwnedPokerboardsItems";
 import { resetAlert } from "actions/alert";
-import { useHistory } from "react-router-dom";
-import { urls } from "constants/urls";
 
 const OwnedPokerboards = (props) => {
-  const history = useHistory();
-  const id = localStorage.getItem("id");
   const { alert, loadPokerboard, ownedPokerboards, resetAlert, user } = props;
 
   useEffect(() => {
     resetAlert();
     loadPokerboard();
-    if (!id) {
-      history.push(urls.root);
-    }
   }, []);
 
-  useEffect(() => {
-    resetAlert();
-    if (!id) {
-      history.push(urls.root);
-    }
-  }, [id]);
   let flag = true;
   // let flag1 = true;
 

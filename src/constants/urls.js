@@ -21,6 +21,9 @@ const urls = {
     OWNED_POKERBOARD: '/owned-pokerboards',
     DASHBOARD: '/pokeboard/:id',
     POKERBOARD_MEMBERS: '/pokeboard/:id/members',
+    VERIFYGROUPTOKEN: '/verify-group-token',
+    VERIFYSIGNUPTOKEN: '/verify-signup-token',
+    VERIFYPOKERTOKEN: '/verify-poker-token',
 };
 
 const BACKEND_URLS = {
@@ -40,6 +43,9 @@ const BACKEND_URLS = {
     RECEIVED_GROUP_INVITES: '/accounts/user-group-invites',
     POKER_CRUD: '/poker/pokerboard/',
     POKER_USERS: '/poker/user-pokerboard/',
+    VERIFYSIGNUPTOKEN: '/accounts/verify-signup-token/',
+    VERIFYGROUPTOKEN: '/accounts/verify-group-token/',
+    VERIFYPOKERTOKEN: '/accounts/verify-poker-token/',
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

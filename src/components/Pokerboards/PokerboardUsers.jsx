@@ -3,21 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Button, FormControl, MenuItem, Select } from "@mui/material";
 import { connect } from "react-redux";
 
-import { INVITATION_PURPOSE, USER_ROLE1 } from "constants/values";
+import { INVITATION_PURPOSE, EMAIL_REGEX, USER_ROLE, USER_ROLE1 } from "constants/constant";
 import { loadPokerUsers, removePokerUser } from "actions/pokerBoard";
-import { REGEX, USER_ROLE } from "constants/values";
 import { resetAlert } from "actions/alert";
 import { sendInvitation } from "actions/group";
 import { toastErrorMsg } from "constants/messages";
-import { urls } from "constants/urls";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const PokerboardUsers = (props) => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState(USER_ROLE.PLAYER);
   const [error, setError] = useState("");
   const [toggle, setToggle] = useState(false);
-  const history = useHistory();
   const {
     alert,
     loadPokerUsers,
@@ -30,11 +26,10 @@ const PokerboardUsers = (props) => {
     sendInvitation,
     user,
   } = props;
-  const authId = localStorage.getItem("id");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!REGEX.test(email)) {
+    if (!EMAIL_REGEX.test(email)) {
       setError(toastErrorMsg.VALID_EMAIL);
       return;
     }
@@ -42,18 +37,9 @@ const PokerboardUsers = (props) => {
   };
 
   useEffect(() => {
-    if (!authId) {
-      history.push(urls.root);
-    }
     resetAlert();
     loadPokerUsers(id);
   }, []);
-
-  useEffect(() => {
-    if (!authId) {
-      history.push(urls.root);
-    }
-  }, [authId]);
 
   useEffect(() => {
     if (alert.length > 0) {

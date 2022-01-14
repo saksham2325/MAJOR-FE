@@ -2,24 +2,22 @@ import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import queryString from "query-string";
 import { useToasts } from "react-toast-notifications";
 
 import { attributesMsg, toastErrorMsg } from "constants/messages.js";
-import { EMAIL_REGEX } from "constants/constant";
+import { EMAIL_REGEX, INVITATION_PURPOSE } from "constants/constant";
 import { resetAlert } from "actions/alert";
-import { signupUser, verifyToken } from "actions/auth";
+import { signupUser, verifyGroupToken, verifySignupToken } from "actions/auth";
 import { urls } from "constants/urls.js";
 
 const Signup = (props) => {
   const [firstName, setFirstName] = useState("");
-  const [token, setToken] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const history = useHistory();
-  const { alert, resetAlert, signupUser, user, verifyToken, verifyState } =
+  const { alert, resetAlert, signupUser, user, verifyState, purpose, token, verifyGroupToken, verifySignupToken } =
     props;
   const { addToast } = useToasts();
 
@@ -60,18 +58,14 @@ const Signup = (props) => {
 
   useEffect(() => {
     resetAlert();
-    const search = queryString.parse(props.location.search);
-    if (!search.token) {
-      history.push(urls.VERIFY_EMAIL);
+    if(purpose===INVITATION_PURPOSE.SIGNUP) {
+      verifySignupToken(token,history);
+    } else if (purpose===INVITATION_PURPOSE.GROUP) {
+      verifyGroupToken(token,history);
+    } else {
+      // verifyPokerToken(token,history);
     }
-    setToken(search.token);
   }, []);
-
-  useEffect(() => {
-    if (token && token.length !== 0) {
-      verifyToken(token, history);
-    }
-  }, [token]);
 
   useEffect(() => {
     if (verifyState.email) {
@@ -95,7 +89,6 @@ const Signup = (props) => {
             placeholder={attributesMsg.firstNamePlaceholder}
             name="first-name"
             value={firstName}
-            readOnly
             onChange={(event) => {
               setFirstName(event.currentTarget.value);
             }}
@@ -182,14 +175,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  verifyToken: (token, history) => {
-    dispatch(verifyToken(token, history));
-  },
   signupUser: (email, password, firstName, lastName, token) => {
     dispatch(signupUser(email, password, firstName, lastName, token));
   },
   resetAlert: () => {
     dispatch(resetAlert());
+  },
+  verifySignupToken: (token, history) => {
+    dispatch(verifySignupToken(token, history));
+  },
+  verifyGroupToken: (token, history) => {
+    dispatch(verifyGroupToken(token, history));
   },
 });
 
