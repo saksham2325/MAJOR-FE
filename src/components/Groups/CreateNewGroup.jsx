@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
-import { createGroup } from "actions/group";
 import { resetAlert } from "actions/alert";
+import { createGroup } from "actions/group";
 import { toastErrorMsg } from "constants/messages";
 import { urls } from "constants/urls";
 

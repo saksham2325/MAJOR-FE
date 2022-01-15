@@ -3,14 +3,16 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { resetAlert } from "actions/alert";
-import { toastErrorMsg } from "constants/messages";
 import { updatePassword } from "actions/editProfile";
+import { toastErrorMsg } from "constants/messages";
 import { urls } from "constants/urls";
 
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
+    const id = localStorage.getItem("id");
     this.state = {
+      id: id,
       currentPassword: "",
       password: "",
       confirmPassword: "",

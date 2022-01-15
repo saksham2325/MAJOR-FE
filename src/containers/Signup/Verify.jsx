@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
-import { attributesMsg, toastErrorMsg } from "constants/messages.js";
-import { EMAIL_REGEX } from "constants/constant";
 import { resetAlert } from "actions/alert";
 import { verifyUser } from "actions/auth";
+import { EMAIL_REGEX } from "constants/constant";
+import { attributesMsg, toastErrorMsg } from "constants/messages.js";
 
 const VerifyEmail = (props) => {
   const [formData, setFormData] = useState({ email: "", name: "" });

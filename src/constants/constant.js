@@ -29,11 +29,6 @@ const GROUP_INVITATION_STATUS = {
 const EMAIL_REGEX =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const validNumberList = (list) => {
-  const re = /^\d+(,\d+)*$/;
-  return re.test(list);
-};
-
 const GAME_VALUES = {
   MIN_SIZE: 0,
   MAX_NAME_SIZE: 50,
@@ -59,14 +54,26 @@ const ESTIMATE_TYPE = {
   CUSTOM: 4,
 };
 
+const GAME_LIMITS = {
+  DURATION_MIN: 1,
+  DURATION_MAX: 86400,
+  CARDS_QTY_MIN: 1,
+  CARDS_QTY_MAX: 52,
+  CARD_VALUE_MIN: 0.001,
+  CARD_VALUE_MAX: 1e14,
+  CARD_DECIMAL_DIGITS_MAX: 3,
+  NAME_LENGTH_MIN: 1,
+  NAME_LENGTH_MAX: 50,
+};
+
 export {
   index,
   RESPONSE_STATUS,
   INVITATION_PURPOSE,
+  GAME_LIMITS,
   GROUP_INVITATION_STATUS,
   GROUP_INVITE_STATUS,
   EMAIL_REGEX,
-  validNumberList,
   GAME_VALUES,
   USER_ROLE,
   USER_ROLE1,

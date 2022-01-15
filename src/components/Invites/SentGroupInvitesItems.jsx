@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
+import { resetAlert } from "actions/alert";
 import { cancelInvite } from "actions/invites";
 import {
   GROUP_INVITATION_STATUS,
   GROUP_INVITE_STATUS,
 } from "constants/constant";
-import { resetAlert } from "actions/alert";
+
 
 const SentGroupInvitesItems = (props) => {
   const { alert, cancelInvite, group, id, resetAlert, status, verification } =

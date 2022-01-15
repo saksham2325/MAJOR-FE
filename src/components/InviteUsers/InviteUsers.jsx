@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 
 import "./InviteUsers.css";
-import { INVITATION_PURPOSE } from "constants/constant";
 import { sendInvitation } from "actions/group";
+import { EMAIL_REGEX, INVITATION_PURPOSE } from "constants/constant";
 import { toastErrorMsg } from "constants/messages";
 
 const InviteUsers = (props) => {
@@ -17,6 +17,12 @@ const InviteUsers = (props) => {
     event.preventDefault();
     if (!email) {
       return addToast(toastErrorMsg.email, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    if (!EMAIL_REGEX.test(email)) {
+      return addToast(toastErrorMsg.VALID_EMAIL, {
         appearance: "error",
         autoDismiss: true,
       });

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
-import { BACKEND_URLS, BASE_URL, urls } from "../constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
 import { GROUP_TYPES } from "constants/actionTypes";
 import { INVITATION_PURPOSE } from "constants/constant";
+import { AUTH_MESSAGES, GROUP_MESSAGES } from "constants/messages";
+import { BACKEND_URLS } from "constants/urls";
 
 const resetGroupCreated = () => ({
   type: GROUP_TYPES.RESET_GROUP_CREATED,
@@ -60,9 +60,9 @@ const sendInvitation =
   (dispatch) => {
     let url;
     if (purpose == INVITATION_PURPOSE.POKERBOARD) {
-      url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}`;
+      url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}`;
     } else {
-      url = `${BASE_URL}${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
+      url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
     }
     const body = {
       email: email,

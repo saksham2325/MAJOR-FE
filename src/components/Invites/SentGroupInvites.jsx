@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+
 import { connect } from "react-redux";
 
-import { loadSentGroupInvites } from "actions/invites";
 import { resetAlert } from "actions/alert";
+import { loadSentGroupInvites } from "actions/invites";
 import SentGroupInvitesItems from "components/Invites/SentGroupInvitesItems";
 
 const SentGroupInvites = (props) => {

@@ -1,4 +1,5 @@
-const { POKERBOARD_TYPES } = require("constants/actionTypes");
+import { POKERBOARD_TYPES } from "constants/actionTypes";
+import durationConverter from "utils/durationConverter";
 
 const initialState = {
   ownedPokerboards: [],
@@ -14,6 +15,7 @@ const pokerboardReducer = (state = initialState, action) => {
         ownedPokerboards: action.payload,
       };
     case POKERBOARD_TYPES.LOAD_POKER:
+      const duration = durationConverter(action.payload.duration);
       return {
         ...state,
         poker: {
@@ -22,7 +24,7 @@ const pokerboardReducer = (state = initialState, action) => {
           estimateType: action.payload.estimate_type,
           deck: action.payload.deck,
           manager: action.payload.manager,
-          duration: action.payload.duration,
+          duration: duration,
         },
       };
     case POKERBOARD_TYPES.LOAD_POKER_USERS:
@@ -31,7 +33,9 @@ const pokerboardReducer = (state = initialState, action) => {
         pokerUsers: action.payload,
       };
     case POKERBOARD_TYPES.REMOVE_POKER_USER:
-      const newPokerUsers = state.pokerUsers.filter((pokerUser) => pokerUser.id!==action.payload);
+      const newPokerUsers = state.pokerUsers.filter(
+        (pokerUser) => pokerUser.id !== action.payload
+      );
       return {
         ...state,
         pokerUsers: newPokerUsers,

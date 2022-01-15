@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
+import { resetAlert } from "actions/alert";
 import { editProfile, loadProfile } from "actions/editProfile";
 import { PROFILE_MESSAGES } from "constants/messages";
-import { resetAlert } from "actions/alert";
 import { urls } from "constants/urls";
 
 const EditProfile = (props) => {
@@ -27,6 +28,7 @@ const EditProfile = (props) => {
     lastName: "",
     update: "",
   });
+  const history = useHistory();
   const id = localStorage.getItem("id");
 
   const onChangeHandler = (event) => {

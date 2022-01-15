@@ -1,5 +1,5 @@
-import { objectKeysToCamel } from "constants/caseConverter";
 import { PROFILE_TYPES } from "constants/actionTypes";
+import { objectKeysToCamel } from "utils/caseConverter";
 
 const initialState = {
   id: 0,

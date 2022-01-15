@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Button, FormControl, MenuItem, Select } from "@mui/material";
 import { connect } from "react-redux";
 
-import { INVITATION_PURPOSE, EMAIL_REGEX, USER_ROLE, USER_ROLE1 } from "constants/constant";
-import { loadPokerUsers, removePokerUser } from "actions/pokerBoard";
 import { resetAlert } from "actions/alert";
 import { sendInvitation } from "actions/group";
+import { loadPokerUsers, removePokerUser } from "actions/pokerBoard";
+import { INVITATION_PURPOSE, EMAIL_REGEX, USER_ROLE, USER_ROLE1 } from "constants/constant";
 import { toastErrorMsg } from "constants/messages";
 
 const PokerboardUsers = (props) => {
@@ -118,7 +118,7 @@ const PokerboardUsers = (props) => {
       </form>
       <div className="owned-group-members">
         <button type="button" className="button" onClick={handleClick}>
-          {!toggle ? "View Group Members" : "Hide Group Members"}
+          {!toggle ? "View Poker Members" : "Hide Poker Members"}
         </button>
         <div>{toggle && showGroupMembers}</div>
       </div>

@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 
 import { connect } from "react-redux";
 
+import { resetAlert } from "actions/alert";
 import { loadProfile } from "actions/editProfile";
 import { loadRecieveGroipInvites } from "actions/invites";
 import ReceiveGroupInvitesItems from "components/Invites/ReceiveGroupInvitesItems";
-import { resetAlert } from "actions/alert";
 
 const ReceiveGroupInvites = (props) => {
   const {

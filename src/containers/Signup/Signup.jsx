@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
-import { attributesMsg, toastErrorMsg } from "constants/messages.js";
-import { EMAIL_REGEX, INVITATION_PURPOSE } from "constants/constant";
 import { resetAlert } from "actions/alert";
 import { signupUser, verifyGroupToken, verifySignupToken } from "actions/auth";
-import { urls } from "constants/urls.js";
+import { EMAIL_REGEX, INVITATION_PURPOSE } from "constants/constant";
+import { attributesMsg, toastErrorMsg } from "constants/messages.js";
 
 const Signup = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -61,9 +60,9 @@ const Signup = (props) => {
     if(purpose===INVITATION_PURPOSE.SIGNUP) {
       verifySignupToken(token,history);
     } else if (purpose===INVITATION_PURPOSE.GROUP) {
-      verifyGroupToken(token,history);
+      verifyGroupToken(token,history, INVITATION_PURPOSE.GROUP);
     } else {
-      // verifyPokerToken(token,history);
+      verifyGroupToken(token,history, INVITATION_PURPOSE.POKERBOARD);
     }
   }, []);
 
@@ -184,8 +183,8 @@ const mapDispatchToProps = (dispatch) => ({
   verifySignupToken: (token, history) => {
     dispatch(verifySignupToken(token, history));
   },
-  verifyGroupToken: (token, history) => {
-    dispatch(verifyGroupToken(token, history));
+  verifyGroupToken: (token, history, purpose) => {
+    dispatch(verifyGroupToken(token, history, purpose));
   },
 });
 

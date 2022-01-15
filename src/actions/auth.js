@@ -1,11 +1,11 @@
 import axios from "axios";
 
-import { AUTH_MESSAGES, STATUS } from "constants/messages";
-import { AUTH_TYPES } from "constants/actionTypes";
-import { BACKEND_URLS, urls } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
+import { AUTH_TYPES } from "constants/actionTypes";
+import { objectKeysToSnake } from "utils/caseConverter";
 import { INVITATION_PURPOSE, RESPONSE_STATUS } from "constants/constant";
-import { objectKeysToSnake } from "constants/caseConverter";
+import { AUTH_MESSAGES, STATUS } from "constants/messages";
+import { BACKEND_URLS, urls } from "constants/urls";
 
 const loginUser = (email, password) => (dispatch) => {
   const url = `${BACKEND_URLS.LOGIN}`;
@@ -146,8 +146,13 @@ const verifySignupToken = (token, history) => (dispatch) => {
     });
 };
 
-const verifyGroupToken = (token, history) => (dispatch) => {
-  const url = `${BACKEND_URLS.VERIFYGROUPTOKEN}`;
+const verifyGroupToken = (token, history, purpose) => (dispatch) => {
+  let url = ''
+  if (purpose===INVITATION_PURPOSE.GROUP) {
+    url = `${BACKEND_URLS.VERIFYGROUPTOKEN}`;
+  } else {
+    url = `${BACKEND_URLS.VERIFYPOKERTOKEN}`;
+  }
   const body = {
     token,
   };

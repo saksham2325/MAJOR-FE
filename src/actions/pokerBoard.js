@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { AUTH_MESSAGES, POKER_MESSAGE } from "constants/messages";
-import { BACKEND_URLS, BASE_URL } from "constants/urls";
-import { errorMessage, successMessage } from "./alert";
-import { GAME_VALUES } from "constants/constant";
+import { errorMessage, successMessage } from "actions/alert";
 import { POKERBOARD_TYPES } from "constants/actionTypes";
+import { GAME_VALUES } from "constants/constant";
+import { AUTH_MESSAGES, POKER_MESSAGE } from "constants/messages";
+import { BACKEND_URLS } from "constants/urls";
 
 const createGame = (body) => (dispatch) => {
   const url = `${BACKEND_URLS.POKER_CRUD}`;
@@ -35,7 +35,7 @@ const createGame = (body) => (dispatch) => {
 };
 
 const loadPokerboard = () => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}`;
+  const url = `${BACKEND_URLS.POKER_CRUD}`;
   axios
     .get(url)
     .then((res) => {
@@ -50,7 +50,7 @@ const loadPokerboard = () => (dispatch) => {
 };
 
 const loadPoker = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}${id}/`;
+  const url = `${BACKEND_URLS.POKER_CRUD}${id}/`;
   axios
     .get(url)
     .then((res) => {
@@ -65,23 +65,9 @@ const loadPoker = (id) => (dispatch) => {
 };
 
 const updatePoker = (body, id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_CRUD}${id}/`;
-  if (!body.duration || body.duration.length === 0) {
-    body.duration = GAME_VALUES.DEFAULT_DURATION;
-  }
-  let deck;
-  if(typeof body.deck==='string')
-  {
-    deck = body.deck.split(",");
-  }
-  const data = {
-    name: body.name,
-    duration: body.duration,
-    deck: deck,
-    estimate_type: body.estimateType,
-  };
+  const url = `${BACKEND_URLS.POKER_CRUD}${id}/`;
   axios
-    .patch(url, data)
+    .patch(url, body)
     .then((res) => {
       dispatch({
         type: POKERBOARD_TYPES.LOAD_POKER,
@@ -90,12 +76,18 @@ const updatePoker = (body, id) => (dispatch) => {
       dispatch(successMessage(POKER_MESSAGE.GAME_EDITED));
     })
     .catch((err) => {
-      dispatch(errorMessage(AUTH_MESSAGES.SOMETHING_WENT_WRONG));
+      let message = '';
+      if(err.response && err.response.data && err.response.data.name) {
+        message = err.response.data.name[0];
+      } else {
+        message = AUTH_MESSAGES.SOMETHING_WENT_WRONG;
+      }
+      dispatch(errorMessage(message));
     });
 };
 
 const loadPokerUsers = (id) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_USERS}?pokerboard_id=${id}`;
+  const url = `${BACKEND_URLS.POKER_USERS}?pokerboard_id=${id}`;
   axios.get(url).then((res) => {
     dispatch({
       type: POKERBOARD_TYPES.LOAD_POKER_USERS,
@@ -107,7 +99,7 @@ const loadPokerUsers = (id) => (dispatch) => {
 }
 
 const removePokerUser = (pokerUserId) => (dispatch) => {
-  const url = `${BASE_URL}${BACKEND_URLS.POKER_USERS}${pokerUserId}/`;
+  const url = `${BACKEND_URLS.POKER_USERS}${pokerUserId}/`;
   axios.delete(url).then((res) => {
     dispatch({
       type: POKERBOARD_TYPES.REMOVE_POKER_USER,

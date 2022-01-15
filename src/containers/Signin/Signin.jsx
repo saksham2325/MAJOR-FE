@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
 import "./Signin.css";
-import { attributesMsg, toastErrorMsg } from "constants/messages";
-import { departFromWelcomePageAC } from "actions/navbar";
-import { loginUser } from "actions/auth";
 import { resetAlert } from "actions/alert";
+import { loginUser } from "actions/auth";
+import { departFromWelcomePageAC } from "actions/navbar";
+import { EMAIL_REGEX } from "constants/constant";
+import { attributesMsg, toastErrorMsg } from "constants/messages";
 import { urls } from "constants/urls";
 
 const Signin = (props) => {
@@ -28,6 +29,12 @@ const Signin = (props) => {
     event.preventDefault();
     if (!email || !password) {
       return addToast(toastErrorMsg.emailAndPassword, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+    if (!EMAIL_REGEX.test(email)) {
+      return addToast(toastErrorMsg.VALID_EMAIL, {
         appearance: "error",
         autoDismiss: true,
       });

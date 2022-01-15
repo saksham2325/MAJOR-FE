@@ -1,4 +1,4 @@
-import { arrivalAtWelcomePage, departFromWelcomePage } from '../constants/actionTypes';
+import { arrivalAtWelcomePage, departFromWelcomePage } from 'constants/actionTypes';
 
 const initialState = {
     atWelcome: true

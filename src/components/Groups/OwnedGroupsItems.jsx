@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import "./Groups.css";
+import { resetAlert } from "actions/alert";
 import { deleteGroup, removeUser } from "actions/group";
 import InviteUsers from "components/InviteUsers/InviteUsers";
-import { resetAlert } from "actions/alert";
 
 const OwnedGroupItems = (props) => {
   const [toggle, setToggle] = useState(false);

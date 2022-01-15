@@ -16,6 +16,8 @@ const toastErrorMsg = {
   DECK_DUPLICATE: "all values in the deck should be unique.",
   DECK_SIZE: "Deck cannot be empty",
   VALID_NUMBER_LIST: "Invalid input, enter comma seperated numbers like 1,2,3",
+  DURATION_INVALID: "Enter valid duration.",
+  FROM_AND_TO_INVALID: "Enter valid FROM & TO",
 };
 
 const attributesMsg = {
@@ -24,6 +26,10 @@ const attributesMsg = {
   firstNamePlaceholder: "Enter your first name",
   lastNamePlaceholder: "Enter your last name",
   CONFIRM_PASSWORD_PLACE_HOLDER: "Re-enter password",
+  GAME_NAME_PLACEHOLDER: "Enter Game name",
+  GAME_DURATION_PLACEHOLDER: "Enter Game duration in seconds",
+  CUSTOM_DECK_PLACEHOLDER: "Enter deck of cards like 1,2,3",
+  DECK_PLACEHOLDER: "Click on Generate Deck",
 };
 
 const directionalMsg = {
@@ -41,7 +47,7 @@ const AUTH_MESSAGES = {
   ALREADY_SIGNEUP: "Already Registered with this email, pls login.",
   SOMETHING_WENT_WRONG: "Something went wrong",
   REQUEST_TOKEN: "Something went wrong. Please request for another token",
-  MAIL_SENT: "Verification link send at your mail, Please verify."
+  MAIL_SENT: "Verification link send at your mail, Please verify.",
 };
 
 const GROUP_MESSAGES = {

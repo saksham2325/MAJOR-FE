@@ -2,10 +2,10 @@ import { combineReducers } from "redux";
 
 import alertReducer from "reducers/alert";
 import authReducers from "reducers/auth";
+import loadProfileReducer from "reducers/editprofile";
 import groupReducer from "reducers/group";
 import invitesReducer from "reducers/invites";
-import loadProfileReducer from "reducers/editprofile";
-import navbar from "./navbar";
+import navbar from "reducers/navbar";
 import pokerboardReducer from "reducers/pokerboard";
 
 export default combineReducers({

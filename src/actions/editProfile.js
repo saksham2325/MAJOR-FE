@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { BACKEND_URLS } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
-import { AUTH_MESSAGES, PROFILE_MESSAGES } from "constants/messages";
 import { PROFILE_TYPES } from "constants/actionTypes";
-import { objectKeysToSnake } from "constants/caseConverter";
+import { objectKeysToSnake } from "utils/caseConverter";
+import { AUTH_MESSAGES, PROFILE_MESSAGES } from "constants/messages";
+import { BACKEND_URLS } from "constants/urls";
 
 const resetProfileUpdated = () => ({
   type: PROFILE_TYPES.RESET_PROFILE_UPDATED,

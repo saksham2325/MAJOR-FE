@@ -19,8 +19,10 @@ li {
     border-radius: 4px;
     font-size: 18px;
     font-weight: 500;
-    width: 100px;
+    min-width: 100px;
+    width: fit-content;
     height: 40px;
+    padding: 10px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -33,6 +35,7 @@ li {
 
 .error-msg {
     color: red;
+    text-align: center;
 }
 
 .input {

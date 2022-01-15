@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import "./Groups.css";
+import { resetAlert } from "actions/alert";
 import { loadGroup, resetGroupCreated } from "actions/group";
 import OwnedGroupItems from "components/Groups/OwnedGroupsItems";
-import { resetAlert } from "actions/alert";
 
 const OwnedGroups = (props) => {
   const { alert, loadGroup, ownedGroups, resetAlert, resetGroupCreated, user } =

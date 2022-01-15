@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { AUTH_MESSAGES, INVITATION_MESSAGE } from "constants/messages";
-import { BACKEND_URLS, BASE_URL } from "constants/urls";
 import { errorMessage, successMessage } from "actions/alert";
-import { GROUP_INVITATION_STATUS } from "constants/constant";
 import { INVITE_TYPES } from "constants/actionTypes";
+import { GROUP_INVITATION_STATUS } from "constants/constant";
+import { AUTH_MESSAGES, INVITATION_MESSAGE } from "constants/messages";
+import { BACKEND_URLS } from "constants/urls";
 
 const loadSentGroupInvites = () => (dispatch) => {
   const url = `${BACKEND_URLS.SENT_GROUP_INVITES}`;
