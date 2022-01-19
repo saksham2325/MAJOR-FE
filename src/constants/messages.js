@@ -55,6 +55,7 @@ const GROUP_MESSAGES = {
   GROUPS_LOADED: "Groups loaded successfully",
   GROUPS_LOADED_FAILED: "Failed to load groups",
   INVITED_SUCCESSFULLY: "Invited successfully",
+  LIST_GROUPS_FAILED: "Unable to load groups",
 };
 
 const STATUS = {

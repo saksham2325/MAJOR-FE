@@ -55,20 +55,42 @@ const loadGroup = () => (dispatch) => {
     });
 };
 
+const listGroups = () => (dispatch) => {
+  const url = `${BACKEND_URLS.LIST_GROUPS}`;
+  axios
+    .get(url)
+    .then((res) => {
+      dispatch({
+        type: GROUP_TYPES.LIST_GROUPS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(errorMessage(GROUP_MESSAGES.LIST_GROUPS_FAILED));
+    });
+};
+
 const sendInvitation =
-  (id, email, purpose, role = "") =>
+  (id, email, purpose, role = "", group = "") =>
   (dispatch) => {
     let url;
-    if (purpose == INVITATION_PURPOSE.POKERBOARD) {
-      url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}`;
-    } else {
-      url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
-    }
-    const body = {
+    let body = {
       email: email,
       purpose: purpose,
       id: id,
     };
+    if (purpose == INVITATION_PURPOSE.POKERBOARD) {
+      if (group.length === 0)
+        url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}`;
+      else {
+        url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}?role=${role}&group_title=${group}`;
+        body = {
+          id: id,
+        }
+      }
+    } else {
+      url = `${BACKEND_URLS.ACCOUNTS}${BACKEND_URLS.SEND_INVITATION}`;
+    }
     axios
       .post(url, body)
       .then((res) => {
@@ -136,6 +158,7 @@ const removeUser = (id, user) => (dispatch) => {
 export {
   createGroup,
   deleteGroup,
+  listGroups,
   loadGroup,
   removeUser,
   resetGroupCreated,

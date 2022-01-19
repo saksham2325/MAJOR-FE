@@ -66,6 +66,11 @@ const GAME_LIMITS = {
   NAME_LENGTH_MAX: 50,
 };
 
+const INVITE_TYPE = {
+  USER: 0,
+  GROUP: 1,
+}
+
 export {
   index,
   RESPONSE_STATUS,
@@ -78,4 +83,5 @@ export {
   USER_ROLE,
   USER_ROLE1,
   ESTIMATE_TYPE,
+  INVITE_TYPE,
 };

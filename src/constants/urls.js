@@ -46,6 +46,7 @@ const BACKEND_URLS = {
     VERIFYSIGNUPTOKEN: '/accounts/verify-signup-token/',
     VERIFYGROUPTOKEN: '/accounts/verify-group-token/',
     VERIFYPOKERTOKEN: '/accounts/verify-poker-token/',
+    LIST_GROUPS: '/accounts/list-groups/'
 };
 
 export { urls, BACKEND_URLS, BASE_URL };

@@ -4,6 +4,7 @@ const InitialState = {
   search: [],
   ownedGroups: [],
   groupCreated: false,
+  allGroups: [],
 };
 
 const groupReducer = (state = InitialState, action) => {
@@ -13,6 +14,11 @@ const groupReducer = (state = InitialState, action) => {
         ...state,
         ownedGroups: action.payload.loadedGroups,
       };
+    case GROUP_TYPES.LIST_GROUPS:
+      return {
+        ...state,
+        allGroups: action.payload,
+      }
     case GROUP_TYPES.DELETE_GROUP:
       const newOwnedGroups = state.ownedGroups.filter(
         (group) => group.id !== action.payload.id
